@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 19:06:40 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:54:06 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,8 @@ int	command(char *cmd, t_shell_stuff *sh, int doset)
 
 	args = shft_split2(cmd, ' ', '\'', '\"');
 	if (access(args[0], F_OK | R_OK) == -1 && access(args[0], F_OK) == 0)
-		return (126 + shft_putter("minishell: \'", args[0], "\': Permission denied\n", STDERR_FILENO) * 0);
+		return (126 + shft_putter("minishell: \'", args[0],
+				"\': Permission denied\n", STDERR_FILENO) * 0);
 	if (ft_strchr(args[0], '/') && access(args[0], X_OK) == 0)
 		res = command_fork(args, sh, doset);
 	else
@@ -236,20 +237,19 @@ int	shft_redir_inpt(char *cmd, t_shell_stuff *sh)
 
 	p = shft_strchr(cmd, '<', '\'', '\"');
 	if (!p)
-	{
-		word_clean(cmd, ft_strlen(cmd));
-		return (0);
-	}
+		return (word_clean(cmd, ft_strlen(cmd)), 0);
 	if (*(p + 1) == '<')
 		return (read_stdin(p));
 	filename = shft_get_word(p + 1);
 	tempfd = open(filename, O_RDONLY);
 	clean_stuff(p, ft_strlen(filename));
 	if (access(filename, R_OK) == -1 && access(filename, F_OK) != -1)
-		return (free(filename), shft_putter("minishell: \'", filename, "\': Permission denied\n", STDERR_FILENO) + 1);
+		return (free(filename), shft_putter("minishell: \'",
+				filename, "\': Permission denied\n", STDERR_FILENO) + 1);
 	if (tempfd == -1)
 	{
-		shft_putter("minishell: \'", filename, "\': No such file or directory\n", STDERR_FILENO);
+		shft_putter("minishell: \'", filename,
+			"\': No such file or directory\n", STDERR_FILENO);
 		word_clean(cmd, ft_strlen(cmd));
 		return (free(filename), 1);
 	}
@@ -264,7 +264,8 @@ int	manage_redir_o(char *filename, int tempfd, char *p, int append)
 	clean_stuff(p + append, ft_strlen(filename));
 	if (access(filename, W_OK) == -1 && access(filename, F_OK) != -1)
 	{
-		shft_putter("minishell: \'", filename, "\': Permission denied\n", STDERR_FILENO);
+		shft_putter("minishell: \'", filename,
+			"\': Permission denied\n", STDERR_FILENO);
 		return (1);
 	}
 	dup2(tempfd, STDOUT_FILENO);
@@ -392,24 +393,26 @@ char	*littel_better(char *s)
 void	non_executable_handler(char *cmd, t_shell_stuff *sh)
 {
 	char	*temp;
-	if (sh->lststatus == 126)	
+
+	if (sh->lststatus == 126)
 		return ;
 	sh->lststatus = 127;
-	temp =  littel_better(cmd);
+	temp = littel_better(cmd);
 	if (shft_strchr(cmd, '/', '\'', '\"') && access(cmd, F_OK) == -1)
-		shft_putter("minishell: \'", temp, "\': No such file or directory\n", STDERR_FILENO);
+		shft_putter("minishell: \'", temp,
+			"\': No such file or directory\n", STDERR_FILENO);
 	else
-		shft_putter("minishell: \'", temp, "\': command not found\n", STDERR_FILENO);
+		shft_putter("minishell: \'", temp,
+			"\': command not found\n", STDERR_FILENO);
 	free(temp);
 }
 
-//* ---------------------------------- nizz ---------------------------------- */
-
-int check_for_bonus(char *cmd)
+int	check_for_bonus(char *cmd)
 {
 	int		i;
 	int		flag;
 	char	fs;
+
 	i = -1;
 	flag = 0;
 	fs = 0;
@@ -432,7 +435,7 @@ int check_for_bonus(char *cmd)
 	return (0);
 }
 
-char *clean_cmd(char *str) //! This function is going to create memoryleaks for the case of not freeing the address of the character getting surpassed;
+char	*clean_cmd(char *str)
 {
 	int		i;
 	int		j;
@@ -444,11 +447,11 @@ char *clean_cmd(char *str) //! This function is going to create memoryleaks for 
 	new_str = (char *)ft_calloc(ft_strlen(str), sizeof(char));
 	if (!new_str)
 		return (NULL);
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '(' || str[i] == ')')
 			i++;
-		new_str[j++] = str[i++]; 
+		new_str[j++] = str[i++];
 	}
 	free(str);
 	return (new_str);
@@ -496,7 +499,7 @@ int	execution_proccess_or_bonus(int *pp, t_shell_stuff *sh, int doset)
 	return (sh->lststatus);
 }
 
-char *command_cleaner_and(char *tmp)
+char	*command_cleaner_and(char *tmp)
 {
 	int		i;
 	int		j;
@@ -544,7 +547,7 @@ void	check_for_operator(char *cmd)
 	return ;
 }
 
-char *cmd_cleaner(char *tmp, int index, t_shell_stuff *sh)
+char	*cmd_cleaner(char *tmp, int index, t_shell_stuff *sh)
 {
 	char	*new_tmp;
 	int		i;
@@ -565,7 +568,8 @@ char *cmd_cleaner(char *tmp, int index, t_shell_stuff *sh)
 	return (new_tmp);
 }
 
-char *cmd_parentheses_and_cleaner(char *cmd, int first_para, int last_para, t_shell_stuff *sh)
+char	*cmd_parentheses_and_cleaner(char *cmd, int first_para, int last_para,
+	t_shell_stuff *sh)
 {
 	char	*new_cmd;
 	int		i;
@@ -593,7 +597,8 @@ char *cmd_parentheses_and_cleaner(char *cmd, int first_para, int last_para, t_sh
 	return (new_cmd);
 }
 
-char *cmd_parentheses_or_cleaner(char *cmd, int first_para, int last_para, t_shell_stuff *sh)
+char	*cmd_parentheses_or_cleaner(char *cmd, int first_para, int last_para,
+	t_shell_stuff *sh)
 {
 	char	*new_cmd;
 	int		i;
@@ -623,6 +628,8 @@ char *cmd_parentheses_or_cleaner(char *cmd, int first_para, int last_para, t_she
 
 char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 {
+	char	*temp;
+
 	if (ft_strchr(loco()->piece, '('))
 	{
 		loco()->index = 0;
@@ -634,8 +641,10 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 			loco()->i--;
 			parentheses_helper_2(cmd);
 			free(loco()->piece);
-			loco()->piece = ft_strdup_len(cmd, loco()->i);
-			cmd = cmd_parentheses_and_cleaner(cmd, loco()->first_para, loco()->i, sh);
+			temp = ft_strdup_len(cmd, loco()->i);
+			loco()->piece = temp;
+			cmd = cmd_parentheses_and_cleaner(cmd,
+					loco()->first_para, loco()->i, sh);
 		}
 		else if (loco()->or == 1)
 			cmd = parentheses_helper_3(cmd, sh, pp, doset);
@@ -644,9 +653,6 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 	return (cmd);
 }
 
-//! -------------------------------------------------------------------------- */
-
-//* ---------------------------------- nizz ---------------------------------- */
 int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 {
 	char	*tmp;
@@ -662,7 +668,8 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	{
 		while (loco()->n-- > 0)
 		{
-			loco()->piece = ft_split_bonus(tmp, &loco()->index);
+			temp = ft_split_bonus(tmp, &loco()->index);
+			loco()->piece = temp;
 			check_for_operator(loco()->piece);
 			tmp = shft_ft_tp_helper_1(&pp[0], sh, doset, tmp);
 		}
@@ -672,9 +679,8 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	if (tmp == NULL)
 		return (sh->lststatus);
 	loco()->n = 0;
-	return (sh->lststatus); //! removed the free(tmp) giving double free with "echo hello && echo shit || (ls && echo what)"
+	return (sh->lststatus);
 }
-//! ----------------------------------- end ---------------------------------- */
 
 int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 18:47:33 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:35:02 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,14 @@ int	shft_ch_checkok(char *cmd)
 	return (1);
 }
 
+char	*creat_prompt(t_shell_stuff *shell, char *cmd_buff)
+{
+	cmd_buff = shft_prompt(shell, 0);
+	loco()->sigpass = 1;
+	loco()->exit = 0;
+	return (cmd_buff);
+}
+
 int	main(int argn, char *args[], char *envp[])
 {
 	t_shell_stuff	shell;
@@ -126,9 +134,7 @@ int	main(int argn, char *args[], char *envp[])
 	shft_init(&shell, args, envp, argn);
 	while (shell.doexit == -1)
 	{
-		cmd_buff = shft_prompt(&shell, 0);
-		loco()->sigpass = 1;
-		loco()->exit = 0;
+		cmd_buff = creat_prompt(&shell, cmd_buff);
 		if (cmd_buff && *cmd_buff)
 			add_history(cmd_buff);
 		if (cmd_buff)

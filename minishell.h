@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 18:47:24 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:09:14 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ typedef struct s_loco
 	DIR				*dir;
 	struct dirent	*entry;
 	int				sigpass;
-	/* -------------------------- check_for_parentheses ------------------------- */
 	int				count;
 	int				start_flag;
 	int				first_para;
@@ -139,8 +138,8 @@ typedef struct s_command
 
 //* ---------------------------------- nizz -------------------------------- */
 t_loco	*loco(void);
-void	init_bonus_struct(void);
 char	*ft_split_bonus(char *s, int *index);
+void	init_bonus_struct(void);
 char	**ft_split_operators(char *s);
 char	*word_dup_bonus(char const *str, int start, int finish);
 int		count_words_bonus(char *str);
@@ -163,7 +162,8 @@ void	initialize_three_to_zero(int *n, int *i, int *z);
 void	pr_dir(char **new_str, char **split_wild, int first_char, \
 			int last_char);
 char	*split_wild(char *str);
-int		execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset);
+int		execution_bonus_helper(char **cmds, int *pp,
+			t_shell_stuff *sh, int doset);
 /* --------------------------- wildcard/utils_1.c ------------------------- */
 char	*add_operator(char *new_new_str, char **str);
 char	*add_command_processed(char *to_be_processed, char *new_new_str);
@@ -222,15 +222,14 @@ int		shft_cmd_export(char *cmd, t_shell_stuff *sh);
 
 /* ------------------------------- ft_split.c ------------------------------- */
 void	surpass_q_dq(char *s, int *x);
-int		execution_and_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset);
+int		execution_and_bonus_helper(char **cmds, int *pp,
+			t_shell_stuff *sh, int doset);
 
-
-
-/* ------------------------------- pipex_main.c ------------------------------- */
+/* ----------------------------- pipex_main.c ------------------------------- */
 
 void	ft_free_tab(char **tb);
 void	pipeft_exit(int arg);
-char		*search_path(char *name, t_shell_stuff *sh);
+char	*search_path(char *name, t_shell_stuff *sh);
 char	**shft_dupenv(t_shell_stuff *sh);
 int		shft_putter(char *s1, char *s2, char *s3, int fd);
 int		command_fork(char **args, t_shell_stuff *sh, int doset);
@@ -255,24 +254,36 @@ int		execution_proccess_and_bonus(int *pp, t_shell_stuff *sh, int doset);
 int		execution_proccess_or_bonus(int *pp, t_shell_stuff *sh, int doset);
 char	*command_cleaner_and(char *tmp);
 void	check_for_operator(char *cmd);
-char 	*cmd_cleaner(char *tmp, int index, t_shell_stuff *sh);
-char 	*cmd_parentheses_and_cleaner(char *cmd, int first_para, int last_para, t_shell_stuff *sh);
-char 	*cmd_parentheses_or_cleaner(char *cmd, int first_para, int last_para, t_shell_stuff *sh);
-char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset);
+char	*cmd_cleaner(char *tmp, int index, t_shell_stuff *sh);
+char	*cmd_parentheses_and_cleaner(char *cmd, int first_para,
+			int last_para, t_shell_stuff *sh);
+char	*cmd_parentheses_or_cleaner(char *cmd, int first_para,
+			int last_para, t_shell_stuff *sh);
+char	*check_for_parentheses(char *cmd, t_shell_stuff *sh,
+			int *pp, int doset);
 int		shft_fr_to(char *cmd, t_shell_stuff *sh, int doset);
 int		shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh);
 
 /* ------------------------------- utils.c ------------------------------- */
-int		execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset);
+int		execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh,
+			int doset);
 void	control_and_bonus(int *fixer, int *doset, int counter);
-char	**execution_and_bonus_helper_1(int doset, char **cmds, t_shell_stuff *sh, int *pp);
-char	**execution_or_bonus_helper_1(int doset, char **cmds, t_shell_stuff *sh, int *pp);
-char	*cmd_and_cleaner_helper(char *new_cmd, char *cmd, int *j, int *last_para);
-char	*cmd_or_cleaner_helper(char *new_cmd, char *cmd, int *j, int *last_para);
-void	parentheses_helper_1(char *cmd, t_shell_stuff *sh, int *pp, int doset);
+char	**execution_and_bonus_helper_1(int doset, char **cmds,
+			t_shell_stuff *sh, int *pp);
+char	**execution_or_bonus_helper_1(int doset, char **cmds,
+			t_shell_stuff *sh, int *pp);
+char	*cmd_and_cleaner_helper(char *new_cmd, char *cmd, int *j,
+			int *last_para);
+char	*cmd_or_cleaner_helper(char *new_cmd, char *cmd, int *j,
+			int *last_para);
+void	parentheses_helper_1(char *cmd, t_shell_stuff *sh, int
+			*pp, int doset);
 void	parentheses_helper_2(char *cmd);
-char	*parentheses_helper_3(char *cmd, t_shell_stuff *sh, int *pp, int doset);
-char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp);
-char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp);
+char	*parentheses_helper_3(char *cmd, t_shell_stuff *sh,
+			int *pp, int doset);
+char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset,
+			char *tmp);
+char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset,
+			char *tmp);
 
 #endif
