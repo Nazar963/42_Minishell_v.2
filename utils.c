@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/11 18:24:49 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:45:46 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ char	*cmd_or_cleaner_helper(char *new_cmd, char *cmd, int *j, int *last_para)
 
 void	parentheses_helper_1(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 {
-	loco()->piece = ft_split_bonus(cmd, loco()->index);
+	loco()->piece = ft_split_bonus(cmd, &loco()->index);
 	if (ft_strchr(loco()->piece, '('))
 	{
 		loco()->and = 0;
@@ -193,20 +193,20 @@ char	*parentheses_helper_3(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 	return (cmd);
 }
 
-
 char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 {
 	if (ft_strchr(tmp, ')') && !ft_strchr(tmp, '('))
 		tmp = clean_cmd(tmp);
 	if (loco()->g_or == 1 && sh->lststatus == 0)
-		return (sh->lststatus);
+		return ((void*)0);
 	tmp = check_for_wildcard_normal(tmp);
 	if (sh->doexit != -1 || shft_redirections(&tmp, sh, &doset))
 	{
 		pipe(pp);
 		close(*(pp + 1));
 		dup2(*pp, STDIN_FILENO);
-		return (free(tmp), sh->lststatus = 1, 1);
+		sh->lststatus = 1;
+		return (free(tmp), (void*)0);
 	}
 	if (shft_is_builtin(tmp) == 0)
 		sh->lststatus = builtin_cmds(tmp, sh, doset);
@@ -221,6 +221,7 @@ char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 	}
 	return (tmp);
 }
+
 char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 {
 	char	*temp;

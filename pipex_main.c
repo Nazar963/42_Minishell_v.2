@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 18:07:32 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:06:40 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -638,7 +638,7 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 			cmd = cmd_parentheses_and_cleaner(cmd, loco()->first_para, loco()->i, sh);
 		}
 		else if (loco()->or == 1)
-			cmd = arentheses_helper_3(cmd, sh, pp, doset);
+			cmd = parentheses_helper_3(cmd, sh, pp, doset);
 		parentheses_helper_1(cmd, sh, pp, doset);
 	}
 	return (cmd);
@@ -656,8 +656,6 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 
 	i = -1;
 	tmp = (char *)ft_calloc((ft_strlen(cmd) + 1), sizeof(char));
-	if (!tmp)
-		return (0);
 	while (cmd[++i])
 		tmp[i] = cmd[i];
 	if (check_for_bonus(tmp) == 1)
@@ -671,6 +669,8 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	}
 	else
 		tmp = shft_ft_tp_helper(&pp[0], sh, doset, tmp);
+	if (tmp == NULL)
+		return (sh->lststatus);
 	loco()->n = 0;
 	return (sh->lststatus); //! removed the free(tmp) giving double free with "echo hello && echo shit || (ls && echo what)"
 }

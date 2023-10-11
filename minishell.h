@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 18:24:33 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:47:24 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ void	initialize_three_to_zero(int *n, int *i, int *z);
 void	pr_dir(char **new_str, char **split_wild, int first_char, \
 			int last_char);
 char	*split_wild(char *str);
+int		execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset);
 /* --------------------------- wildcard/utils_1.c ------------------------- */
 char	*add_operator(char *new_new_str, char **str);
 char	*add_command_processed(char *to_be_processed, char *new_new_str);
@@ -177,7 +178,7 @@ int		shft_istab1(char *str);
 int		shft_redirections(char **cmd, t_shell_stuff *sh, int *doset);
 /* -------------------------------- to index ------------------------------- */
 int		ft_strcmp_noend(const char *s1, const char *s2);
-int		shft_exit(int e, t_shell_stuff *sh);
+int		shft_exit(t_shell_stuff *sh);
 char	*ft_strjoin_free(char *s1, const char *s2);
 char	*ft_strjoin_free_1(char const *s1, char *s2);
 int		shft_rmdirone(char *s, int lim);
@@ -260,5 +261,18 @@ char 	*cmd_parentheses_or_cleaner(char *cmd, int first_para, int last_para, t_sh
 char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset);
 int		shft_fr_to(char *cmd, t_shell_stuff *sh, int doset);
 int		shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh);
+
+/* ------------------------------- utils.c ------------------------------- */
+int		execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset);
+void	control_and_bonus(int *fixer, int *doset, int counter);
+char	**execution_and_bonus_helper_1(int doset, char **cmds, t_shell_stuff *sh, int *pp);
+char	**execution_or_bonus_helper_1(int doset, char **cmds, t_shell_stuff *sh, int *pp);
+char	*cmd_and_cleaner_helper(char *new_cmd, char *cmd, int *j, int *last_para);
+char	*cmd_or_cleaner_helper(char *new_cmd, char *cmd, int *j, int *last_para);
+void	parentheses_helper_1(char *cmd, t_shell_stuff *sh, int *pp, int doset);
+void	parentheses_helper_2(char *cmd);
+char	*parentheses_helper_3(char *cmd, t_shell_stuff *sh, int *pp, int doset);
+char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp);
+char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp);
 
 #endif

@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+         #
+#    By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 08:42:40 by lpollini          #+#    #+#              #
-#    Updated: 2023/10/11 12:51:36 by naal-jen         ###   ########.fr        #
+#    Updated: 2023/10/11 18:49:51 by lpollini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 	
-CC			= cc -g
+CC			= cc -g 
 FLAGS		= #-Wall -Wextra -Werror
 RM			= rm -rf
 

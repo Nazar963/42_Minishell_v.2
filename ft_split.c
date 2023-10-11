@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 18:18:00 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:19:53 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,7 @@ char	**ft_split_operators(char *s)
 	char	**split;
 	char	*tmp;
 
+	loco()->pasta = 0;
 	split = (char **)ft_calloc(3, sizeof(char *));
 	if (!s || !split)
 		return (0);

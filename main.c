@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 18:23:41 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:47:33 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	shft_init(t_shell_stuff *sh, char *args[], char *envp[], int argn)
 	loco()->sigpass = 0;
 }
 
-int	shft_exit(int e, t_shell_stuff *sh)
+int	shft_exit(t_shell_stuff *sh)
 {
 	shft_prompt(sh, 1);
 	sh->envn = shft_env_init_free(sh->envp, NULL, 1);
@@ -146,5 +146,5 @@ int	main(int argn, char *args[], char *envp[])
 		update_env_free(shell.envp, shell.pwd, &shell);
 		loco()->sigpass = 0;
 	}
-	shft_exit(-1, &shell);
+	shft_exit(&shell);
 }
