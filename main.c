@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 19:35:02 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:39:52 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,49 @@ char	fs_check(char fs, char a)
 		return (2);
 	return (fs);
 }
+int	shft_ch_one(char **cmd, char *st, int ct)
+{
+	char	*temp;
+
+	temp = *cmd;
+	while (shft_istab(*temp) && temp[1])
+		temp++;
+	if ((temp[0] == '&' && temp[1] == '&') || (temp[0] == \
+			'|' && temp[1] == '|'))
+	{
+		*st = 1;
+		temp++;
+	}
+	else if (temp[0] == '(')
+		*st = 3 + ct++ *(0);
+	else if (temp[0] == ')')
+		*st = 4 + ct-- *(0);
+	else
+		*st = 0;
+	*cmd = temp;
+	return (ct);
+}
+
+int	shft_ch_two(char st, char lst, int ct)
+{
+	if ((st == 0) && (lst == 4))
+		return (1);
+	if ((st == 1 || st == 4 || st == 3) && ((lst == 0 || lst \
+				== 4) ^ (st != 3)))
+		return (1);
+	if (ct < 0)
+		return (1);
+	return (0);
+}
 
 int	shft_ch_checkok(char *cmd)
 {
 	char	st;
 	char	lst;
-	char	fs;
+	int		fs;
 	int		ct;
 
-	fs = 0;
-	ct = 0;
+	shft_init_two_vars(&fs, 0, &ct, 0);
 	lst = -1;
 	st = 0;
 	while (*cmd)
@@ -89,25 +122,10 @@ int	shft_ch_checkok(char *cmd)
 		fs = fs_check(fs, *cmd);
 		if (!fs)
 		{
+			ct = shft_ch_one(&cmd, &st, ct);
 			while (shft_istab(*cmd) && cmd[1])
 				cmd++;
-			if ((cmd[0] == '&' && cmd[1] == '&') || (cmd[0] == \
-					'|' && cmd[1] == '|'))
-				st = 1 + *(cmd++) *(0);
-			else if (cmd[0] == '(')
-				st = 3 + ct++ *(0);
-			else if (cmd[0] == ')')
-				st = 4 + ct-- *(0);
-			else
-				st = 0;
-			while (shft_istab(*cmd) && cmd[1])
-				cmd++;
-			if ((st == 0) && (lst == 4))
-				return (ft_putstr_fd(ERRSYNTAX, STDERR_FILENO) * 0);
-			if ((st == 1 || st == 4 || st == 3) && ((lst == 0 || lst \
-						== 4) ^ (st != 3)))
-				return (ft_putstr_fd(ERRSYNTAX, STDERR_FILENO) * 0);
-			if (ct < 0)
+			if (shft_ch_two(st, lst, ct))
 				return (ft_putstr_fd(ERRSYNTAX, STDERR_FILENO) * 0);
 			lst = st;
 		}
