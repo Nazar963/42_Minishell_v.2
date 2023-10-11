@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+         #
+#    By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 08:42:40 by lpollini          #+#    #+#              #
-#    Updated: 2023/10/11 11:56:02 by lpollini         ###   ########.fr        #
+#    Updated: 2023/10/11 12:51:36 by naal-jen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ shft_cmds_cd_2 \
 shft_cmds_export_unset \
 shft_cmds_pwd \
 str_stuff \
+utils \
 wildcard/parse \
 wildcard/utils \
 wildcard/utils_1 \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 12:20:09 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:52:08 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,30 +336,6 @@ void	builtin_temp_creat( void )
 	dup2(filefd, STDIN_FILENO);
 }
 
-/*void	shft_last_parse_2(char **s)
-{
-	int		test;
-	char	*ori;
-
-	ori = *s;
-	test = 0;
-	while (*ori)
-	{
-		if (*ori == '\'' && test != 2)
-		{
-			test ^= 1;
-			*ori = -1;
-		}
-		if (*ori == '\"' && test != 1)
-		{
-			test ^= 2;
-			*ori = -1;
-		}
-		ori++;
-	}
-	word_clean(*s, ft_strlen(*s));
-}*/
-
 int	shft_is_builtin(char *cd)
 {
 	int	i;
@@ -439,12 +415,7 @@ int check_for_bonus(char *cmd)
 	fs = 0;
 	while (cmd[++i])
 	{
-		// if (cmd[i] == '\'' || fs != 1)
-		// 	fs ^= 2;
-		// if (cmd[i] == '\"' || fs != 2)
-		// 	fs ^= 1;
-		// if (fs)
-		// 	continue ;
+		surpass_q_dq(cmd, &i);
 		if (cmd[i] == '&' && cmd[i + 1] == '&')
 		{
 			flag = 1;
@@ -489,40 +460,19 @@ int	execution_proccess_and_bonus(int *pp, t_shell_stuff *sh, int doset)
 	int		counter;
 	int		fixer;
 
-	counter = -1;
-	fixer = 0;
+	shft_init_two_vars(&counter, -1, &fixer, 0);
 	cmds = ft_split_operators(loco()->piece);
 	if (cmds[0][0] == '1')
-	{
-		ft_free_tab(cmds);
-		return (sh->lststatus);
-	}
+		return (ft_free_tab(cmds), sh->lststatus);
 	else if (cmds[0][0] == '0')
 	{
-		if (sh->doexit != -1 || shft_redirections(&cmds[1], sh, &doset))
-		{
-			pipe(pp);
-			close(*(pp + 1));
-			dup2(*pp, STDIN_FILENO);
-			return (ft_free_tab(cmds), sh->lststatus = 1, 1);
-		}
-		if (shft_is_builtin(cmds[1]) == 0)
-			sh->lststatus = builtin_cmds(cmds[1], sh, doset);
-		else
-			sh->lststatus = command(cmds[1], sh, doset);
-		if (sh->lststatus == -1)
-		{
-			non_executable_handler(cmds[1], sh);
-			pipe(pp);
-			close(*(pp + 1));
-			dup2(*pp, STDIN_FILENO);
-		}
+		if (execution_and_bonus_helper(cmds, pp, sh, doset) == 69)
+			return (sh->lststatus);
 	}
 	else
 	{
 		while (++counter < 2)
 		{
-			//* The logic for when the command is going to need to output to the pipe
 			if (counter == 0 && doset == 1)
 			{
 				doset = 0;
@@ -734,7 +684,7 @@ char *cmd_parentheses_and_cleaner(char *cmd, int first_para, int last_para, t_sh
 		free(cmd);
 		return (new_cmd);
 	}
-	while (cmd[i] && (cmd[i] != '&' && cmd[i] != '|')) //! might not work 
+	while (cmd[i] && (cmd[i] != '&' && cmd[i] != '|'))
 		i++;
 	new_cmd = (char *)ft_calloc(ft_strlen(cmd) - i + 2, sizeof(char));
 	if (!new_cmd)
@@ -772,7 +722,7 @@ char *cmd_parentheses_or_cleaner(char *cmd, int first_para, int last_para, t_she
 		free(cmd);
 		return (new_cmd);
 	}
-	while (cmd[i] && (cmd[i] != '&' && cmd[i] != '|')) //! might not work 
+	while (cmd[i] && (cmd[i] != '&' && cmd[i] != '|'))
 		i++;
 	new_cmd = (char *)ft_calloc(ft_strlen(cmd) - i + 2, sizeof(char));
 	if (!new_cmd)
@@ -796,15 +746,11 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, in
 	int		start_flag;
 	int		first_para;
 	int		i;
-	// int		index;
-	// char	**cmds;
 
 	count = 0;
 	start_flag = 0;
 	first_para = 0;
-	// index = 0;
 	i = 0;
-	// cmds = ft_split_operators(loco()->piece);
 	if (ft_strchr(loco()->piece, '('))
 	{
 		*index = 0;
@@ -828,7 +774,6 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, in
 					break ;
 				i++;
 			}
-			//! small check to figure out if i have a pipe at the end of my () if so i will need to output to the pipe
 			int	z = i - 1;
 			while (cmd[++z])
 			{
@@ -839,9 +784,8 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, in
 				if (loco()->out_to_pipe == 1)
 					break ;
 			}
-			//! you need to create a check where if the number of ( and ) is not equal then you need to return an error
 			free(loco()->piece);
-			//loco()->piece = ft_strdup_len(cmd, i); // printf("new loco()->piece: %s\n", loco()->piece);
+			loco()->piece = ft_strdup_len(cmd, i);
 			cmd = cmd_parentheses_and_cleaner(cmd, first_para, i, sh);
 		}
 		else if (loco()->or == 1)
@@ -863,7 +807,6 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, in
 					break ;
 				i++;
 			}
-			//! small check to figure out if i have a pipe at the end of my () if so i will need to output to the pipe
 			int	z = i - 1;
 			while (cmd[++z])
 			{
@@ -874,9 +817,8 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, in
 				if (loco()->out_to_pipe == 1)
 					break ;
 			}
-			//! you need to create a check where if the number of ( and ) is not equal then you need to return an error ## SOLVED
 			free(loco()->piece);
-			//loco()->piece = ft_strdup_len(cmd, i); //* printf("new loco()->piece: %s\n", loco()->piece);
+			loco()->piece = ft_strdup_len(cmd, i);
 			cmd = cmd_parentheses_or_cleaner(cmd, first_para, i, sh);
 		}
 		loco()->piece = ft_split_bonus(cmd, index);
@@ -894,7 +836,6 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, in
 			loco()->and = 0;
 			loco()->or = 0;
 			check_for_operator(loco()->piece);
-			// loco()->parentheses = 0;
 			return (cmd);
 		}
 	}
@@ -920,14 +861,11 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 		return (0);
 	while (cmd[++i])
 		tmp[i] = cmd[i];
-	if (check_for_bonus(tmp) == 1) //! remvooe the check whe n ' " 
+	if (check_for_bonus(tmp) == 1)
 	{
 		while (loco()->n-- > 0)
 		{
-			//*	split the first two commands
 			loco()->piece = ft_split_bonus(tmp, &index);
-			// printf("loco()->piece: %s\n", loco()->piece);
-			//*	check for the type
 			check_for_operator(loco()->piece);
 			//* Ceck for the wildCard
 			temp = loco()->piece;
@@ -936,18 +874,11 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 			// check_for_wildcard(loco()->piece, doset, &pp[0]);
 			//*	check for parentheses
 			tmp = check_for_parentheses(tmp, sh, &pp[0], doset, &index);
-			//! if ((loco()->n == 0 && doset == 1) || loco()->out_to_pipe == 1) //! might not need it
-			//! 	flag_pipe = 1;
-			//*	send it to the correct executer
 			if (loco()->and)
 				sh->lststatus = execution_proccess_and_bonus(&pp[0], sh, doset);
 			else if (loco()->or)
 				sh->lststatus = execution_proccess_or_bonus(&pp[0], sh, doset);
-			//* replace the command with the correct exit-status
 			tmp = cmd_cleaner(tmp, index, sh);
-			//? dont reset the and and or in order to know after the pipe what did you have before and how
-			//? you handle the command.
-			//!	might not be needed after all
 			if (loco()->parentheses != 1 && (loco()->g_and == 1 || loco()->g_or == 1))
 			{
 				loco()->g_and = 0;
@@ -966,12 +897,11 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	}
 	else
 	{
-		//*	here you will need to clean the command from ( and )
 		if (ft_strchr(tmp, ')') && !ft_strchr(tmp, '('))
 			tmp = clean_cmd(tmp);
 		if (loco()->g_or == 1 && sh->lststatus == 0)
-			return (free(tmp), sh->lststatus);
-		tmp = check_for_wildcard_normal(tmp); //! need to create another function for if its one command with no && || 
+			return (sh->lststatus);
+		tmp = check_for_wildcard_normal(tmp);
 		if (sh->doexit != -1 || shft_redirections(&tmp, sh, &doset))
 		{
 			pipe(pp);

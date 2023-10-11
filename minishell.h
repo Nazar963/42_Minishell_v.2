@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 10:53:45 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:51:25 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,5 +207,9 @@ int		shft_cmd_exit(char *cmd, t_shell_stuff *sh);
 int		shft_cmd_cd(char *cmd, t_shell_stuff *sh);
 int		shft_cmd_unset(char *cmd, t_shell_stuff *sh);
 int		shft_cmd_export(char *cmd, t_shell_stuff *sh);
+
+/* ------------------------------- ft_split.c ------------------------------- */
+void	surpass_q_dq(char *s, int *x);
+int		execution_and_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset);
 
 #endif

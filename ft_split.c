@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 11:53:33 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:41:07 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,51 +201,118 @@ void	surpass_q_dq(char *s, int *x)
 	}
 }
 
+char **control_copy(char **split, char *s, int *i, int *j)
+{
+	int	y;
+
+	y = 0;
+	while (s[(*i)])
+	{
+		if (s[(*i)] == '\'')
+		{
+			split[(*j)][y++] = s[(*i)++];
+			while (s[(*i)] != '\'')
+				split[(*j)][y++] = s[(*i)++];
+		}
+		if (s[(*i)] == '"')
+		{
+			split[(*j)][y++] = s[(*i)++];
+			while (s[++(*i)] != '"')
+				split[(*j)][y++] = s[(*i)++];
+		}
+		if (s[(*i)] == '&' && s[(*i) + 1] == '&')
+			break ;
+		else if (s[(*i)] == '|' && s[(*i) + 1] == '|')
+			break ;
+		split[(*j)][y++] = s[(*i)++];
+	}
+	return (split);
+}
+
+char **clean_control_copy(int *i, char **split, char *s, int *j)
+{
+	while (s[(*i)] == ' ')
+		(*i)++;
+	split = control_copy(split, s, i, j);
+	while (s[(*i)] == '&' || s[(*i)] == '|')
+		(*i)++;
+	return (split);
+}
+
 char	**ft_split_operators(char *s)
 {
 	int				counter;
-	t_vector4_int	vs;
+	int				i;
+	int				j;
+	int				x;
 	char			**split;
 	char			*tmp;
 
 	counter = 0;
-	vs.y = 0;
 	split = (char **)ft_calloc(3, sizeof(char *));
 	if (!s || !split)
 		return (0);
-	shft_init_two_vars(&vs.i, 0, &vs.j, 0);
+	shft_init_two_vars(&i, 0, &j, 0);
 	while (++counter <= 2)
 	{
-		vs.x = vs.i;
-		surpass_q_dq(s, &vs.x);
-		split[vs.j] = (char *)ft_calloc(vs.x + 1, sizeof(char));
-		vs.x = 0;
-		while (s[vs.i] == ' ')
-			vs.i++;
-		while (s[vs.i])
-		{
-			if (s[vs.i] == '\'')
-			{
-				split[vs.j][vs.y++] = s[vs.i++];
-				while (s[vs.i] != '\'')
-					split[vs.j][vs.y++] = s[vs.i++];
-			}
-			if (s[vs.i] == '"')
-			{
-				split[vs.j][vs.y++] = s[vs.i++];
-				while (s[++vs.i] != '"')
-					split[vs.j][vs.y++] = s[vs.i++];
-			}
-			if (s[vs.i] == '&' && s[vs.i + 1] == '&')
-				break ;
-			else if (s[vs.i] == '|' && s[vs.i + 1] == '|')
-				break ;
-			split[vs.j][vs.y++] = s[vs.i++];
-		}
-		while (s[vs.i] == '&' || s[vs.i] == '|')
-			vs.i++;
-		vs.j++;
-		vs.y = 0;
+		x = i;
+		surpass_q_dq(s, &x);
+		split[j] = (char *)ft_calloc(x + 1, sizeof(char));
+		x = 0;
+		split = clean_control_copy(&i, split, s, &j);
+		j++;
 	}
 	return (split);
 }
+
+// char	**ft_split_operators(char *s)
+// {
+// 	int		counter;
+// 	int		i;
+// 	int		j;
+// 	int		y;
+// 	int		x;
+// 	char	**split;
+// 	char	*tmp;
+
+// 	counter = 0;
+// 	y = 0;
+// 	split = (char **)ft_calloc(3, sizeof(char *));
+// 	if (!s || !split)
+// 		return (0);
+// 	shft_init_two_vars(&i, 0, &j, 0);
+// 	while (++counter <= 2)
+// 	{
+// 		x = i;
+// 		surpass_q_dq(s, &x);
+// 		split[j] = (char *)ft_calloc(x + 1, sizeof(char));
+// 		x = 0;
+// 		while (s[i] == ' ')
+// 			i++;
+// 		while (s[i])
+// 		{
+// 			if (s[i] == '\'')
+// 			{
+// 				split[j][y++] = s[i++];
+// 				while (s[i] != '\'')
+// 					split[j][y++] = s[i++];
+// 			}
+// 			if (s[i] == '"')
+// 			{
+// 				split[j][y++] = s[i++];
+// 				while (s[++i] != '"')
+// 					split[j][y++] = s[i++];
+// 			}
+// 			if (s[i] == '&' && s[i + 1] == '&')
+// 				break ;
+// 			else if (s[i] == '|' && s[i + 1] == '|')
+// 				break ;
+// 			split[j][y++] = s[i++];
+// 		}
+// 		while (s[i] == '&' || s[i] == '|')
+// 			i++;
+// 		j++;
+// 		y = 0;
+// 	}
+// 	return (split);
+// }
