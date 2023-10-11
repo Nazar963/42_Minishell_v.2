@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 18:13:08 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:24:33 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_loco
 	int				first_para;
 	int				i;
 	int				z;
+	int				pasta;
 }	t_loco;
 
 typedef struct s_vector4_int
@@ -256,7 +257,7 @@ void	check_for_operator(char *cmd);
 char 	*cmd_cleaner(char *tmp, int index, t_shell_stuff *sh);
 char 	*cmd_parentheses_and_cleaner(char *cmd, int first_para, int last_para, t_shell_stuff *sh);
 char 	*cmd_parentheses_or_cleaner(char *cmd, int first_para, int last_para, t_shell_stuff *sh);
-char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, int *index);
+char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset);
 int		shft_fr_to(char *cmd, t_shell_stuff *sh, int doset);
 int		shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh);
 

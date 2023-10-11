@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 15:38:47 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:18:00 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ void	surpass_q_dq(char *s, int *x)
 	}
 }
 
-char **control_copy(char **split, char *s, int *i, int *j)
+char	**control_copy(char **split, char *s, int *i, int *j)
 {
 	int	y;
 
@@ -232,7 +232,7 @@ char **control_copy(char **split, char *s, int *i, int *j)
 	return (split);
 }
 
-char **clean_control_copy(int *i, char **split, char *s, int *j)
+char	**clean_control_copy(int *i, char **split, char *s, int *j)
 {
 	while (s[(*i)] == ' ')
 		(*i)++;
@@ -244,19 +244,17 @@ char **clean_control_copy(int *i, char **split, char *s, int *j)
 
 char	**ft_split_operators(char *s)
 {
-	int				counter;
-	int				i;
-	int				j;
-	int				x;
-	char			**split;
-	char			*tmp;
+	int		i;
+	int		j;
+	int		x;
+	char	**split;
+	char	*tmp;
 
-	counter = 0;
 	split = (char **)ft_calloc(3, sizeof(char *));
 	if (!s || !split)
 		return (0);
 	shft_init_two_vars(&i, 0, &j, 0);
-	while (++counter <= 2)
+	while (++loco()->pasta <= 2)
 	{
 		x = i;
 		surpass_q_dq(s, &x);
