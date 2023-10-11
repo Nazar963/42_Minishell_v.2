@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 17:06:11 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/10 19:56:10 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 09:09:54 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,10 +142,10 @@ char	*check_for_wildcard_normal(char *str)
 	initialize_three_to_zero(&first_char, &last_char, &loco()->flag_no_process);
 	new_str = wildcard_process(str, &first_char, &last_char, &split_wild);
 	if (ft_strncmp(str, new_str, ft_strlen(str)) == 0)
-		return (str);
+		return (free(new_str), str);
 	loco()->dir = opendir(".");
 	if (!loco()->dir)
-		return (NULL);
+		return (free(new_str), NULL);
 	pr_dir(&new_str, split_wild, first_char, last_char);
 	closedir(loco()->dir);
 	if (!loco()->flag_no_process)

@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:34:40 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/08 11:56:56 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/11 10:20:56 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,6 @@ int	shft_cmd_unset(char *cmd, t_shell_stuff *sh)
 		free(sh->envp[line]);
 		sh->envp[line] = ft_strdup("###");
 	}
-	return (0);
-}
-
-int	shft_isallnum(char *s)
-{
-	while (*s <= '9' && *s >= '0')
-		s++;
-	if (*s != '=' && (shft_istab(*s) || !*s))
-		return (1);
 	return (0);
 }
 
@@ -115,10 +106,7 @@ int	shft_cmd_export(char *cmd, t_shell_stuff *sh)
 		return (export_lol(sh));
 	t = export_ok(cmd);
 	if (t >= 0)
-	{
-		sh->lststatus = 1;
-		return (t);
-	}
+		return (sh->lststatus = 1, t);
 	temp[0] = ft_strjoin("unset ", cmd);
 	temp[1] = ft_strchr(temp[0], '=');
 	ft_memmove(temp[1], "", 1);

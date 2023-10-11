@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/10 22:37:47 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:20:09 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,15 +246,15 @@ int	shft_redir_inpt(char *cmd, t_shell_stuff *sh)
 	tempfd = open(filename, O_RDONLY);
 	clean_stuff(p, ft_strlen(filename));
 	if (access(filename, R_OK) == -1 && access(filename, F_OK) != -1)
-		return (shft_putter("minishell: \'", filename, "\': Permission denied\n", STDERR_FILENO) + 1);
+		return (free(filename), shft_putter("minishell: \'", filename, "\': Permission denied\n", STDERR_FILENO) + 1);
 	if (tempfd == -1)
 	{
 		shft_putter("minishell: \'", filename, "\': No such file or directory\n", STDERR_FILENO);
 		word_clean(cmd, ft_strlen(cmd));
-		return (1);
+		return (free(filename), 1);
 	}
 	dup2(tempfd, STDIN_FILENO);
-	return (shft_redir_inpt(cmd, sh));
+	return (free(filename), shft_redir_inpt(cmd, sh));
 }
 
 int	manage_redir_o(char *filename, int tempfd, char *p, int append)
@@ -296,8 +296,8 @@ int	shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset)
 	if (append)
 		*p = -1;
 	if (manage_redir_o(filename, tempfd, p, append))
-		return (1);
-	return (shft_redir_outpt(cmd, sh, doset));
+		return (free(filename), 1);
+	return (free(filename), shft_redir_outpt(cmd, sh, doset));
 }
 
 void	shft_last_parse_1(char **s)
@@ -399,15 +399,32 @@ int	builtin_cmds(char *cd, t_shell_stuff *sh, int doset)
 	return (res);
 }
 
+char	*littel_better(char *s)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	res = ft_strdup(s);
+	while (res[i])
+		i++;
+	while (--i && shft_istab(res[i]))
+		res[i] = '\0';
+	return (res);
+}
+
 void	non_executable_handler(char *cmd, t_shell_stuff *sh)
 {
+	char	*temp;
 	if (sh->lststatus == 126)	
 		return ;
 	sh->lststatus = 127;
+	temp =  littel_better(cmd);
 	if (shft_strchr(cmd, '/', '\'', '\"') && access(cmd, F_OK) == -1)
-		shft_putter("minishell: \'", cmd, "\': No such file or directory\n", STDERR_FILENO);
+		shft_putter("minishell: \'", temp, "\': No such file or directory\n", STDERR_FILENO);
 	else
-		shft_putter("minishell: \'", cmd, "\': command not found\n", STDERR_FILENO);
+		shft_putter("minishell: \'", temp, "\': command not found\n", STDERR_FILENO);
+	free(temp);
 }
 
 //* ---------------------------------- nizz ---------------------------------- */
@@ -487,7 +504,7 @@ int	execution_proccess_and_bonus(int *pp, t_shell_stuff *sh, int doset)
 			pipe(pp);
 			close(*(pp + 1));
 			dup2(*pp, STDIN_FILENO);
-			return (1, sh->lststatus = 1);
+			return (ft_free_tab(cmds), sh->lststatus = 1, 1);
 		}
 		if (shft_is_builtin(cmds[1]) == 0)
 			sh->lststatus = builtin_cmds(cmds[1], sh, doset);
@@ -529,7 +546,7 @@ int	execution_proccess_and_bonus(int *pp, t_shell_stuff *sh, int doset)
 				pipe(pp);
 				close(*(pp + 1));
 				dup2(*pp, STDIN_FILENO);
-				return (1, sh->lststatus = 1);
+				return (ft_free_tab(cmds), sh->lststatus = 1, 1);
 			}
 			if (shft_is_builtin(cmds[counter]) == 0)
 				sh->lststatus = builtin_cmds(cmds[counter], sh, doset);
@@ -544,6 +561,7 @@ int	execution_proccess_and_bonus(int *pp, t_shell_stuff *sh, int doset)
 			}
 		}
 	}
+	ft_free_tab(cmds);
 	return (sh->lststatus);
 }
 
@@ -557,10 +575,7 @@ int	execution_proccess_or_bonus(int *pp, t_shell_stuff *sh, int doset)
 	fixer = 0;
 	cmds = ft_split_operators(loco()->piece);
 	if (cmds[0][0] == '0')
-	{
-		ft_free_tab(cmds);
-		return (sh->lststatus);
-	}
+		return (ft_free_tab(cmds), sh->lststatus);
 	else if (cmds[0][0] == '1')
 	{
 		if (sh->doexit != -1 || shft_redirections(&cmds[1], sh, &doset))
@@ -568,7 +583,7 @@ int	execution_proccess_or_bonus(int *pp, t_shell_stuff *sh, int doset)
 			pipe(pp);
 			close(*(pp + 1));
 			dup2(*pp, STDIN_FILENO);
-			return (1, sh->lststatus = 1);
+			return (ft_free_tab(cmds), sh->lststatus = 1, 1);
 		}
 		if (shft_is_builtin(cmds[1]) == 0)
 			sh->lststatus = builtin_cmds(cmds[1], sh, doset);
@@ -611,7 +626,7 @@ int	execution_proccess_or_bonus(int *pp, t_shell_stuff *sh, int doset)
 				pipe(pp);
 				close(*(pp + 1));
 				dup2(*pp, STDIN_FILENO);
-				return (1, sh->lststatus = 1);
+				return (ft_free_tab(cmds), sh->lststatus = 1, 1);
 			}
 			if (shft_is_builtin(cmds[counter]) == 0)
 				sh->lststatus = builtin_cmds(cmds[counter], sh, doset);
@@ -626,6 +641,7 @@ int	execution_proccess_or_bonus(int *pp, t_shell_stuff *sh, int doset)
 			}
 		}
 	}
+	ft_free_tab(cmds);
 	return (sh->lststatus);
 }
 
@@ -683,7 +699,7 @@ char *cmd_cleaner(char *tmp, int index, t_shell_stuff *sh)
 	int		i;
 
 	i = 0;
-	new_tmp = (char *)ft_calloc(ft_strlen(tmp) - index + 2, sizeof(char));
+	new_tmp = (char *)ft_calloc(ft_strlen(tmp) - index + 10, sizeof(char));
 	if (!new_tmp)
 		return (NULL);
 	if (sh->lststatus)
@@ -825,7 +841,7 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, in
 			}
 			//! you need to create a check where if the number of ( and ) is not equal then you need to return an error
 			free(loco()->piece);
-			loco()->piece = ft_strdup_len(cmd, i); //* printf("new loco()->piece: %s\n", loco()->piece);
+			//loco()->piece = ft_strdup_len(cmd, i); // printf("new loco()->piece: %s\n", loco()->piece);
 			cmd = cmd_parentheses_and_cleaner(cmd, first_para, i, sh);
 		}
 		else if (loco()->or == 1)
@@ -858,9 +874,9 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, in
 				if (loco()->out_to_pipe == 1)
 					break ;
 			}
-			//! you need to create a check where if the number of ( and ) is not equal then you need to return an error
+			//! you need to create a check where if the number of ( and ) is not equal then you need to return an error ## SOLVED
 			free(loco()->piece);
-			loco()->piece = ft_strdup_len(cmd, i); //* printf("new loco()->piece: %s\n", loco()->piece);
+			//loco()->piece = ft_strdup_len(cmd, i); //* printf("new loco()->piece: %s\n", loco()->piece);
 			cmd = cmd_parentheses_or_cleaner(cmd, first_para, i, sh);
 		}
 		loco()->piece = ft_split_bonus(cmd, index);
@@ -882,7 +898,7 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, in
 			return (cmd);
 		}
 	}
-	else
+	//else
 		return (cmd);
 }
 
@@ -895,6 +911,7 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	int		index;
 	int		pp[2];
 	int		i;
+	char	*temp;
 
 	i = -1;
 	index = 0;
@@ -913,7 +930,9 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 			//*	check for the type
 			check_for_operator(loco()->piece);
 			//* Ceck for the wildCard
+			temp = loco()->piece;
 			loco()->piece = check_for_wildcard_normal(loco()->piece);
+			free(temp);
 			// check_for_wildcard(loco()->piece, doset, &pp[0]);
 			//*	check for parentheses
 			tmp = check_for_parentheses(tmp, sh, &pp[0], doset, &index);
@@ -951,14 +970,14 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 		if (ft_strchr(tmp, ')') && !ft_strchr(tmp, '('))
 			tmp = clean_cmd(tmp);
 		if (loco()->g_or == 1 && sh->lststatus == 0)
-			return (sh->lststatus);
+			return (free(tmp), sh->lststatus);
 		tmp = check_for_wildcard_normal(tmp); //! need to create another function for if its one command with no && || 
 		if (sh->doexit != -1 || shft_redirections(&tmp, sh, &doset))
 		{
 			pipe(pp);
 			close(pp[1]);
 			dup2(pp[0], STDIN_FILENO);
-			return (1, sh->lststatus = 1);
+			return (free(tmp), sh->lststatus = 1, 1);
 		}
 		if (shft_is_builtin(tmp) == 0)
 			sh->lststatus = builtin_cmds(tmp, sh, doset);
@@ -973,7 +992,7 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 		}
 	}
 	loco()->n = 0;
-	return (sh->lststatus);
+	return (free(tmp), sh->lststatus);
 }
 //! ----------------------------------- end ---------------------------------- */
 

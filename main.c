@@ -3,25 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/10 22:36:00 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 11:55:12 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_signal;
-
-void	sigint_handle(int a)	//please handle sigintyy
+void	sigint_handle(int a)
 {
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	if (!g_signal)
+	if (!loco()->sigpass)
 		rl_redisplay();
-	g_signal = a;
+	loco()->sigpass = a;
 }
 
 void	shft_init(t_shell_stuff *sh, char *args[], char *envp[], int argn)
@@ -43,8 +41,7 @@ void	shft_init(t_shell_stuff *sh, char *args[], char *envp[], int argn)
 	update_env_free(sh->envp, sh->pwd, sh);
 	sh->doexit = -1;
 	sh->exit_code = 0;
-	g_signal = 0;
-	init_bonus_struct();
+	loco()->sigpass = 0;
 }
 
 int	shft_exit(int e, t_shell_stuff *sh)
@@ -57,25 +54,22 @@ int	shft_exit(int e, t_shell_stuff *sh)
 	exit(sh->exit_code);
 }
 
-//* -------------- a way to have a struct by calling a function -------------- */
+//* ------------- a way to have a struct by calling a function ------------- */
 
 t_loco	*loco(void)
 {
-	static t_loco	loco = {NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL};
+	static t_loco	loco = {NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0};
 
 	return (&loco);
 }
 
-void	init_bonus_struct(void)	// non necessario: valori iniziali assegnati durante la dichiarazione della variabile 'static'
+char	fs_check(char fs, char a)
 {
-	/*loco()->and = 0;
-	loco()->or = 0;
-	loco()->g_and = 0;
-	loco()->g_or = 0;
-	loco()->parentheses = 0;
-	loco()->n = 0;
-	loco()->out_to_pipe = 0; //! might not be needed
-	loco()->piece = NULL;*/
+	if (a == '\'' && fs != 2)
+		return (1);
+	if (a == '\"' && fs != 1)
+		return (2);
+	return (fs);
 }
 
 int	shft_ch_checkok(char *cmd)
@@ -88,41 +82,40 @@ int	shft_ch_checkok(char *cmd)
 	fs = 0;
 	ct = 0;
 	lst = -1;
+	st = 0;
 	while (*cmd)
 	{
 		fs = fs_check(fs, *cmd);
 		if (!fs)
 		{
-			while (shft_istab(*cmd))
+			while (shft_istab(*cmd) && cmd[1])
 				cmd++;
-			if ((cmd[0] == '&' && cmd[1] == '&') || (cmd[0] == '|' && cmd[1] == '|'))
-				st = 1 + (unsigned long)(cmd++) * 0;
+			if ((cmd[0] == '&' && cmd[1] == '&') || (cmd[0] == \
+					'|' && cmd[1] == '|'))
+				st = 1 + *(cmd++) *(0);
 			else if (cmd[0] == '(')
-				st = 3 + ct++ * 0;
+				st = 3 + ct++ *(0);
 			else if (cmd[0] == ')')
-				st = 4 + ct-- * 0;
+				st = 4 + ct-- *(0);
 			else
 				st = 0;
-				//printf("called. %i -- %i\n", st, lst);
-			while (shft_istab(*cmd))
+			while (shft_istab(*cmd) && cmd[1])
 				cmd++;
-				
 			if ((st == 0) && (lst == 4))
-				return (0);
-			if ((st == 1 || st == 4 || st == 3) && ((lst == 0 || lst == 4) ^ (st != 3)))
-				return (0);
+				return (ft_putstr_fd(ERRSYNTAX, STDERR_FILENO) * 0);
+			if ((st == 1 || st == 4 || st == 3) && ((lst == 0 || lst \
+						== 4) ^ (st != 3)))
+				return (ft_putstr_fd(ERRSYNTAX, STDERR_FILENO) * 0);
 			if (ct < 0)
-				return (0);
-			lst = st; 
+				return (ft_putstr_fd(ERRSYNTAX, STDERR_FILENO) * 0);
+			lst = st;
 		}
 		cmd++;
 	}
 	if (st == 3 || st == 1 || ct < 0)
-		return (0);
+		return (ft_putstr_fd(ERRSYNTAX, STDERR_FILENO) * 0);
 	return (1);
 }
-
-//! -------------------------------------------------------------------------- */
 
 int	main(int argn, char *args[], char *envp[])
 {
@@ -130,20 +123,18 @@ int	main(int argn, char *args[], char *envp[])
 	char			*cmd_buff;
 
 	shft_init(&shell, args, envp, argn);
-	// printf("here are the experiment and: %d\n now or: %d\n now para: %d\n", loco()->and, loco()->or, loco()->parentheses);
 	while (shell.doexit == -1)
 	{
 		cmd_buff = shft_prompt(&shell, 0);
-		g_signal = 1;
+		loco()->sigpass = 1;
 		loco()->exit = 0;
-		//shell.lststatus = 0;
 		if (cmd_buff && *cmd_buff)
 			add_history(cmd_buff);
 		if (cmd_buff)
 		{
-			if (*cmd_buff)
-				if (shft_ch_checkok(cmd_buff))
-					shft_execute_cmd(&shell, cmd_buff);
+			if (!shft_ch_checkok(cmd_buff))
+				continue ;
+			shft_execute_cmd(&shell, cmd_buff);
 			free(cmd_buff);
 		}
 		else
@@ -152,7 +143,7 @@ int	main(int argn, char *args[], char *envp[])
 			break ;
 		}
 		update_env_free(shell.envp, shell.pwd, &shell);
-		g_signal = 0;
+		loco()->sigpass = 0;
 	}
 	shft_exit(-1, &shell);
 }

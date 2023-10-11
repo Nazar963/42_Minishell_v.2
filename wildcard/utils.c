@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 10:38:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/10 19:32:16 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 10:21:07 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,64 +96,3 @@ void	pr_dir(char **new_str, char **split_wild, int first, int last_char)
 		loco()->entry = readdir(loco()->dir);
 	}
 }
-
-//! Old version
-// char	*split_wild(char **str)
-// {
-// 	char	*new_str;
-// 	char	*remaining_str;
-// 	int		i;
-
-// 	i = 0;
-// 	while (**str && (**str == '&' || **str == '|'))
-// 		str++;
-// 	while ((*str)[i])
-// 	{
-// 		if (((*str)[i] == '&' && (*str)[i + 1] == '&')
-// 			|| ((*str)[i] == '|' && (*str)[i + 1] == '|'))
-// 			break ;
-// 		i++;
-// 	}
-
-// 	new_str = (char *)ft_calloc((i + 1), sizeof(char));
-// 	if (!new_str)
-// 		return (NULL);
-// 	while (**str)
-// 	{
-// 		if ((**str == '&' && *((*str) + 1) == '&')
-// 			|| (**str == '|' && *((*str) + 1) == '|'))
-// 		{
-// 			remaining_str = ft_strdup(*str);
-// 			if (!remaining_str)
-// 			{
-// 				free(new_str);  // Free allocated memory if allocation fails
-// 				return (NULL);
-// 			}
-
-// 			// Free the original string
-// 			free(*str);
-
-// 			// Update the source string pointer to 
-//			//point to the new string for the remaining portion
-// 			*str = remaining_str;
-// 			return (new_str);
-// 		}
-// 		*new_str = **str;
-// 		new_str++;
-// 		(*str)++;
-// 		remaining_str = ft_strdup(*str);
-// 		if (!remaining_str)
-// 		{
-// 			free(new_str);  // Free allocated memory if allocation fails
-// 			return (NULL);
-// 		}
-
-// 		// Free the original string
-// 		free((str));
-
-// 		// Update the source string pointer to point to the new
-//		//string for the remaining portion
-// 		*str = remaining_str;
-// 	}
-// 	return (new_str);
-// }

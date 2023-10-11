@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+         #
+#    By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 08:42:40 by lpollini          #+#    #+#              #
-#    Updated: 2023/10/10 22:38:56 by naal-jen         ###   ########.fr        #
+#    Updated: 2023/10/11 11:56:02 by lpollini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ OBJDIR = .objFiles
 
 FILES		= env_stuff \
 executor \
+executor_utils \
 ft_atoi \
 ft_calloc \
 ft_isalnum \
@@ -61,7 +62,7 @@ CURSIVE		=	\e[33;3m
 
 #Debug 
 ifeq ($(DEBUG), 1)
-   OPTS = -g
+   OPTS = -g -Wall -Wextra -Werror
 endif
 
 .PHONY: all clean fclean re bonus norm

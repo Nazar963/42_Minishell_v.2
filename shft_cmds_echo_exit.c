@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 10:29:55 by lpollini          #+#    #+#             */
-/*   Updated: 2023/09/14 16:09:59 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/11 10:27:12 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,6 @@ int	shft_cmd_env(char *cmd, t_shell_stuff *sh)
 			printf("%s\n", sh->envp[i]);
 	return (0);
 }
-
-/*int	exit_ok(char *s, t_shell_stuff *sh)
-{
-	int	cs;
-
-	cs = 0;
-	while (shft_istab(*s))
-		s++;
-	if (!ft_strcmp_noend(s, "9223372036854775808") || \
-		!ft_strcmp_noend(s, "-9223372036854775809"))
-		cs = 1;
-	while (*s && !shft_istab(*s))
-	{
-		if (!cs && (*s > '9' || *s < '0') && *s != '+' && *s != '-' && *s)
-			cs = 1;
-		s++;
-	}
-	while (shft_istab(*s))
-		s++;
-	if (*s)
-		sh->exit_code = ft_putstr_fd("exit: too many arguments\n", \
-					STDERR_FILENO) * 0 + 1;
-	else if (cs)
-		sh->exit_code = ft_putstr_fd("exit: numeric argument required\n", \
-					STDERR_FILENO) * 0 + 2;
-	else
-		return (0);
-	return (1);
-}*/
 
 int	ft_isnumber(const char *s)
 {
@@ -89,8 +60,8 @@ int	exit_ok(char *s, t_shell_stuff *sh)
 					STDERR_FILENO) * 0 + 1;
 	else if (!i)
 		sh->exit_code = 0;
-	else if (ft_isnumber(tb[0]) && (ft_strcmp_noend(tb[0], "9223372036854775808") && \
-					ft_strcmp_noend(tb[0], "-9223372036854775809")))
+	else if (ft_isnumber(tb[0]) && (ft_strcmp_noend(tb[0], NBLOL) && \
+				ft_strcmp_noend(tb[0], "-9223372036854775809")))
 		sh->exit_code = ft_atoi(tb[0]);
 	else
 		sh->exit_code = ft_putstr_fd("exit: numeric argument required\n", \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/10 19:57:11 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 10:53:45 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,13 @@
 
 # define BLTINS 0
 
+# define NBLOL "9223372036854775808"
 # define PROMPT "minishell_by_lpollini&nizz"
+# define ERRSYNTAX "minishell: syntax error lol\n"
 # define PROMPTSIZEMAX 199
 
 typedef struct s_loco
 {
-	//* ------------------------- For operators && and || ------------------------ */
 	char			*piece;
 	int				and;
 	int				exit;
@@ -69,11 +70,19 @@ typedef struct s_loco
 	int				n;
 	int				out_to_pipe;
 	int				wild;
-	//* ------------------------------ For wildcard ------------------------------ */
 	int				flag_no_process;
 	DIR				*dir;
 	struct dirent	*entry;
+	int				sigpass;
 }	t_loco;
+
+typedef struct s_vector4_int
+{
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+}	t_vector4_int;
 
 typedef struct s_vector2_int
 {
@@ -118,10 +127,7 @@ typedef struct s_command
 	char	**pipelinesplit;
 }	t_command;
 
-
-// int		shft_chain_ops(t_shell_stuff *sh, char *cmd);
-// void	shft_layer_rec(t_shell_stuff *sh, char *cmd);
-//* ---------------------------------- nizz ---------------------------------- */
+//* ---------------------------------- nizz -------------------------------- */
 t_loco	*loco(void);
 void	init_bonus_struct(void);
 char	*ft_split_bonus(char *s, int *index);
@@ -130,25 +136,35 @@ char	*word_dup_bonus(char const *str, int start, int finish);
 int		count_words_bonus(char *str);
 void	check_for_operator(char *cmd);
 char	*ft_strdup_len(const char *src, int len);
-char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, int *index);
+char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, \
+			int doset, int *index);
 size_t	ft_strlen_arr(void	**loco);
-char *clean_cmd(char *str);
-/* ---------------------------- wildcard/parce.c ---------------------------- */
+char	*clean_cmd(char *str);
+/* ---------------------------- wildcard/parce.c -------------------------- */
 int		verify_match(char **split_wild, const char *str, int *i, int *j);
-int		match(const char *str, char **split_wild, int first_char, int last_char);
+int		match(const char *str, char **split_wild, int first_char, \
+			int last_char);
 char	*wildcard_process(char *str, int *first, int *last, char ***split_wild);
 char	*check_for_wildcard_normal(char *str);
-/* ---------------------------- wildcard/utils.c ---------------------------- */
+/* ---------------------------- wildcard/utils.c -------------------------- */
 char	*ft_realloc(char *pointer, int size);
 void	main_command_join(char **new_str, char **split);
 void	initialize_three_to_zero(int *n, int *i, int *z);
-void	pr_dir(char **new_str, char **split_wild, int first_char, int last_char);
+void	pr_dir(char **new_str, char **split_wild, int first_char, \
+			int last_char);
 char	*split_wild(char *str);
-/* --------------------------- wildcard/utils_1.c --------------------------- */
+/* --------------------------- wildcard/utils_1.c ------------------------- */
 char	*add_operator(char *new_new_str, char **str);
 char	*add_command_processed(char *to_be_processed, char *new_new_str);
-//! -------------------------------------------------------------------------- */
+int		shft_isallnum(char *s);
+/*! ------------------------------------------------------------------------ */
 
+/* ----------------------------- executor_utils.c -------------------------- */
+int		shft_isalnum(const int c);
+char	*ft_strtab_join_free(char **s);
+char	*shft_arg(t_shell_stuff *sh, char *str);
+int		shft_istab1(char *str);
+/* -------------------------------- to index ------------------------------- */
 int		ft_strcmp_noend(const char *s1, const char *s2);
 int		shft_exit(int e, t_shell_stuff *sh);
 char	*ft_strjoin_free(char *s1, const char *s2);
