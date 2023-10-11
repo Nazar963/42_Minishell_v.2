@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 17:21:35 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:13:08 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ int		shft_isalnum(const int c);
 char	*ft_strtab_join_free(char **s);
 char	*shft_arg(t_shell_stuff *sh, char *str);
 int		shft_istab1(char *str);
+int		shft_redirections(char **cmd, t_shell_stuff *sh, int *doset);
 /* -------------------------------- to index ------------------------------- */
 int		ft_strcmp_noend(const char *s1, const char *s2);
 int		shft_exit(int e, t_shell_stuff *sh);
@@ -220,15 +221,43 @@ int		shft_cmd_export(char *cmd, t_shell_stuff *sh);
 /* ------------------------------- ft_split.c ------------------------------- */
 void	surpass_q_dq(char *s, int *x);
 int		execution_and_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset);
-/* --------------------------------- utils.c -------------------------------- */
-int		execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset);
-void	control_and_bonus(int *fixer, int *doset, int counter);
-char	**execution_and_bonus_helper_1(int doset, char **cmds, t_shell_stuff *sh, int *pp);
 
-int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset);
-int	shft_is_builtin(char *cd);
-int	builtin_cmds(char *cd, t_shell_stuff *sh, int doset);
-int	command(char *cmd, t_shell_stuff *sh, int doset);
+
+
+/* ------------------------------- pipex_main.c ------------------------------- */
+
+void	ft_free_tab(char **tb);
+void	pipeft_exit(int arg);
+char		*search_path(char *name, t_shell_stuff *sh);
+char	**shft_dupenv(t_shell_stuff *sh);
+int		shft_putter(char *s1, char *s2, char *s3, int fd);
+int		command_fork(char **args, t_shell_stuff *sh, int doset);
+int		command(char *cmd, t_shell_stuff *sh, int doset);
+char	*shft_get_word(char *in);
+void	word_clean(char *str, int len);
+void	clean_stuff(char *s, int l);
+int		read_stdin(char *limiter);
+int		shft_redir_inpt(char *cmd, t_shell_stuff *sh);
+int		manage_redir_o(char *filename, int tempfd, char *p, int append);
+int		shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset);
+void	shft_last_parse_1(char **s);
+int		shft_redirections(char **cmd, t_shell_stuff *sh, int *doset);
+void	builtin_temp_creat( void );
+int		shft_is_builtin(char *cd);
+int		builtin_cmds(char *cd, t_shell_stuff *sh, int doset);
+char	*littel_better(char *s);
 void	non_executable_handler(char *cmd, t_shell_stuff *sh);
+int		check_for_bonus(char *cmd);
+char	*clean_cmd(char *str);
+int		execution_proccess_and_bonus(int *pp, t_shell_stuff *sh, int doset);
+int		execution_proccess_or_bonus(int *pp, t_shell_stuff *sh, int doset);
+char	*command_cleaner_and(char *tmp);
+void	check_for_operator(char *cmd);
+char 	*cmd_cleaner(char *tmp, int index, t_shell_stuff *sh);
+char 	*cmd_parentheses_and_cleaner(char *cmd, int first_para, int last_para, t_shell_stuff *sh);
+char 	*cmd_parentheses_or_cleaner(char *cmd, int first_para, int last_para, t_shell_stuff *sh);
+char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, int *index);
+int		shft_fr_to(char *cmd, t_shell_stuff *sh, int doset);
+int		shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 16:51:24 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:13:37 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	shft_ch_checkok(char *cmd)
 		}
 		cmd++;
 	}
-	if (st == 3 || st == 1 || ct < 0)
+	if (((st == 3 || st == 1) && !fs) || ct < 0)
 		return (ft_putstr_fd(ERRSYNTAX, STDERR_FILENO) * 0);
 	return (1);
 }
