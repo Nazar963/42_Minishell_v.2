@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 12:52:08 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:10:11 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*search_path(char *name, t_shell_stuff *sh)
 	return (NULL);
 }
 
-static char	**shft_dupenv(t_shell_stuff *sh)
+char	**shft_dupenv(t_shell_stuff *sh)
 {
 	char	**res;
 	int		i;
@@ -179,7 +179,7 @@ char	*shft_get_word(char *in)
 	return (res);
 }
 
-static void	word_clean(char *str, int len)
+void	word_clean(char *str, int len)
 {
 	int	i;
 	int	j;

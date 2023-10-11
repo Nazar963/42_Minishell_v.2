@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 12:44:21 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 13:48:02 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	shft_ch_checkok(char *cmd)
 	while (*cmd)
 	{
 		fs = fs_check(fs, *cmd);
+		printf("called. %i\n", fs);
 		if (!fs)
 		{
 			while (shft_istab(*cmd) && cmd[1])
