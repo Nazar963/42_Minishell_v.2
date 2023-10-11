@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 12:41:07 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:38:47 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,9 @@ char	*ft_split_bonus(char *s, int *index)
 	char	*tmp;
 
 	*index = count_words_bonus(s);
+	split = (char *)ft_calloc((*index + 1), sizeof(char));
+	if (!s || !split)
+		return (0);
 	shft_init_two_vars(&i, 0, &j, 0);
 	split = word_dup_bonus(s, 0, *index);
 	split[*index + 1] = '\0';

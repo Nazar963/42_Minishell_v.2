@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 14:10:11 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:07:32 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -457,60 +457,18 @@ char *clean_cmd(char *str) //! This function is going to create memoryleaks for 
 int	execution_proccess_and_bonus(int *pp, t_shell_stuff *sh, int doset)
 {
 	char	**cmds;
-	int		counter;
-	int		fixer;
 
-	shft_init_two_vars(&counter, -1, &fixer, 0);
 	cmds = ft_split_operators(loco()->piece);
 	if (cmds[0][0] == '1')
 		return (ft_free_tab(cmds), sh->lststatus);
 	else if (cmds[0][0] == '0')
 	{
-		if (execution_and_bonus_helper(cmds, pp, sh, doset) == 69)
+		loco()->counter = 1;
+		if (execution_bonus_helper(cmds, pp, sh, doset) == 69)
 			return (sh->lststatus);
 	}
 	else
-	{
-		while (++counter < 2)
-		{
-			if (counter == 0 && doset == 1)
-			{
-				doset = 0;
-				fixer = 1;
-			}
-			else if (counter == 1 && fixer == 1 && loco()->n == 0)
-			{
-				doset = 1;
-				fixer = 0;
-			}
-			if (ft_strchr(cmds[0], '('))
-				cmds[0] = clean_cmd(cmds[0]);
-			if (counter == 2 && sh->lststatus == 1 || sh->lststatus == 127 || sh->lststatus == 126 && loco()->exit != 0)
-				break ;
-			else if (counter == 1 && loco()->parentheses == 1)
-				break ;
-			else if (loco()->exit == 0)
-				loco()->exit = 1;
-			if (sh->doexit != -1 || shft_redirections(&cmds[counter], sh, &doset))
-			{
-				pipe(pp);
-				close(*(pp + 1));
-				dup2(*pp, STDIN_FILENO);
-				return (ft_free_tab(cmds), sh->lststatus = 1, 1);
-			}
-			if (shft_is_builtin(cmds[counter]) == 0)
-				sh->lststatus = builtin_cmds(cmds[counter], sh, doset);
-			else
-				sh->lststatus = command(cmds[counter], sh, doset);
-			if (sh->lststatus == -1)
-			{
-				non_executable_handler(cmds[counter], sh);
-				pipe(pp);
-				close(*(pp + 1));
-				dup2(*pp, STDIN_FILENO);
-			}
-		}
-	}
+		cmds = execution_and_bonus_helper_1(doset, cmds, sh, pp);
 	ft_free_tab(cmds);
 	return (sh->lststatus);
 }
@@ -528,69 +486,12 @@ int	execution_proccess_or_bonus(int *pp, t_shell_stuff *sh, int doset)
 		return (ft_free_tab(cmds), sh->lststatus);
 	else if (cmds[0][0] == '1')
 	{
-		if (sh->doexit != -1 || shft_redirections(&cmds[1], sh, &doset))
-		{
-			pipe(pp);
-			close(*(pp + 1));
-			dup2(*pp, STDIN_FILENO);
-			return (ft_free_tab(cmds), sh->lststatus = 1, 1);
-		}
-		if (shft_is_builtin(cmds[1]) == 0)
-			sh->lststatus = builtin_cmds(cmds[1], sh, doset);
-		else
-			sh->lststatus = command(cmds[1], sh, doset);
-		if (sh->lststatus == -1)
-		{
-			non_executable_handler(cmds[1], sh);
-			pipe(pp);
-			close(*(pp + 1));
-			dup2(*pp, STDIN_FILENO);
-		}
+		loco()->counter = 1;
+		if (execution_bonus_helper(cmds, pp, sh, doset) == 69)
+			return (sh->lststatus);
 	}
 	else
-	{
-		while (++counter < 2)
-		{
-			if (counter == 0 && doset == 1)
-			{
-				doset = 0;
-				fixer = 1;
-			}
-			else if (counter == 1 && fixer == 1 && loco()->n == 0)
-			{
-				doset = 1;
-				fixer = 0;
-			}
-			if (ft_strchr(cmds[0], '('))
-				cmds[0] = clean_cmd(cmds[0]);
-			if (counter == 1 && sh->lststatus == 0)
-				break ;
-			else if (counter == 1 && loco()->parentheses == 1)
-				break ;
-			else if (counter == 0 && (sh->lststatus == 1 || sh->lststatus == 127 || sh->lststatus == 126) && loco()->exit != 0)
-				continue ;
-			else if (loco()->exit == 0)
-				loco()->exit = 1;
-			if (sh->doexit != -1 || shft_redirections(&cmds[counter], sh, &doset))
-			{
-				pipe(pp);
-				close(*(pp + 1));
-				dup2(*pp, STDIN_FILENO);
-				return (ft_free_tab(cmds), sh->lststatus = 1, 1);
-			}
-			if (shft_is_builtin(cmds[counter]) == 0)
-				sh->lststatus = builtin_cmds(cmds[counter], sh, doset);
-			else
-				sh->lststatus = command(cmds[counter], sh, doset);
-			if (sh->lststatus == -1)
-			{
-				non_executable_handler(cmds[counter], sh);
-				pipe(pp);
-				close(*(pp + 1));
-				dup2(*pp, STDIN_FILENO);
-			}
-		}
-	}
+		cmds = execution_or_bonus_helper_1(doset, cmds, sh, pp);
 	ft_free_tab(cmds);
 	return (sh->lststatus);
 }
@@ -673,17 +574,7 @@ char *cmd_parentheses_and_cleaner(char *cmd, int first_para, int last_para, t_sh
 	i = 0;
 	j = 0;
 	if (sh->lststatus == 1 || sh->lststatus == 127 || sh->lststatus == 126)
-	{
-		new_cmd = (char *)ft_calloc(ft_strlen(cmd) - last_para + 2, sizeof(char));
-		if (!new_cmd)
-			return (NULL);
-		new_cmd[j++] = '1';
-		last_para++;
-		while (cmd[last_para])
-			new_cmd[j++] = cmd[last_para++];
-		free(cmd);
-		return (new_cmd);
-	}
+		return (cmd_and_cleaner_helper(new_cmd, cmd, &j, &last_para));
 	while (cmd[i] && (cmd[i] != '&' && cmd[i] != '|'))
 		i++;
 	new_cmd = (char *)ft_calloc(ft_strlen(cmd) - i + 2, sizeof(char));
@@ -711,17 +602,7 @@ char *cmd_parentheses_or_cleaner(char *cmd, int first_para, int last_para, t_she
 	i = 0;
 	j = 0;
 	if (sh->lststatus == 0)
-	{
-		new_cmd = (char *)ft_calloc(ft_strlen(cmd) - last_para + 2, sizeof(char));
-		if (!new_cmd)
-			return (NULL);
-		new_cmd[j++] = '0';
-		last_para++;
-		while (cmd[last_para])
-			new_cmd[j++] = cmd[last_para++];
-		free(cmd);
-		return (new_cmd);
-	}
+		return (cmd_or_cleaner_helper(new_cmd, cmd, &j, &last_para));
 	while (cmd[i] && (cmd[i] != '&' && cmd[i] != '|'))
 		i++;
 	new_cmd = (char *)ft_calloc(ft_strlen(cmd) - i + 2, sizeof(char));
@@ -740,107 +621,27 @@ char *cmd_parentheses_or_cleaner(char *cmd, int first_para, int last_para, t_she
 	return (new_cmd);
 }
 
-char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, int *index)
+char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 {
-	int		count;
-	int		start_flag;
-	int		first_para;
-	int		i;
-
-	count = 0;
-	start_flag = 0;
-	first_para = 0;
-	i = 0;
 	if (ft_strchr(loco()->piece, '('))
 	{
-		*index = 0;
+		loco()->index = 0;
 		loco()->parentheses = 1;
 		if (loco()->and == 1)
 		{
 			if (loco()->piece[0] != '0' && loco()->piece[0] != '1')
 				sh->lststatus = execution_proccess_and_bonus(pp, sh, doset);
-			while (cmd[i])
-			{
-				if (cmd[i] == '(')
-				{
-					if (start_flag == 0)
-						first_para = i;
-					start_flag = 1;
-					count++;
-				}
-				else if (cmd[i] == ')')
-					count--;
-				if (count == 0 && start_flag == 1)
-					break ;
-				i++;
-			}
-			int	z = i - 1;
-			while (cmd[++z])
-			{
-				if ((cmd[z] == '&' && cmd[z + 1] == '&') || (cmd[z] == '|' && cmd[z + 1] == '|'))
-					break ;
-				else if (cmd[z] == '|' && cmd[z + 1] != '|')
-					loco()->out_to_pipe = 1;
-				if (loco()->out_to_pipe == 1)
-					break ;
-			}
+			loco()->i--;
+			parentheses_helper_2(cmd);
 			free(loco()->piece);
-			loco()->piece = ft_strdup_len(cmd, i);
-			cmd = cmd_parentheses_and_cleaner(cmd, first_para, i, sh);
+			loco()->piece = ft_strdup_len(cmd, loco()->i);
+			cmd = cmd_parentheses_and_cleaner(cmd, loco()->first_para, loco()->i, sh);
 		}
 		else if (loco()->or == 1)
-		{
-			if (loco()->piece[0] != '0' && loco()->piece[0] != '1')
-				sh->lststatus = execution_proccess_or_bonus(pp, sh, doset);
-			while (cmd[i])
-			{
-				if (cmd[i] == '(')
-				{
-					if (start_flag == 0)
-						first_para = i;
-					start_flag = 1;
-					count++;
-				}
-				else if (cmd[i] == ')')
-					count--;
-				if (count == 0 && start_flag == 1)
-					break ;
-				i++;
-			}
-			int	z = i - 1;
-			while (cmd[++z])
-			{
-				if ((cmd[z] == '&' && cmd[z + 1] == '&') || (cmd[z] == '|' && cmd[z + 1] == '|'))
-					break ;
-				else if (cmd[z] == '|' && cmd[z + 1] != '|')
-					loco()->out_to_pipe = 1;
-				if (loco()->out_to_pipe == 1)
-					break ;
-			}
-			free(loco()->piece);
-			loco()->piece = ft_strdup_len(cmd, i);
-			cmd = cmd_parentheses_or_cleaner(cmd, first_para, i, sh);
-		}
-		loco()->piece = ft_split_bonus(cmd, index);
-		if (ft_strchr(loco()->piece, '('))
-		{
-			loco()->and = 0;
-			loco()->or = 0;
-			check_for_operator(loco()->piece);
-			check_for_parentheses(cmd, sh, pp, doset, index);
-		}
-		else
-		{
-			loco()->g_and = loco()->and;
-			loco()->g_or = loco()->or;
-			loco()->and = 0;
-			loco()->or = 0;
-			check_for_operator(loco()->piece);
-			return (cmd);
-		}
+			cmd = arentheses_helper_3(cmd, sh, pp, doset);
+		parentheses_helper_1(cmd, sh, pp, doset);
 	}
-	//else
-		return (cmd);
+	return (cmd);
 }
 
 //! -------------------------------------------------------------------------- */
@@ -849,13 +650,11 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset, in
 int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 {
 	char	*tmp;
-	int		index;
 	int		pp[2];
 	int		i;
 	char	*temp;
 
 	i = -1;
-	index = 0;
 	tmp = (char *)ft_calloc((ft_strlen(cmd) + 1), sizeof(char));
 	if (!tmp)
 		return (0);
@@ -865,64 +664,15 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	{
 		while (loco()->n-- > 0)
 		{
-			loco()->piece = ft_split_bonus(tmp, &index);
+			loco()->piece = ft_split_bonus(tmp, &loco()->index);
 			check_for_operator(loco()->piece);
-			//* Ceck for the wildCard
-			temp = loco()->piece;
-			loco()->piece = check_for_wildcard_normal(loco()->piece);
-			free(temp);
-			// check_for_wildcard(loco()->piece, doset, &pp[0]);
-			//*	check for parentheses
-			tmp = check_for_parentheses(tmp, sh, &pp[0], doset, &index);
-			if (loco()->and)
-				sh->lststatus = execution_proccess_and_bonus(&pp[0], sh, doset);
-			else if (loco()->or)
-				sh->lststatus = execution_proccess_or_bonus(&pp[0], sh, doset);
-			tmp = cmd_cleaner(tmp, index, sh);
-			if (loco()->parentheses != 1 && (loco()->g_and == 1 || loco()->g_or == 1))
-			{
-				loco()->g_and = 0;
-				loco()->g_or = 0;
-			}
-			else if (loco()->parentheses != 1)
-			{
-				loco()->g_and = loco()->and;
-				loco()->g_or = loco()->or;
-			}
-			loco()->and = 0;
-			loco()->or = 0;
-			free(loco()->piece);
-			loco()->out_to_pipe = 0;
+			tmp = shft_ft_tp_helper_1(&pp[0], sh, doset, tmp);
 		}
 	}
 	else
-	{
-		if (ft_strchr(tmp, ')') && !ft_strchr(tmp, '('))
-			tmp = clean_cmd(tmp);
-		if (loco()->g_or == 1 && sh->lststatus == 0)
-			return (sh->lststatus);
-		tmp = check_for_wildcard_normal(tmp);
-		if (sh->doexit != -1 || shft_redirections(&tmp, sh, &doset))
-		{
-			pipe(pp);
-			close(pp[1]);
-			dup2(pp[0], STDIN_FILENO);
-			return (free(tmp), sh->lststatus = 1, 1);
-		}
-		if (shft_is_builtin(tmp) == 0)
-			sh->lststatus = builtin_cmds(tmp, sh, doset);
-		else
-			sh->lststatus = command(tmp, sh, doset);
-		if (sh->lststatus == -1)
-		{
-			non_executable_handler(tmp, sh);
-			pipe(pp);
-			close(pp[1]);
-			dup2(pp[0], STDIN_FILENO);
-		}
-	}
+		tmp = shft_ft_tp_helper(&pp[0], sh, doset, tmp);
 	loco()->n = 0;
-	return (free(tmp), sh->lststatus);
+	return (sh->lststatus); //! removed the free(tmp) giving double free with "echo hello && echo shit || (ls && echo what)"
 }
 //! ----------------------------------- end ---------------------------------- */
 

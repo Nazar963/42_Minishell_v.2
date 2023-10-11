@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 12:51:25 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:21:35 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
+# include <stddef.h>
 # include "get_next_line.h"
 # include "libft.h"
 
@@ -71,9 +72,17 @@ typedef struct s_loco
 	int				out_to_pipe;
 	int				wild;
 	int				flag_no_process;
+	int				counter;
+	int				index;
 	DIR				*dir;
 	struct dirent	*entry;
 	int				sigpass;
+	/* -------------------------- check_for_parentheses ------------------------- */
+	int				count;
+	int				start_flag;
+	int				first_para;
+	int				i;
+	int				z;
 }	t_loco;
 
 typedef struct s_vector4_int
@@ -137,7 +146,7 @@ int		count_words_bonus(char *str);
 void	check_for_operator(char *cmd);
 char	*ft_strdup_len(const char *src, int len);
 char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, \
-			int doset, int *index);
+			int doset);
 size_t	ft_strlen_arr(void	**loco);
 char	*clean_cmd(char *str);
 /* ---------------------------- wildcard/parce.c -------------------------- */
@@ -211,5 +220,15 @@ int		shft_cmd_export(char *cmd, t_shell_stuff *sh);
 /* ------------------------------- ft_split.c ------------------------------- */
 void	surpass_q_dq(char *s, int *x);
 int		execution_and_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset);
+/* --------------------------------- utils.c -------------------------------- */
+int		execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset);
+void	control_and_bonus(int *fixer, int *doset, int counter);
+char	**execution_and_bonus_helper_1(int doset, char **cmds, t_shell_stuff *sh, int *pp);
+
+int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset);
+int	shft_is_builtin(char *cd);
+int	builtin_cmds(char *cd, t_shell_stuff *sh, int doset);
+int	command(char *cmd, t_shell_stuff *sh, int doset);
+void	non_executable_handler(char *cmd, t_shell_stuff *sh);
 
 #endif

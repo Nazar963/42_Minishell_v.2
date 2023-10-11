@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 13:48:02 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:51:24 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	shft_exit(int e, t_shell_stuff *sh)
 
 t_loco	*loco(void)
 {
-	static t_loco	loco = {NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0};
+	static t_loco	loco = {NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0};
 
 	return (&loco);
 }
@@ -86,7 +86,6 @@ int	shft_ch_checkok(char *cmd)
 	while (*cmd)
 	{
 		fs = fs_check(fs, *cmd);
-		printf("called. %i\n", fs);
 		if (!fs)
 		{
 			while (shft_istab(*cmd) && cmd[1])
