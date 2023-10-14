@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/14 19:26:17 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/14 19:44:15 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -654,7 +654,7 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 	return (cmd);
 }
 
-int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
+int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)		// free lolollo
 {
 	char	*tmp[2];
 	int		pp[2];
@@ -669,10 +669,8 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 			temp = ft_split_bonus(tmp[0], &loco()->index);
 			loco()->piece = temp;
 			check_for_operator(loco()->piece);
-			free(temp);
 			tmp[1] = tmp[0];
 			tmp[0] = shft_ft_tp_helper_1(&pp[0], sh, doset, tmp[0]);
-			free(tmp[1]);
 		}
 	}
 	else

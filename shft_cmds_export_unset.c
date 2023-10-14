@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:34:40 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/14 19:20:58 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/14 19:41:44 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,10 @@ int	export_lol(t_shell_stuff *sh)
 	int		i;
 
 	tempfd = dup(STDOUT_FILENO);
-	shft_execute_cmd(sh, "env > .tempfile");
 	i = -1;
 	while (++i <= sh->envn)
 		if (sh->envp[i][0] && sh->envp[i][0] != '#')
-			if (!ft_strchr(sh->envp[i], '='))
+			if (ft_strchr(sh->envp[i], '='))
 			{
 				temp = ft_strjoin("echo ", sh->envp[i]);
 				temp = ft_strjoin_free(temp, " >> .tempfile");
