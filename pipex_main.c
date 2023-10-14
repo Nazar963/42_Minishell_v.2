@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 19:54:06 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/14 19:26:17 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,10 +413,10 @@ int	check_for_bonus(char *cmd)
 	int		flag;
 	char	fs;
 
-	i = -1;
+	i = 0;
 	flag = 0;
 	fs = 0;
-	while (cmd[++i])
+	while (cmd[i])
 	{
 		surpass_q_dq(cmd, &i);
 		if (cmd[i] == '&' && cmd[i + 1] == '&')
@@ -429,6 +429,7 @@ int	check_for_bonus(char *cmd)
 			flag = 1;
 			loco()->n++;
 		}
+		i++;
 	}
 	if (flag)
 		return (1);
@@ -655,28 +656,29 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 
 int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 {
-	char	*tmp;
+	char	*tmp[2];
 	int		pp[2];
 	int		i;
 	char	*temp;
 
-	i = -1;
-	tmp = (char *)ft_calloc((ft_strlen(cmd) + 1), sizeof(char));
-	while (cmd[++i])
-		tmp[i] = cmd[i];
-	if (check_for_bonus(tmp) == 1)
+	tmp[0] = ft_strdup(cmd);
+	if (check_for_bonus(tmp[0]) == 1)
 	{
 		while (loco()->n-- > 0)
 		{
-			temp = ft_split_bonus(tmp, &loco()->index);
+			temp = ft_split_bonus(tmp[0], &loco()->index);
 			loco()->piece = temp;
 			check_for_operator(loco()->piece);
-			tmp = shft_ft_tp_helper_1(&pp[0], sh, doset, tmp);
+			free(temp);
+			tmp[1] = tmp[0];
+			tmp[0] = shft_ft_tp_helper_1(&pp[0], sh, doset, tmp[0]);
+			free(tmp[1]);
 		}
 	}
 	else
-		tmp = shft_ft_tp_helper(&pp[0], sh, doset, tmp);
-	if (tmp == NULL)
+		tmp[0] = shft_ft_tp_helper(&pp[0], sh, doset, tmp[0]);
+	free(tmp[0]);
+	if (tmp[0] == NULL)
 		return (sh->lststatus);
 	loco()->n = 0;
 	return (sh->lststatus);

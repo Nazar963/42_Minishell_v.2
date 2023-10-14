@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/11 20:06:24 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/14 19:38:08 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,8 @@ void	parentheses_helper_1(char *cmd, t_shell_stuff *sh,
 {
 	char	*temp;
 
-	temp = loco()->piece;
 	temp = ft_split_bonus(cmd, &loco()->index);
-	free(loco()->piece);
+	loco()->piece = temp;
 	if (ft_strchr(loco()->piece, '('))
 	{
 		loco()->and = 0;

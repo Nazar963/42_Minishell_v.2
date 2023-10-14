@@ -3,8 +3,6 @@
   Memcheck:Leak
   ...
   ...
-  fun:readline
-  fun:shft_prompt
   fun:main
 }
 

@@ -6,7 +6,7 @@
 #    By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 08:42:40 by lpollini          #+#    #+#              #
-#    Updated: 2023/10/11 18:49:51 by lpollini         ###   ########.fr        #
+#    Updated: 2023/10/14 17:51:17 by lpollini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ get_next_line \
 main \
 pipex_main \
 prompt_stuff \
-shft_cmds_echo_exit \
+shft_cmds_echo_exit_env \
 shft_cmds_cd_2 \
 shft_cmds_export_unset \
 shft_cmds_pwd \

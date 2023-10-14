@@ -1,0 +1,8 @@
+leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (echo a && echo b)
+a
+b
+leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (echo a && echo b)
+a
+b)
+
+:: secondo output diverso?? Memoria non reinizializzata, immagino in loco() rimane qualche informazione che si passa da comando a comando. Preovare a resettare le variabili di loco() importanti a fine esecuzione

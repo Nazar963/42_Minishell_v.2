@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/07/19 14:19:21 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:44:58 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,22 @@ char	*ft_strchr(const char *s, char c)
 	if (s[i] == (char)c)
 		return ((char *)(s + i));
 	return (NULL);
+}
+
+char	*ft_strchr_1(const char *s, char c)
+{
+	int	i;
+
+	if (!s)
+		return (malloc(1));
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return ((char *)(s + i));
+		i++;
+	}
+	if (s[i] == (char)c)
+		return ((char *)(s + i));
+	return (malloc(1));
 }

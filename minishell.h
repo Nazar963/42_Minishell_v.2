@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 20:09:14 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:02:04 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ void	shft_init_two_vars(int *a, int va, int *b, int vb);
 int		count_words(const char *str, char c);
 char	*word_dup(char const *str, int start, int finish);
 char	**shft_split2(char *s, char c, char ig1, char ig2);
+char	*ft_strchr_1(const char *s, char c);
 
 int		shft_cmd_pwd(char *cmd, t_shell_stuff *sh);
 int		shft_cmd_env(char *cmd, t_shell_stuff *sh);
