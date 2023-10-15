@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shft_cmds_export_unset.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:34:40 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/14 19:41:44 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 14:14:26 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ int	export_lol(t_shell_stuff *sh)
 	tempfd = dup(STDOUT_FILENO);
 	i = -1;
 	while (++i <= sh->envn)
+	{
 		if (sh->envp[i][0] && sh->envp[i][0] != '#')
+		{
 			if (ft_strchr(sh->envp[i], '='))
 			{
 				temp = ft_strjoin("echo ", sh->envp[i]);
@@ -95,6 +97,8 @@ int	export_lol(t_shell_stuff *sh)
 				shft_execute_cmd(sh, temp);
 				free(temp);
 			}
+		}
+	}
 	dup2(tempfd, STDOUT_FILENO);
 	shft_execute_cmd(sh, "cat .tempfile | sort -u | awk \'$0=\"declare -x \"$0\'");
 	shft_execute_cmd(sh, "rm .tempfile");

@@ -6,3 +6,5 @@ a
 b)
 
 :: secondo output diverso?? Memoria non reinizializzata, immagino in loco() rimane qualche informazione che si passa da comando a comando. Preovare a resettare le variabili di loco() importanti a fine esecuzione
+
+even the (echo hello) needs to be handeled correctly.

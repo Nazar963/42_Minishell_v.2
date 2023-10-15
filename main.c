@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 20:39:52 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/15 14:12:49 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	fs_check(char fs, char a)
 		return (2);
 	return (fs);
 }
+
 int	shft_ch_one(char **cmd, char *st, int ct)
 {
 	char	*temp;

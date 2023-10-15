@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/14 19:44:15 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 14:13:08 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -654,7 +654,7 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 	return (cmd);
 }
 
-int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)		// free lolollo
+int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 {
 	char	*tmp[2];
 	int		pp[2];
