@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 21:06:34 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 21:13:59 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,14 +119,20 @@ char	*better_parenthesis(char *s)
 	char	*res;
 	int		i;
 	int		j;
+	char	fs;
 
 	i = 0;
 	j = 0;
+	fs = 0;
 	res = malloc(ft_strlen(s) * 2 + 1);
 	while (s[i])
 	{
+		if (s[i] == '\'' && fs != 2)
+			fs = 1;
+		if (s[i] == '\"' && fs != 1)
+			fs = 2;
 		res[j++] = s[i];
-		if (s[i] == '(' || s[i] == ')')
+		if (!fs && (s[i] == '(' || s[i] == ')'))
 			res[j++] = ' ';
 		i++;
 	}

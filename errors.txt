@@ -6,16 +6,9 @@ a
 b)
 
 :: secondo output diverso?? Memoria non reinizializzata, immagino in loco() rimane qualche informazione che si passa da comando a comando. Preovare a resettare le variabili di loco() importanti a fine esecuzione
-
+@#@ CORRETTO: ora il contenuto di loco() viene reinizializzato ad ogni nuova linea
 ----------------------------------------------------------
 even the (echo hello) needs to be handeled correctly.
-----------------------------------------------------------
-
-leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (pwd)
-minishell: '(pwd)': command not found
-
-:: ancora da gestire i comandi singoli messi tra parentesi
-
 ----------------------------------------------------------
 
 leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (((pwd || pwd)))
@@ -23,13 +16,19 @@ minishell: '(pwd': command not found
 minishell: 'pwd))': command not found
 
 :: ????? Gestire parentesi multiple
-!!!!!!! Possibile solzione: quando la linea con tante parentesi è passata del tipo '( ( ( (pwd && ls' allora funziona, quindi potrebbe bastare un parser del comando iniziale che mette degli spazi tra le parentesi (main.c:111)
-
+!!!!!!! Possibile soluzione: quando la linea con tante parentesi è passata del tipo '( ( ( (pwd && ls' allora funziona, quindi potrebbe bastare un parser del comando iniziale che mette degli spazi tra le parentesi (main.c:117)
+@#@ CORRETTO: ora un parser sistema le parentesi, facendo in modo che siano tutte del tipo '( (', ma capita ancora spesso che dia segmentation fault
 ----------------------------------------------------------
 
 leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (echo a || pwd)
 Segmentation fault (core dumped)
 
-:: boh
+:: boh?????
 
 ----------------------------------------------------------
+
+leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (((((pwd |&& ls
+minishell: '( ( ( ( ( pwd': command not found
+minishell: '': command not found
+
+:: qua da errore probabilmente perchè il programma non verifica che | sia un ||, per questo crede che la linea sia come se fosse '(((((pwd ||&&ls'
