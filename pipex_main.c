@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 20:58:39 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 23:23:12 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,10 +289,7 @@ int	shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset)
 
 	p = shft_strchr(cmd, '>', '\'', '\"');
 	if (!p)
-	{
-		word_clean(cmd, ft_strlen(cmd));
-		return (0);
-	}
+		return (word_clean(cmd, ft_strlen(cmd)), 0);
 	*doset = 0;
 	append = 0;
 	if (*(p + 1) == '>')
@@ -415,13 +412,20 @@ int	check_for_bonus(char *cmd)
 {
 	int		i;
 	char	flag;
+	char	fs;
 
 	i = 0;
 	flag = 0;
+	fs = 0;
 	while (cmd[i])
 	{
-		surpass_q_dq(cmd, &i);
-		if (cmd[i] == '&' && cmd[i + 1] == '&')
+		if (cmd[i] == '\'' && fs != 2)
+			fs ^= 1;
+		if (cmd[i] == '\"' && fs != 1)
+			fs ^= 2;
+		if (fs)
+			;
+		else if (cmd[i] == '&' && cmd[i + 1] == '&')
 		{
 			flag = 1;
 			loco()->n++;
@@ -698,5 +702,7 @@ int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
 	dup2(sh->tempfds[1], STDOUT_FILENO);
 	loco()->g_and = 0;
 	loco()->g_or = 0;
+	if (!access(".tempfile", F_OK))
+		shft_execute_cmd(sh, "rm .tempfile");
 	return (sh->lststatus);
 }

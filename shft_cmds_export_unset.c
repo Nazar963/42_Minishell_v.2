@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:34:40 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 21:00:51 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 23:27:01 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,28 +77,27 @@ int	export_ok(char *s)
 
 int	export_lol(t_shell_stuff *sh)
 {
-	int		tempfd;
-	char	*temp;
+	int		tempfds[2];
 	int		i;
+	int		filefd;
 
-	tempfd = dup(STDOUT_FILENO);
+	tempfds[0] = dup(STDOUT_FILENO);
+	tempfds[1] = dup(STDIN_FILENO);
 	i = -1;
+	filefd = open(".tempfile1", O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	while (++i <= sh->envn)
 	{
 		if (sh->envp[i][0] && sh->envp[i][0] != '#')
 		{
-			if (ft_strchr(sh->envp[i], '='))
-			{
-				temp = ft_strjoin("echo ", sh->envp[i]);
-				temp = ft_strjoin_free(temp, " >> .tempfile");
-				shft_execute_cmd(sh, temp);
-				free(temp);
-			}
+			ft_putstr_fd(sh->envp[i], filefd);
+			ft_putstr_fd("\n", filefd);
 		}
 	}
-	dup2(tempfd, STDOUT_FILENO);
-	shft_execute_cmd(sh, "cat .tempfile | sort -u | awk \'$0=\"declare -x \"$0\'");
-	shft_execute_cmd(sh, "rm .tempfile");
+	shft_execute_cmd(sh, "cat .tempfile1 | sort -u | awk \'$0=\"declare -x \"$0\' > .tempfile1");
+	dup2(tempfds[0], STDOUT_FILENO);
+	shft_execute_cmd(sh, "cat .tempfile1");
+	shft_execute_cmd(sh, "rm .tempfile1");
+	dup2(tempfds[1], STDIN_FILENO);
 	return (0);
 }
 

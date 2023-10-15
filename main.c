@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 21:13:59 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 22:39:37 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	fs_check(char fs, char a)
 		return (1);
 	if (a == '\"' && fs != 1)
 		return (2);
-	return (fs);
+	return (0);
 }
 
 int	shft_ch_one(char **cmd, char *st, int ct)
@@ -84,8 +84,6 @@ int	shft_ch_one(char **cmd, char *st, int ct)
 	char	*temp;
 
 	temp = *cmd;
-	while (shft_istab(*temp) && temp[1])
-		temp++;
 	if ((temp[0] == '&' && temp[1] == '&') || (temp[0] == \
 			'|' && temp[1] == '|'))
 	{
@@ -153,12 +151,12 @@ int	shft_ch_checkok(char *cmd)
 	st = 0;
 	while (*cmd)
 	{
-		fs = fs_check(fs, *cmd);
+		while (shft_istab(cmd[0]) && cmd[1])
+			cmd++;
+		fs ^= fs_check(fs, *cmd);
 		if (!fs)
 		{
 			ct = shft_ch_one(&cmd, &st, ct);
-			while (shft_istab(*cmd) && cmd[1])
-				cmd++;
 			if (shft_ch_two(st, lst, ct))
 				return (ft_putstr_fd(ERRSYNTAX, STDERR_FILENO) * 0);
 			lst = st;

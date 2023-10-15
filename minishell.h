@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/14 18:02:04 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 23:06:13 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define CYAN "\001\e[0;36m\002"
 # define UNSET "\001\e[0m\002"
 # define BOLD "\001\e[1m\002"
-# define FILENAME ".file"
+# define FILENAME ".tempfile"
 
 # define BLTINS 0
 
