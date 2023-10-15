@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 10:15:35 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 19:55:44 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	**shft_split1_1(char *s, char c, int *i, int *j)
 		return (NULL);
 	}
 	shft_init_two_vars(i, 0, j, 0);
-	while (s[*i] == ' ')
+	while (shft_istab(s[*i]))
 		*i = *i + 1;
 	return (ft_calloc((count_words(s, c) + 1), 8));
 }
@@ -82,7 +82,7 @@ char	**shft_split1(char *s, char c, char ig1, char ig2)
 		{
 			split[v.b++] = word_dup(s, test_ind[1], v.a);
 			test_ind[1] = -1;
-			while (s[v.a] && s[v.a + 1] == ' ')
+			while (s[v.a] && shft_istab(s[v.a + 1]))
 				v.a++;
 		}
 		v.a++;

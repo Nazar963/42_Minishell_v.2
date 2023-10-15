@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 17:06:11 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/11 09:09:54 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 19:43:41 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*wildcard_process(char *str, int *first, int *last, char ***split_wild)
 	if (!ft_strchr(split[kind], '*'))
 	{
 		ft_free_tab(split);
-		return (str);
+		return (ft_strdup(str));
 	}
 	if (split[kind][0] != '*')
 		*first = 1;

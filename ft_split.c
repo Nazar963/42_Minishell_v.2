@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/11 19:19:53 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:00:49 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*word_dup_bonus(char const *str, int start, int finish)
 
 	i = 0;
 	word = ft_calloc((finish - start + 1), 8);
-	if (start != 0 && str[start] == ' ')
+	if (start != 0 && shft_istab(str[start]))
 		start++;
 	while (start < finish)
 		word[i++] = str[start++];
@@ -186,20 +186,24 @@ char	*ft_split_bonus(char *s, int *index)
 
 void	surpass_q_dq(char *s, int *x)
 {
-	while (s[(*x)] == ' ')
+	char	fs;
+
+	fs = 0;
+	while (shft_istab(s[(*x)]))
 		(*x)++;
 	while (s[(*x)])
 	{
-		if (s[(*x)] == '\'')
-			while (s[++(*x)] != '\'')
-				;
-		if (s[(*x)] == '"')
-			while (s[++(*x)] != '"')
-				;
-		if (s[(*x)] == '&' && s[(*x) + 1] == '&')
-			break ;
-		else if (s[(*x)] == '|' && s[(*x) + 1] == '|')
-			break ;
+		if (s[(*x)] == '\'' && fs != 2)
+			fs = 1;
+		if (s[(*x)] == '\"' && fs != 1)
+			fs = 2;
+		if (!fs)
+		{
+			if (s[(*x)] == '&' && s[(*x) + 1] == '&')
+				break ;
+			else if (s[(*x)] == '|' && s[(*x) + 1] == '|')
+				break ;
+		}
 		(*x)++;
 	}
 }
@@ -234,7 +238,7 @@ char	**control_copy(char **split, char *s, int *i, int *j)
 
 char	**clean_control_copy(int *i, char **split, char *s, int *j)
 {
-	while (s[(*i)] == ' ')
+	while (shft_istab(s[(*i)]))
 		(*i)++;
 	split = control_copy(split, s, i, j);
 	while (s[(*i)] == '&' || s[(*i)] == '|')

@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 11:03:52 by rchallie          #+#    #+#             */
-/*   Updated: 2023/07/27 13:38:51 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 19:46:07 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
 double	ft_atod(const char *str);
 
+int		ft_putstr_fd_1(char *str, int fd);
 int		ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);

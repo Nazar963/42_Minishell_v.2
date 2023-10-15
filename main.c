@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 14:12:49 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:36:44 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,27 @@ int	shft_ch_two(char st, char lst, int ct)
 	return (0);
 }
 
+char	*better_parenthesis(char *s)
+{
+	char	*res;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	res = malloc(ft_strlen(s) * 2 + 1);
+	while (s[i])
+	{
+		res[j++] = s[i];
+		if (s[i] == '(' || s[i] == ')')
+			res[j++] = ' ';
+		i++;
+	}
+	res[j] = '\0';
+	free(s);
+	return (res);
+}
+
 int	shft_ch_checkok(char *cmd)
 {
 	char	st;
@@ -160,6 +181,7 @@ int	main(int argn, char *args[], char *envp[])
 		{
 			if (!shft_ch_checkok(cmd_buff))
 				continue ;
+			cmd_buff = better_parenthesis(cmd_buff);
 			shft_execute_cmd(&shell, cmd_buff);
 			free(cmd_buff);
 		}

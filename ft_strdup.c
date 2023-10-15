@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/07/23 12:11:14 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:24:01 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*ft_strdup(const char *src)
 
 	i = 0;
 	if (!src)
-		return (NULL);
+		return (ft_calloc(1, 8));
 	while (*(src + i))
 		i++;
 	res = ft_calloc(i + 1, 8);

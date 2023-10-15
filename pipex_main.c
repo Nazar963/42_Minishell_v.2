@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 14:13:08 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:07:57 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	**shft_dupenv(t_shell_stuff *sh)
 int	shft_putter(char *s1, char *s2, char *s3, int fd)
 {
 	ft_putstr_fd(s1, fd);
-	ft_putstr_fd(s2, fd);
+	ft_putstr_fd_1(s2, fd);
 	ft_putstr_fd(s3, fd);
 	return (0);
 }
@@ -508,7 +508,7 @@ char	*command_cleaner_and(char *tmp)
 
 	i = 0;
 	j = 0;
-	while (tmp[i] && (tmp[i] == ' ' || tmp[i] == '&'))
+	while (tmp[i] && (shft_istab(tmp[i])|| tmp[i] == '&'))
 		i++;
 	new = ft_calloc(ft_strlen(tmp) - i + 1, sizeof(char));
 	if (!new)

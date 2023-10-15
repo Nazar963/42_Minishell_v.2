@@ -6,7 +6,7 @@
 #    By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 08:42:40 by lpollini          #+#    #+#              #
-#    Updated: 2023/10/14 17:51:17 by lpollini         ###   ########.fr        #
+#    Updated: 2023/10/15 19:47:42 by lpollini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ ft_strdup \
 ft_strlen \
 ft_strncmp \
 ft_strnstr \
-ft_isdigit \
 get_next_line \
 main \
 pipex_main \
