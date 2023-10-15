@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 11:03:52 by rchallie          #+#    #+#             */
-/*   Updated: 2023/10/15 19:46:07 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:44:39 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		ft_intlen(int nbr);
 int		ft_longlen(long nbr);
 
 char	*ft_strchr(const char *str, char c);
-size_t	ft_strlen(const char *s);
+long	ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(char *str, const char *needle, size_t len);
 char	*ft_strrchr(const char *str, char c);

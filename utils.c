@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/14 19:38:08 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 21:04:37 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ char	**execution_and_bonus_helper_1(int doset, char **cmds,
 		control_and_bonus(&fixer, &doset, counter);
 		if (ft_strchr(cmds[0], '('))
 			cmds[0] = clean_cmd(cmds[0]);
-		if (counter == 2 && sh->lststatus == 1 || sh->lststatus == 127
-			|| sh->lststatus == 126 && loco()->exit != 0)
+		if (counter == 2 && (sh->lststatus == 1 || sh->lststatus == 127 
+				|| sh->lststatus == 126) && loco()->exit != 0)
 			break ;
 		else if (counter == 1 && loco()->parentheses == 1)
 			break ;
@@ -126,6 +126,7 @@ char	*cmd_and_cleaner_helper(char *new_cmd, char *cmd,
 char	*cmd_or_cleaner_helper(char *new_cmd, char *cmd,
 	int *j, int *last_para)
 {
+	free(new_cmd);
 	new_cmd = (char *)ft_calloc(ft_strlen(cmd) - (*last_para) + 2,
 			sizeof(char));
 	if (!new_cmd)

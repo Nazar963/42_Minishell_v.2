@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shft_cmds_export_unset.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:34:40 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 14:14:26 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/15 21:00:51 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	shft_cmd_unset(char *cmd, t_shell_stuff *sh)
 	int		line;
 	char	ct;
 
+	ct = 0;
 	if (BLTINS)
 		printf("UNSET BUILTIN\n");
 	cmd += 5;
@@ -57,10 +58,6 @@ int	shft_cmd_unset(char *cmd, t_shell_stuff *sh)
 
 int	export_ok(char *s)
 {
-	int		i;
-	char	*rest;
-
-	i = 0;
 	if (*s == '=' || shft_isallnum(s))
 	{
 		ft_putstr_fd("export: not a valid identifier\n", STDERR_FILENO);
@@ -109,7 +106,6 @@ int	export_lol(t_shell_stuff *sh)
 int	shft_cmd_export(char *cmd, t_shell_stuff *sh)
 {
 	char	*temp[2];
-	int		line;
 	int		t;
 
 	cmd += 6;

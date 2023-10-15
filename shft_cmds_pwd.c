@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:34:40 by lpollini          #+#    #+#             */
-/*   Updated: 2023/07/31 14:38:29 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 21:01:11 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	shft_istab(char c)
 
 int	shft_cmd_pwd(char *cmd, t_shell_stuff *sh)
 {
+	(void)cmd;
 	if (BLTINS)
 		printf("PWD BUILTIN\n");
 	printf("%s\n", shft_getenv("PWD", sh->envp, sh));

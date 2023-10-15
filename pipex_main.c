@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 20:07:57 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:58:39 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ int	command(char *cmd, t_shell_stuff *sh, int doset)
 	char		**args;
 	char		*xpat;
 	int			res;
-	int			i;
 
 	args = shft_split2(cmd, ' ', '\'', '\"');
 	if (access(args[0], F_OK | R_OK) == -1 && access(args[0], F_OK) == 0)
@@ -207,7 +206,6 @@ int	read_stdin(char *limiter)
 	char	*buff;
 	int		pipefd[2];
 	char	*comp;
-	int		i;
 
 	comp = shft_get_word(limiter + 2);
 	pipe(pipefd);
@@ -223,9 +221,23 @@ int	read_stdin(char *limiter)
 	close(pipefd[1]);
 	dup2(pipefd[0], STDIN_FILENO);
 	free(buff);
-	free(comp);
 	limiter[0] = -1;
 	clean_stuff(limiter + 1, ft_strlen(comp));
+	free(comp);
+	return (0);
+}
+
+int	redir_test_access(char *filename, int tempfd, char *cmd)
+{
+	if (access(filename, R_OK) == -1 && access(filename, F_OK) != -1)
+		return(shft_putter("minishell: \'", filename, "\': Permission denied\n", STDERR_FILENO) + 1);
+	else if (tempfd == -1)
+	{
+		shft_putter("minishell: \'", filename,
+			"\': No such file or directory\n", STDERR_FILENO);
+		word_clean(cmd, ft_strlen(cmd));
+		return (1);
+	}
 	return (0);
 }
 
@@ -243,18 +255,14 @@ int	shft_redir_inpt(char *cmd, t_shell_stuff *sh)
 	filename = shft_get_word(p + 1);
 	tempfd = open(filename, O_RDONLY);
 	clean_stuff(p, ft_strlen(filename));
-	if (access(filename, R_OK) == -1 && access(filename, F_OK) != -1)
-		return (free(filename), shft_putter("minishell: \'",
-				filename, "\': Permission denied\n", STDERR_FILENO) + 1);
-	if (tempfd == -1)
+	if (redir_test_access(filename, tempfd, cmd))
 	{
-		shft_putter("minishell: \'", filename,
-			"\': No such file or directory\n", STDERR_FILENO);
-		word_clean(cmd, ft_strlen(cmd));
-		return (free(filename), 1);
+		free(filename);
+		return (1);
 	}
+	free(filename);
 	dup2(tempfd, STDIN_FILENO);
-	return (free(filename), shft_redir_inpt(cmd, sh));
+	return (shft_redir_inpt(cmd, sh));
 }
 
 int	manage_redir_o(char *filename, int tempfd, char *p, int append)
@@ -303,11 +311,9 @@ int	shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset)
 
 void	shft_last_parse_1(char **s)
 {
-	int		test;
 	char	*ori;
 
 	ori = *s;
-	test = 0;
 	while (*ori)
 	{
 		if (*ori == -1)
@@ -339,8 +345,6 @@ void	builtin_temp_creat( void )
 
 int	shft_is_builtin(char *cd)
 {
-	int	i;
-
 	if (shft_strcmp_noend2(cd, "pwd") && shft_strcmp_noend2(cd, "env") && \
 		shft_strcmp_noend2(cd, "echo") && shft_strcmp_noend2(cd, "exit") && \
 		shft_strcmp_noend2(cd, "cd") && shft_strcmp_noend2(cd, "unset") && \
@@ -410,12 +414,10 @@ void	non_executable_handler(char *cmd, t_shell_stuff *sh)
 int	check_for_bonus(char *cmd)
 {
 	int		i;
-	int		flag;
-	char	fs;
+	char	flag;
 
 	i = 0;
 	flag = 0;
-	fs = 0;
 	while (cmd[i])
 	{
 		surpass_q_dq(cmd, &i);
@@ -480,11 +482,7 @@ int	execution_proccess_and_bonus(int *pp, t_shell_stuff *sh, int doset)
 int	execution_proccess_or_bonus(int *pp, t_shell_stuff *sh, int doset)
 {
 	char	**cmds;
-	int		counter;
-	int		fixer;
 
-	counter = -1;
-	fixer = 0;
 	cmds = ft_split_operators(loco()->piece);
 	if (cmds[0][0] == '0')
 		return (ft_free_tab(cmds), sh->lststatus);
@@ -578,6 +576,7 @@ char	*cmd_parentheses_and_cleaner(char *cmd, int first_para, int last_para,
 
 	i = 0;
 	j = 0;
+	new_cmd = NULL;
 	if (sh->lststatus == 1 || sh->lststatus == 127 || sh->lststatus == 126)
 		return (cmd_and_cleaner_helper(new_cmd, cmd, &j, &last_para));
 	while (cmd[i] && (cmd[i] != '&' && cmd[i] != '|'))
@@ -607,11 +606,11 @@ char	*cmd_parentheses_or_cleaner(char *cmd, int first_para, int last_para,
 
 	i = 0;
 	j = 0;
-	if (sh->lststatus == 0)
-		return (cmd_or_cleaner_helper(new_cmd, cmd, &j, &last_para));
 	while (cmd[i] && (cmd[i] != '&' && cmd[i] != '|'))
 		i++;
 	new_cmd = (char *)ft_calloc(ft_strlen(cmd) - i + 2, sizeof(char));
+	if (sh->lststatus == 0)
+		return (cmd_or_cleaner_helper((char *)new_cmd, cmd, &j, &last_para));
 	if (!new_cmd)
 		return (NULL);
 	new_cmd[j++] = '1';
@@ -658,7 +657,6 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 {
 	char	*tmp[2];
 	int		pp[2];
-	int		i;
 	char	*temp;
 
 	tmp[0] = ft_strdup(cmd);

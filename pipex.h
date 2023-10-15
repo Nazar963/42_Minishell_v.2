@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:45:30 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/07 18:30:26 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:46:08 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_stuff
 	char	limiter;
 }	t_stuff;
 
-size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_putstr_fd(char *str, int fd);
 char	*ft_strjoin(char const *s1, char const *s2);

@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/08/18 10:03:30 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:44:14 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char	*word_dup_1(char const *str, int start, int finish)
 {
 	char	*word;
 	int		i;
-	int		j;
 
 	i = 0;
 	word = ft_calloc((finish - start + 1), 8);

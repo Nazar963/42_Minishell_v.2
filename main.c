@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 20:36:44 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 21:06:34 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ t_loco	*loco(void)
 		NULL, NULL, 0, 0, 0, 0, 0, 0, 0};
 
 	return (&loco);
+}
+
+void	reset_loco()
+{
+	*(loco()) = (t_loco){NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		NULL, NULL, 0, 0, 0, 0, 0, 0, 0};
 }
 
 char	fs_check(char fs, char a)
@@ -184,6 +190,7 @@ int	main(int argn, char *args[], char *envp[])
 			cmd_buff = better_parenthesis(cmd_buff);
 			shft_execute_cmd(&shell, cmd_buff);
 			free(cmd_buff);
+			reset_loco();
 		}
 		else
 		{

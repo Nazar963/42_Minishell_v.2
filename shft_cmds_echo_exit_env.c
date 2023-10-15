@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 10:29:55 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/14 18:02:57 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:59:14 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ void	shft_echo_writer(char *cmd)
 int	shft_cmd_echo(char *cmd, t_shell_stuff *sh)
 {
 	char	flag;
-	int		i;
 
+	(void)sh;
 	if (BLTINS)
 		printf("ECHO BUILTIN\n");
 	flag = 0;

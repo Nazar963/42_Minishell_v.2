@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 20:00:49 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:44:53 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,6 @@ char	*ft_split_bonus(char *s, int *index)
 	int		i;
 	int		j;
 	char	*split;
-	char	*tmp;
 
 	*index = count_words_bonus(s);
 	split = (char *)ft_calloc((*index + 1), sizeof(char));
@@ -252,7 +251,6 @@ char	**ft_split_operators(char *s)
 	int		j;
 	int		x;
 	char	**split;
-	char	*tmp;
 
 	loco()->pasta = 0;
 	split = (char **)ft_calloc(3, sizeof(char *));
