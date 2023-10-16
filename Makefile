@@ -6,14 +6,14 @@
 #    By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 08:42:40 by lpollini          #+#    #+#              #
-#    Updated: 2023/10/15 23:26:51 by lpollini         ###   ########.fr        #
+#    Updated: 2023/10/16 11:31:10 by lpollini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 	
 CC			= cc -g 
-FLAGS		= -Wall -Wextra -Werror
+FLAGS		= #-Wall -Wextra -Werror
 RM			= rm -rf
 
 OBJDIR = .objFiles

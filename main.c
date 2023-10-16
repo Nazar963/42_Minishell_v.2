@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 22:39:37 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/16 12:01:01 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,10 @@ int	main(int argn, char *args[], char *envp[])
 			if (!shft_ch_checkok(cmd_buff))
 				continue ;
 			cmd_buff = better_parenthesis(cmd_buff);
+
+			// printf("@@@%s\n", cmd_parentheses_and_cleaner(cmd_buff,
+			// 		2, 5, &shell));
+					
 			shft_execute_cmd(&shell, cmd_buff);
 			free(cmd_buff);
 			reset_loco();

@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 23:23:12 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/16 12:00:44 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -423,18 +423,8 @@ int	check_for_bonus(char *cmd)
 			fs ^= 1;
 		if (cmd[i] == '\"' && fs != 1)
 			fs ^= 2;
-		if (fs)
-			;
-		else if (cmd[i] == '&' && cmd[i + 1] == '&')
-		{
-			flag = 1;
-			loco()->n++;
-		}
-		else if (cmd[i] == '|' && cmd[i + 1] == '|')
-		{
-			flag = 1;
-			loco()->n++;
-		}
+		else if (!fs && ((cmd[i] == '&' && cmd[i + 1] == '&') || (cmd[i] == '|' && cmd[i + 1] == '|')))
+			flag = 1 + 0 * loco()->n++;
 		i++;
 	}
 	if (flag)
@@ -527,21 +517,19 @@ char	*command_cleaner_and(char *tmp)
 
 void	check_for_operator(char *cmd)
 {
-	int	i;
+	int		i;
+	char	fs;
 
 	i = -1;
+	fs = 0;
 	while (cmd[++i])
 	{
-		if (cmd[i] == '\'')
-		{
-			while (cmd[++i] == '\'')
-				;
-		}
-		if (cmd[i] == '"')
-		{
-			while (cmd[++i] == '"')
-				;
-		}
+		if (cmd[i] == '\'' && fs != 2)
+			fs ^= 1;
+		if (cmd[i] == '\"' && fs != 1)
+			fs ^= 2;
+		if (fs)
+			continue ;
 		if (cmd[i] == '&' && cmd[i + 1] == '&')
 			loco()->and = 1;
 		else if (cmd[i] == '|' && cmd[i + 1] == '|')
@@ -597,6 +585,7 @@ char	*cmd_parentheses_and_cleaner(char *cmd, int first_para, int last_para,
 			i++;
 		new_cmd[j++] = cmd[i++];
 	}
+	new_cmd[j] = '\0';
 	free(cmd);
 	return (new_cmd);
 }
@@ -630,6 +619,32 @@ char	*cmd_parentheses_or_cleaner(char *cmd, int first_para, int last_para,
 	return (new_cmd);
 }
 
+char	*clearer_lol(char *cmd, t_shell_stuff *sh)
+{
+	char	*res;
+	int		ct;
+	int		i;
+	int		j;
+
+	ct = 0;
+	res = malloc(ft_strlen(cmd) + 1);
+	i = 0;
+	j = 0;
+	while (cmd[i] && cmd[i] != '|' && cmd[i] != '&')
+		i++;
+	while (cmd[i])
+	{
+		if (cmd[i] == '(' && !ct++)
+			i++;
+		if (cmd[i] == ')' && !--ct)
+			i++;
+		res[j++] = cmd[i++];
+	}
+	res[j] = '\0';
+	free(cmd);
+	return (res);
+}
+
 char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 {
 	char	*temp;
@@ -647,8 +662,10 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 			free(loco()->piece);
 			temp = ft_strdup_len(cmd, loco()->i);
 			loco()->piece = temp;
-			cmd = cmd_parentheses_and_cleaner(cmd,
-					loco()->first_para, loco()->i, sh);
+			// cmd = cmd_parentheses_and_cleaner(cmd,
+			// 		loco()->first_para, loco()->i, sh);
+			cmd = clearer_lol(cmd, sh);
+			free(temp);
 		}
 		else if (loco()->or == 1)
 			cmd = parentheses_helper_3(cmd, sh, pp, doset);
@@ -666,7 +683,7 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	tmp[0] = ft_strdup(cmd);
 	if (check_for_bonus(tmp[0]) == 1)
 	{
-		while (loco()->n-- > 0)
+		while (loco()->n-- >= 0)
 		{
 			temp = ft_split_bonus(tmp[0], &loco()->index);
 			loco()->piece = temp;

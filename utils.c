@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/15 21:04:37 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/16 12:02:59 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,8 @@ void	parentheses_helper_1(char *cmd, t_shell_stuff *sh,
 
 void	parentheses_helper_2(char *cmd)
 {
-	while (cmd[++loco()->i])
+	loco()->i = 0;
+	while (cmd[loco()->i])
 	{
 		if (cmd[loco()->i] == '(')
 		{
@@ -178,9 +179,10 @@ void	parentheses_helper_2(char *cmd)
 			loco()->count--;
 		if (loco()->count == 0 && loco()->start_flag == 1)
 			break ;
+		loco()->i++;
 	}
 	loco()->z = loco()->i - 1;
-	while (cmd[++loco()->z])
+	while (cmd[loco()->z])
 	{
 		if ((cmd[loco()->z] == '&' && cmd[loco()->z + 1] == '&')
 			|| (cmd[loco()->z] == '|' && cmd[loco()->z + 1] == '|'))
@@ -189,6 +191,7 @@ void	parentheses_helper_2(char *cmd)
 			loco()->out_to_pipe = 1;
 		if (loco()->out_to_pipe == 1)
 			break ;
+		loco()->z++;
 	}
 }
 
@@ -247,7 +250,7 @@ char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 		sh->lststatus = execution_proccess_and_bonus(&pp[0], sh, doset);
 	else if (loco()->or)
 		sh->lststatus = execution_proccess_or_bonus(&pp[0], sh, doset);
-	tmp = cmd_cleaner(tmp, loco()->index, sh);
+	tmp = cmd_cleaner(tmp, 0, sh);
 	if (loco()->parentheses != 1 && (loco()->g_and == 1 || loco()->g_or == 1))
 	{
 		loco()->g_and = 0;
