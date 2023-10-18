@@ -1,47 +1,60 @@
-leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (echo a && echo b)
-a
-b
-leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (echo a && echo b)
-a
-b)
-
-:: secondo output diverso?? Memoria non reinizializzata, immagino in loco() rimane qualche informazione che si passa da comando a comando. Preovare a resettare le variabili di loco() importanti a fine esecuzione
-@#@ CORRETTO: ora il contenuto di loco() viene reinizializzato ad ogni nuova linea
+(((pwd) || pwd) && echo hello)
 ----------------------------------------------------------
-even the (echo hello) needs to be handeled correctly.
-----------------------------------------------------------
+(pwd && ls) && pwd
 
-leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (((pwd || pwd)))
-minishell: '(pwd': command not found
-minishell: 'pwd))': command not found
+ls a* && echo hello || ls
 
-:: ????? Gestire parentesi multiple
-!!!!!!! Possibile soluzione: quando la linea con tante parentesi è passata del tipo '( ( ( (pwd && ls' allora funziona, quindi potrebbe bastare un parser del comando iniziale che mette degli spazi tra le parentesi (main.c:117)
-@#@ CORRETTO: ora un parser sistema le parentesi, facendo in modo che siano tutte del tipo '( (', ma capita ancora spesso che dia segmentation fault
-----------------------------------------------------------
+ls a* && echo hello || ls && echo shit
 
-leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (echo a || pwd)
-Segmentation fault (core dumped)
+ls a* && echo hello && ls && echo shit
 
-:: boh?????
+# ---------------------------------------------------------------------------- #
 
-----------------------------------------------------------
+  497  (pwd |&& ls
+  498  ((pwd |&& ls
+  499  (pwd
+  500  (pwd
+  501  ls a* && echo hello || ls
+  502  (((pwd || pwd)))
+  503  (((pwd || pwd)))
+  504  (((pwd || pwd)))
+  505  (((pwd || pwd)))
+  506  ((pwd || pwd))
+  507  (pwd || pwd)
+  508  (((pwd) || pwd) && echo hello)
+  509  ( ( ( pwd || pwd ) ) )
+  510  (( ( pwd || pwd ) ))
+  511  ((( pwd || pwd )))
+  512  ( (  ( pwd || pwd )  ) )
+  513  (( (  ( pwd || pwd )  ) ))
+  514  ( ( (  ( pwd || pwd )  ) ) )
+  515  (( (  ( pwd || pwd )  ) )) echo hello
+  516  (( (  ( pwd || pwd )  ) )) && echo hello
+  517  (( (  ( pwd || pwd )  ) )) && (echo hello)
+  518  echo hello && (( (  ( pwd || pwd )  ) )) && (echo hello)
+  519  echo hello && ( ( (  ( pwd || pwd )  ) )) && (echo hello)
+  520  echo hello && (( (  ( pwd || pwd )  ) )) && (echo hello)
+  521  echo hello && (( (  ( pwd || pwd )  ) ) ) && (echo hello)
+  522  echo hello && (( (  ( pwd || pwd )  ) ) ) && (echo hello)
+  523  echo hello && (( (  ( pwd || pwd )  ) ) ) && (echo hello) | ls
+  524  echo hello && (( (  ( pwd || pwd )  ) ) ) && (echo hello) | ls
+  525  echo hello && (( (  ( pwd || pwd )  ) )) && (echo hello) | ls
+  526  echo hello && (( (  ( pwd || pwd )  ) )) && (echo hello) | ls
+  527  clear
+  528  echo hello && (( (  ( pwd || pwd )  ) ) ) && (echo hello) | ls
+  529  echo hello && ( ( (  ( pwd || pwd )  ) )) && (echo hello) | ls
+  530  clear
+  531  echo hello && (( (  ( pwd || pwd )  ) | ls ))
+  532  echo hello && (( (  ( pwd || pwd )  ) | ls ) )
+  533  echo hello && ( ( (  ( pwd || pwd )  ) | ls ))
 
-leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (((((pwd |&& ls
-minishell: '( ( ( ( ( pwd': command not found
-minishell: '': command not found
+# ---------------------------------------------------------------------------- #
+#             To check if the output should be considered an error             #
+# ---------------------------------------------------------------------------- #
+(((((pwd |&& ls
 
-:: qua da errore probabilmente perchè il programma non verifica che | sia un ||, per questo crede che la linea sia come se fosse '(((((pwd ||&&ls'
+# ---------------------------------------------------------------------------- #
+#   not returning an error because a check for the parenthesis is made first   #
+# ---------------------------------------------------------------------------- #
+(((((pwd |&& ls)))))
 
-----------------------------------------------------------
-
-leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (pwd && ls) && pwd
-/home/leonardo/Desktop/42_stuff_new/Minishell_v.2
-aoa      a.out        errors.txt        ft_atoi.c     ft_itoa.c       ft_split_1.c  ft_strchr.c  ft_strncmp.c     get_next_line.h  main.c     minishell.h   prompt_stuff.c  shft_cmds_cd_2.c           shft_cmds_export_unset.c  str_stuff.c  wildcard
-aoablah  blahaoa      executor.c        ft_calloc.c   ft_memmove.c    ft_split_2.c  ft_strdup.c  ft_strnstr.c     goomdline        Makefile   pipex.h       pwd             shft_cmds_echo_exit.c      shft_cmds_pwd.c           tests
-aooa     env_stuff.c  executor_utils.c  ft_isalnum.c  ft_putstr_fd.c  ft_split.c    ft_strlen.c  get_next_line.c  libft.h          minishell  pipex_main.c  readline.supp   shft_cmds_echo_exit_env.c  sources.a                 utils.c
-aoa      a.out        errors.txt        ft_atoi.c     ft_itoa.c       ft_split_1.c  ft_strchr.c  ft_strncmp.c     get_next_line.h  main.c     minishell.h   prompt_stuff.c  shft_cmds_cd_2.c           shft_cmds_export_unset.c  str_stuff.c  wildcard
-aoablah  blahaoa      executor.c        ft_calloc.c   ft_memmove.c    ft_split_2.c  ft_strdup.c  ft_strnstr.c     goomdline        Makefile   pipex.h       pwd             shft_cmds_echo_exit.c      shft_cmds_pwd.c           tests
-aooa     env_stuff.c  executor_utils.c  ft_isalnum.c  ft_putstr_fd.c  ft_split.c    ft_strlen.c  get_next_line.c  libft.h          minishell  pipex_main.c  readline.supp   shft_cmds_echo_exit_env.c  sources.a 
-
-:: duplicazione dell'output di ls. Sembra che nella funzione che fa scorrere i comandi della linea quando ci sono le parentesi si confonde e duplica il comando prima della fine parentesi

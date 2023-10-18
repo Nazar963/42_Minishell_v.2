@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/18 14:44:12 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/18 18:21:37 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,81 @@ int	shft_ch_two(char st, char lst, int ct)
 	return (0);
 }
 
+char	*final_check(char *str)
+{
+	int		i;
+	int		j;
+	int		counter;
+	char	*new_str;
+
+	i = 0;
+	j = 0;
+	counter = 0;
+	while (str[i])
+	{
+		if (str[i] == '(')
+			counter++;
+		else if (str[i] == ')')
+			counter--;
+		i++;
+	}
+	i = 0;
+	if (counter)
+	{
+		new_str = ft_calloc(ft_strlen(str) + 1 - counter, sizeof(char));
+		while (str[i])
+		{
+			if (str[i] == '(' ||str[i] == ')')
+			{
+				i++;
+				continue ;
+			}
+			new_str[j] = str[i];
+			i++;
+			j++;
+		}
+		free(str);
+		return (new_str);
+	}
+	return (str);
+}
+
+char	*check_for_right_parenthesis(char *s)
+{
+	int		i;
+	int		open_pare;
+	int		close_pare;
+	int		double_first;
+	char	*new_str;
+
+	i = 0;
+	open_pare = 0;
+	close_pare = 0;
+	double_first = 0;
+	while (s[i])
+	{
+		if (s[i] == '(' && s[i + 1] == '(')
+		{
+			if (i == 0)
+				double_first = 1;
+			open_pare = i;
+		}
+		if (s[i] == ')' && s[i + 1] == ')')
+		{
+			close_pare = 1;
+			break ;
+		}
+		i++;
+	}
+	if ((open_pare && close_pare) || (double_first && close_pare))
+	{
+		new_str = ft_strdup_len(s, open_pare - 1);
+		new_str = final_check(new_str);
+		return (new_str);
+	}
+	return (NULL);
+}
+
 char	*better_parenthesis(char *s)
 {
 	char	*res;
@@ -122,6 +197,13 @@ char	*better_parenthesis(char *s)
 	i = 0;
 	j = 0;
 	fs = 0;
+	res = NULL;
+	res = check_for_right_parenthesis(s);
+	if (res)
+	{
+		free(s);
+		return (res);
+	}
 	res = malloc(ft_strlen(s) * 2 + 1);
 	while (s[i])
 	{
