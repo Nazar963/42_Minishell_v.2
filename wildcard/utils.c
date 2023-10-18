@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 10:38:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/11 10:21:07 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:28:12 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
 #include "../minishell.h"
 
 char	*ft_realloc(char *pointer, int size)

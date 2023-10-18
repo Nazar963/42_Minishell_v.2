@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 11:03:52 by rchallie          #+#    #+#             */
-/*   Updated: 2023/10/15 20:44:39 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:53:25 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 # define LIBFT_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
+#  define BUFFER_SIZE 42
 # endif
+# define OPEN_MAX 
+# define ALOT 99999
 
 # include <unistd.h>
 # include <stdio.h>
@@ -26,6 +28,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <stddef.h>
 
 /* *********************************** */
 /*                                     */
@@ -111,12 +114,14 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void*));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void *));
 
-/* *********************************** */
-/*                                     */
-/*           estra shieet              */
-/*                                     */
-/* *********************************** */
+/* -------------------------------------------------------------------------- */
+/*                                get_next_line                               */
+/* -------------------------------------------------------------------------- */
 
+int		has_char(char *test, char a);
+char	*ft_my_strdup(char *todo);
+int		ft_insert(char *dest, char *soos, int *i);
+int		ft_charge_buff(char	*toch, int fd);
 char	*get_next_line(int fd);
 
 #endif

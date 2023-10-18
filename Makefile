@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+         #
+#    By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 08:42:40 by lpollini          #+#    #+#              #
-#    Updated: 2023/10/16 11:31:10 by lpollini         ###   ########.fr        #
+#    Updated: 2023/10/18 15:55:18 by naal-jen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,21 +21,6 @@ OBJDIR = .objFiles
 FILES		= env_stuff \
 executor \
 executor_utils \
-ft_atoi \
-ft_calloc \
-ft_isalnum \
-ft_itoa \
-ft_memmove \
-ft_putstr_fd \
-ft_split_2 \
-ft_split_1 \
-ft_split \
-ft_strchr \
-ft_strdup \
-ft_strlen \
-ft_strncmp \
-ft_strnstr \
-get_next_line \
 main \
 pipex_main \
 prompt_stuff \
@@ -44,6 +29,9 @@ shft_cmds_cd_2 \
 shft_cmds_export_unset \
 shft_cmds_pwd \
 str_stuff \
+ft_split_1 \
+ft_split_2 \
+ft_split_utils \
 utils \
 wildcard/parse \
 wildcard/utils \
@@ -51,11 +39,12 @@ wildcard/utils_1 \
 
 SRC			= $(FILES:=.c)
 OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
-HEADER		= minishell.h libft.h get_next_line.h
+HEADER		= minishell.h
+LDFLAGS		= -Llibft
 
 #Colors:
 GREEN		=	\e[92;5;118m
-YELLOW		=	\e[93;5;226m
+YELLOW		=	\e[93;5;226m 
 GRAY		=	\e[33;2;37m
 RESET		=	\e[0m
 CURSIVE		=	\e[33;3m
@@ -65,12 +54,13 @@ ifeq ($(DEBUG), 1)
    OPTS = -g -Wall -Wextra -Werror
 endif
 
-.PHONY: all clean fclean re bonus norm
+all: libft $(NAME)
 
-all: $(NAME)
+libft:
+	$(MAKE) -C libft
 
 $(NAME): $(OBJ) $(HEADER)
-	@$(CC) $(OBJ) -lreadline $(OPTS) -o $(NAME)
+	@$(CC) $(OBJ) -lreadline -lft $(OPTS) $(LDFLAGS) -o $(NAME)
 	@printf "$(_SUCCESS) $(GREEN)- Executable ready.\n$(RESET)"
 
 $(OBJDIR)/%.o: %.c $(HEADER)
@@ -85,6 +75,9 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME)
+	@$(MAKE) -C libft fclean
 	@printf "$(YELLOW)    - Executable removed.$(RESET)\n"
 
 re: fclean all
+
+.PHONY: all libft clean fclean re bonus norm

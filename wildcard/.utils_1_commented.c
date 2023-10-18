@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   .utils_1_commented.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 19:56:27 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/14 19:36:00 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:28:13 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
 #include "../minishell.h"
 
 char	*add_operator(char *new_new_str, char **str)

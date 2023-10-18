@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/18 14:18:33 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:57:40 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <stddef.h>
-# include "get_next_line.h"
-# include "libft.h"
+# include "libft/libft.h"
 
 # define FILENAMELEN 4
 # define BIG 999
@@ -58,6 +57,18 @@
 # define PROMPT "minishell_by_lpollini&nizz"
 # define ERRSYNTAX "minishell: syntax error lol\n"
 # define PROMPTSIZEMAX 199
+
+# define WELLDONE 0
+# define NEOUGHINPT 1
+# define ALLRECIEVED 2
+# define ALLSENT -2
+# define NOINFILE -3
+# define NOOUTF 3
+# define CMDNOTFOUND 4
+# define PIPECREATERR -4
+# define OTHRERR 5
+# define TRUNCFLAGS 01101
+# define APPENDFLAGS 02101
 
 typedef struct s_loco
 {
