@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/18 13:52:50 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:48:31 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -569,7 +569,7 @@ char	*cmd_parentheses_and_cleaner(char *cmd, int first_para, int last_para,
 	i = 0;
 	j = 0;
 	new_cmd = NULL;
-	if (sh->lststatus == 1 || sh->lststatus == 127 || sh->lststatus == 126)
+	if (sh->lststatus) //== 1 || sh->lststatus == 127 || sh->lststatus == 126)
 		return (cmd_and_cleaner_helper(new_cmd, cmd, &j, &last_para));
 	while (cmd[i] && (cmd[i] != '&' && cmd[i] != '|'))
 		i++;

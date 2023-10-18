@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/16 12:02:59 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:50:13 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ char	*parentheses_helper_3(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 
 char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 {
-	if (ft_strchr(tmp, ')') && !ft_strchr(tmp, '('))
+	if (ft_strchr(tmp, ')') || ft_strchr(tmp, '('))
 		tmp = clean_cmd(tmp);
 	if (loco()->g_or == 1 && sh->lststatus == 0)
 		return ((void *)0);

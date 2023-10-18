@@ -32,3 +32,16 @@ minishell: '( ( ( ( ( pwd': command not found
 minishell: '': command not found
 
 :: qua da errore probabilmente perchè il programma non verifica che | sia un ||, per questo crede che la linea sia come se fosse '(((((pwd ||&&ls'
+
+----------------------------------------------------------
+
+leonardo@minishell_by_lpollini&nizz:~/Desktop/42_stuff_new/Minishell_v.2$ (pwd && ls) && pwd
+/home/leonardo/Desktop/42_stuff_new/Minishell_v.2
+aoa      a.out        errors.txt        ft_atoi.c     ft_itoa.c       ft_split_1.c  ft_strchr.c  ft_strncmp.c     get_next_line.h  main.c     minishell.h   prompt_stuff.c  shft_cmds_cd_2.c           shft_cmds_export_unset.c  str_stuff.c  wildcard
+aoablah  blahaoa      executor.c        ft_calloc.c   ft_memmove.c    ft_split_2.c  ft_strdup.c  ft_strnstr.c     goomdline        Makefile   pipex.h       pwd             shft_cmds_echo_exit.c      shft_cmds_pwd.c           tests
+aooa     env_stuff.c  executor_utils.c  ft_isalnum.c  ft_putstr_fd.c  ft_split.c    ft_strlen.c  get_next_line.c  libft.h          minishell  pipex_main.c  readline.supp   shft_cmds_echo_exit_env.c  sources.a                 utils.c
+aoa      a.out        errors.txt        ft_atoi.c     ft_itoa.c       ft_split_1.c  ft_strchr.c  ft_strncmp.c     get_next_line.h  main.c     minishell.h   prompt_stuff.c  shft_cmds_cd_2.c           shft_cmds_export_unset.c  str_stuff.c  wildcard
+aoablah  blahaoa      executor.c        ft_calloc.c   ft_memmove.c    ft_split_2.c  ft_strdup.c  ft_strnstr.c     goomdline        Makefile   pipex.h       pwd             shft_cmds_echo_exit.c      shft_cmds_pwd.c           tests
+aooa     env_stuff.c  executor_utils.c  ft_isalnum.c  ft_putstr_fd.c  ft_split.c    ft_strlen.c  get_next_line.c  libft.h          minishell  pipex_main.c  readline.supp   shft_cmds_echo_exit_env.c  sources.a 
+
+:: duplicazione dell'output di ls. Sembra che nella funzione che fa scorrere i comandi della linea quando ci sono le parentesi si confonde e duplica il comando prima della fine parentesi
