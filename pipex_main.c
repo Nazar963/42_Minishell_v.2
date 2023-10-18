@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/16 12:00:44 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:52:50 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -662,9 +662,9 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 			free(loco()->piece);
 			temp = ft_strdup_len(cmd, loco()->i);
 			loco()->piece = temp;
-			// cmd = cmd_parentheses_and_cleaner(cmd,
-			// 		loco()->first_para, loco()->i, sh);
-			cmd = clearer_lol(cmd, sh);
+			cmd = cmd_parentheses_and_cleaner(cmd,
+					loco()->first_para, loco()->i, sh);
+			//cmd = clearer_lol(cmd, sh);
 			free(temp);
 		}
 		else if (loco()->or == 1)
@@ -683,7 +683,7 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	tmp[0] = ft_strdup(cmd);
 	if (check_for_bonus(tmp[0]) == 1)
 	{
-		while (loco()->n-- >= 0)
+		while (loco()->n-- > 0)
 		{
 			temp = ft_split_bonus(tmp[0], &loco()->index);
 			loco()->piece = temp;
