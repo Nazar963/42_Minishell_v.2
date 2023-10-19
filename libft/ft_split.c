@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/17 17:51:21 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:21:20 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,59 +78,3 @@ char	**ft_split(char const *s, char c)
 	split[j] = NULL;
 	return (split);
 }
-
-
-
-
-
-// char	**ft_split_operators(char *s)
-// {
-// 	int		counter;
-// 	int		i;
-// 	int		j;
-// 	int		y;
-// 	int		x;
-// 	char	**split;
-// 	char	*tmp;
-
-// 	counter = 0;
-// 	y = 0;
-// 	split = (char **)ft_calloc(3, sizeof(char *));
-// 	if (!s || !split)
-// 		return (0);
-// 	shft_init_two_vars(&i, 0, &j, 0);
-// 	while (++counter <= 2)
-// 	{
-// 		x = i;
-// 		surpass_q_dq(s, &x);
-// 		split[j] = (char *)ft_calloc(x + 1, sizeof(char));
-// 		x = 0;
-// 		while (s[i] == ' ')
-// 			i++;
-// 		while (s[i])
-// 		{
-// 			if (s[i] == '\'')
-// 			{
-// 				split[j][y++] = s[i++];
-// 				while (s[i] != '\'')
-// 					split[j][y++] = s[i++];
-// 			}
-// 			if (s[i] == '"')
-// 			{
-// 				split[j][y++] = s[i++];
-// 				while (s[++i] != '"')
-// 					split[j][y++] = s[i++];
-// 			}
-// 			if (s[i] == '&' && s[i + 1] == '&')
-// 				break ;
-// 			else if (s[i] == '|' && s[i + 1] == '|')
-// 				break ;
-// 			split[j][y++] = s[i++];
-// 		}
-// 		while (s[i] == '&' || s[i] == '|')
-// 			i++;
-// 		j++;
-// 		y = 0;
-// 	}
-// 	return (split);
-// }

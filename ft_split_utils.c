@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:49:05 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/17 17:51:05 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:23:52 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,91 +112,5 @@ char	*ft_split_bonus(char *s, int *index)
 	shft_init_two_vars(&i, 0, &j, 0);
 	split = word_dup_bonus(s, 0, *index);
 	split[*index + 1] = '\0';
-	return (split);
-}
-
-void	surpass_q_dq(char *s, int *x)
-{
-	char	fs;
-
-	fs = 0;
-	while (shft_istab(s[(*x)]))
-		(*x)++;
-	while (s[(*x)])
-	{
-		if (s[(*x)] == '\'' && fs != 2)
-			fs = 1;
-		if (s[(*x)] == '\"' && fs != 1)
-			fs = 2;
-		if (!fs)
-		{
-			if (s[(*x)] == '&' && s[(*x) + 1] == '&')
-				break ;
-			else if (s[(*x)] == '|' && s[(*x) + 1] == '|')
-				break ;
-		}
-		(*x)++;
-	}
-}
-
-char	**control_copy(char **split, char *s, int *i, int *j)
-{
-	int	y;
-
-	y = 0;
-	while (s[(*i)])
-	{
-		if (s[(*i)] == '\'')
-		{
-			split[(*j)][y++] = s[(*i)++];
-			while (s[(*i)] != '\'')
-				split[(*j)][y++] = s[(*i)++];
-		}
-		if (s[(*i)] == '"')
-		{
-			split[(*j)][y++] = s[(*i)++];
-			while (s[++(*i)] != '"')
-				split[(*j)][y++] = s[(*i)++];
-		}
-		if (s[(*i)] == '&' && s[(*i) + 1] == '&')
-			break ;
-		else if (s[(*i)] == '|' && s[(*i) + 1] == '|')
-			break ;
-		split[(*j)][y++] = s[(*i)++];
-	}
-	return (split);
-}
-
-char	**clean_control_copy(int *i, char **split, char *s, int *j)
-{
-	while (shft_istab(s[(*i)]))
-		(*i)++;
-	split = control_copy(split, s, i, j);
-	while (s[(*i)] == '&' || s[(*i)] == '|')
-		(*i)++;
-	return (split);
-}
-
-char	**ft_split_operators(char *s)
-{
-	int		i;
-	int		j;
-	int		x;
-	char	**split;
-
-	loco()->pasta = 0;
-	split = (char **)ft_calloc(3, sizeof(char *));
-	if (!s || !split)
-		return (0);
-	shft_init_two_vars(&i, 0, &j, 0);
-	while (++loco()->pasta <= 2)
-	{
-		x = i;
-		surpass_q_dq(s, &x);
-		split[j] = (char *)ft_calloc(x + 1, sizeof(char));
-		x = 0;
-		split = clean_control_copy(&i, split, s, &j);
-		j++;
-	}
 	return (split);
 }

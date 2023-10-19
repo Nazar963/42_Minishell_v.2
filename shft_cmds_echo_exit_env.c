@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shft_cmds_echo_exit_env.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 10:29:55 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 20:59:14 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:26:46 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	shft_cmd_env(char *cmd, t_shell_stuff *sh)
-{
-	int	i;
-
-	if (BLTINS)
-		printf("ENV BUILTIN\n");
-	cmd += 3;
-	while (shft_istab(*cmd))
-		cmd++;
-	if (*cmd)
-	{
-		ft_putstr_fd("env: too many arguments\n", STDERR_FILENO);
-		return (127);
-	}
-	i = -1;
-	while (++i <= sh->envn)
-		if (sh->envp[i][0] && sh->envp[i][0] != '#')
-			if (ft_strchr(sh->envp[i], '='))
-				printf("%s\n", sh->envp[i]);
-	return (0);
-}
 
 int	ft_isnumber(const char *s)
 {

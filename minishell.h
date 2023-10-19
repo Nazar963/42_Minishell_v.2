@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/18 15:57:40 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:19:51 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,5 +297,24 @@ char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset,
 			char *tmp);
 char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset,
 			char *tmp);
+
+/* ------------------------------- main_init.c ------------------------------ */
+char	*creat_prompt(t_shell_stuff *shell, char *cmd_buff);
+t_loco	*loco(void);
+void	reset_loco(void);
+
+/* ------------------------------ main_check.c ------------------------------ */
+char	fs_check(char fs, char a);
+int		shft_ch_one(char **cmd, char *st, int ct);
+int		shft_ch_two(char st, char lst, int ct);
+int		shft_ch_checkok(char *cmd);
+
+/* -------------------------- parenthesis_pareser.c ------------------------- */
+char	*final_check_copy(char *str, int counter);
+char	*final_check(char *str);
+void	check_for_right_parenthesis_helper(char *s, int *double_first,
+			int *open_pare, int *close_pare);
+char	*check_for_right_parenthesis(char *s);
+char	*better_parenthesis(char *s);
 
 #endif

@@ -6,36 +6,23 @@
 #    By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 08:42:40 by lpollini          #+#    #+#              #
-#    Updated: 2023/10/18 15:55:18 by naal-jen         ###   ########.fr        #
+#    Updated: 2023/10/19 15:46:19 by naal-jen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 	
 CC			= cc -g 
-FLAGS		= #-Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror
 RM			= rm -rf
 
 OBJDIR = .objFiles
 
-FILES		= env_stuff \
-executor \
-executor_utils \
-main \
-pipex_main \
-prompt_stuff \
-shft_cmds_echo_exit_env \
-shft_cmds_cd_2 \
-shft_cmds_export_unset \
-shft_cmds_pwd \
-str_stuff \
-ft_split_1 \
-ft_split_2 \
-ft_split_utils \
-utils \
-wildcard/parse \
-wildcard/utils \
-wildcard/utils_1 \
+FILES		= env_stuff executor executor_utils ft_split_1 ft_split_2 ft_split_utils ft_split_utils_1 \
+	main main_check main_init operator_checker_bonus parenthesis_bonus parenthesis_parser pipex_main_helper_1 \
+	pipex_main_helper_2 pipex_main_helper_3 pipex_main_helper pipex_main prompt_stuff shft_cmds_cd_2 \
+	shft_cmds_echo_exit_env_helper shft_cmds_echo_exit_env shft_cmds_export_unset shft_cmds_pwd str_stuff \
+	utils_bonus utils_bonus_1 utils_bonus_2 wildcard/parse wildcard/utils wildcard/utils_1
 
 SRC			= $(FILES:=.c)
 OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
