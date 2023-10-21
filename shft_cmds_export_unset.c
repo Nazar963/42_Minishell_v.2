@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:34:40 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/21 15:54:19 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:59:20 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ int	export_lol(t_shell_stuff *sh)
 			ft_putstr_fd("\n", filefd);
 		}
 	}
-	shft_execute_cmd(sh,
-		"/usr/bin/cat .tempfile1 | /usr/bin/sort -u | /usr/bin/awk \'$0=\"declare -x \"$0\' > .tempfile1");
+	shft_execute_cmd(sh, "/usr/bin/cat .tempfile1 | /usr/bin/sort -u | \
+				/usr/bin/awk \'$0=\"declare -x \"$0\' > .tempfile1");
 	dup2(tempfds[0], STDOUT_FILENO);
 	shft_execute_cmd(sh, "/usr/bin/cat .tempfile1");
 	shft_execute_cmd(sh, "/usr/bin/rm .tempfile1");
