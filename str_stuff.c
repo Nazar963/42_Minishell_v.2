@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_stuff.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:31:35 by lpollini          #+#    #+#             */
-/*   Updated: 2023/07/19 17:23:25 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:39:52 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_memmove(rtn + s1_len, s2, s2_len);
 	rtn[stot_len - 1] = '\0';
 	return (rtn);
+}
+
+int	shft_isallnum(char *s)
+{
+	while (*s <= '9' && *s >= '0')
+		s++;
+	if (*s != '=' && (shft_istab(*s) || !*s))
+		return (1);
+	return (0);
 }

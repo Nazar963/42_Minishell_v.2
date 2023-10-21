@@ -1,1 +1,0 @@
-make re && valgrind --suppressions=readline.supp --show-leak-kinds=all --leak-check=full ./minishell
