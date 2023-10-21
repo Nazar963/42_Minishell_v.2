@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shft_cmds_export_unset.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:34:40 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/19 15:29:26 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:54:19 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ int	export_lol(t_shell_stuff *sh)
 		}
 	}
 	shft_execute_cmd(sh,
-		"cat .tempfile1 | sort -u | awk \'$0=\"declare -x \"$0\' > .tempfile1");
+		"/usr/bin/cat .tempfile1 | /usr/bin/sort -u | /usr/bin/awk \'$0=\"declare -x \"$0\' > .tempfile1");
 	dup2(tempfds[0], STDOUT_FILENO);
-	shft_execute_cmd(sh, "cat .tempfile1");
-	shft_execute_cmd(sh, "rm .tempfile1");
+	shft_execute_cmd(sh, "/usr/bin/cat .tempfile1");
+	shft_execute_cmd(sh, "/usr/bin/rm .tempfile1");
 	dup2(tempfds[1], STDIN_FILENO);
 	return (0);
 }

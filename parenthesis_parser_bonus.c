@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parenthesis_parser.c                               :+:      :+:    :+:   */
+/*   parenthesis_parser_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:15:11 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/19 13:15:20 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:49:43 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,10 @@ char	*final_check_copy(char *str, int counter)
 char	*final_check(char *str)
 {
 	int		i;
-	int		j;
 	int		counter;
 	char	*new_str;
 
 	i = 0;
-	j = 0;
 	counter = 0;
 	while (str[i])
 	{
