@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 17:06:11 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/21 16:49:41 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/21 17:01:05 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ char	*process_mutli_wild_card(char *str)
 			free(to_be_processed);
 			continue ;
 		}
-		if (shft_strchr(to_be_processed, '(', '\'', '\"') || 
-					shft_strchr(to_be_processed, ')', '\'', '\"'))
+		if (shft_strchr(to_be_processed, '(', '\'', '\"')
+			|| shft_strchr(to_be_processed, ')', '\'', '\"'))
 			to_be_processed = clean_cmd(to_be_processed);
 		to_be_processed = check_for_wildcard_normal(to_be_processed);
 		new_new_str = add_command_processed(to_be_processed, new_new_str);

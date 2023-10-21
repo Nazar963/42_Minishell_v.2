@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/19 16:19:51 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/21 17:00:29 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 
 # define NBLOL "9223372036854775808"
 # define PROMPT "minishell_by_lpollini&nizz"
-# define ERRSYNTAX "minishell: syntax error lol\n"
+# define ERRSYNTAX "minishell: syntax error\n"
 # define PROMPTSIZEMAX 199
 
 # define WELLDONE 0
