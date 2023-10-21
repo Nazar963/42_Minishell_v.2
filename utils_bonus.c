@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/21 16:46:45 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/21 18:07:01 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 		sh->lststatus = execution_proccess_and_bonus(&pp[0], sh, doset);
 	else if (loco()->or)
 		sh->lststatus = execution_proccess_or_bonus(&pp[0], sh, doset);
-	tmp = cmd_cleaner(tmp, 0, sh);
+	tmp = cmd_cleaner(tmp, loco()->index, sh);
 	if (loco()->parentheses != 1 && (loco()->g_and == 1 || loco()->g_or == 1))
 	{
 		loco()->g_and = 0;
