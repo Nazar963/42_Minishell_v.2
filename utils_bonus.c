@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/19 15:38:10 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/21 16:46:45 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 {
-	if (ft_strchr(tmp, ')') || ft_strchr(tmp, '('))
+	if (shft_strchr(tmp, ')', '\'', '\"') || shft_strchr(tmp, '(', '\'', '\"'))
 		tmp = clean_cmd(tmp);
 	if (loco()->g_or == 1 && sh->lststatus == 0)
 		return ((void *)0);

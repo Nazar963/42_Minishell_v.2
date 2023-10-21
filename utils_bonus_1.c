@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:37:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/19 15:37:10 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/21 16:48:27 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**execution_and_bonus_helper_1(int doset, char **cmds,
 	while (++counter < 2)
 	{
 		control_and_bonus(&fixer, &doset, counter);
-		if (ft_strchr(cmds[0], '('))
+		if (shft_strchr(cmds[0], '(', '\'', '\"'))
 			cmds[0] = clean_cmd(cmds[0]);
 		if (counter == 2 && (sh->lststatus == 1 || sh->lststatus == 127
 				|| sh->lststatus == 126) && loco()->exit != 0)
@@ -88,7 +88,7 @@ char	**execution_or_bonus_helper_1(int doset, char **cmds,
 	while (++counter < 2)
 	{
 		control_and_bonus(&fixer, &doset, counter);
-		if (ft_strchr(cmds[0], '('))
+		if (shft_strchr(cmds[0], '(', '\'', '\"'))
 			cmds[0] = clean_cmd(cmds[0]);
 		if (counter == 1 && sh->lststatus == 0)
 			break ;

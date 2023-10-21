@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 17:06:11 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/17 18:28:14 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/21 16:49:41 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ char	*wildcard_process(char *str, int *first, int *last, char ***split_wild)
 	char	**split;
 	char	*new_str;
 
-	if (!ft_strchr(str, '*'))
+	if (!shft_strchr(str, '*', '\"', '\"'))
 		return (ft_strdup(str));
 	split = ft_split(str, ' ');
 	if (ft_strlen_arr((void **)split) == 3)
 		kind = 2;
 	else
 		kind = 1;
-	if (!ft_strchr(split[kind], '*'))
+	if (!shft_strchr(split[kind], '*', '\'', '\"'))
 	{
 		ft_free_tab(split);
 		return (ft_strdup(str));
@@ -106,7 +106,7 @@ char	*process_mutli_wild_card(char *str)
 	while (*str)
 	{
 		to_be_processed = split_wild(str);
-		if (!ft_strchr(to_be_processed, '*'))
+		if (!shft_strchr(to_be_processed, '*', '\'', '\"'))
 		{
 			new_new_str = add_command_processed(to_be_processed, new_new_str);
 			str += ft_strlen(to_be_processed);
@@ -114,7 +114,8 @@ char	*process_mutli_wild_card(char *str)
 			free(to_be_processed);
 			continue ;
 		}
-		if (ft_strchr(to_be_processed, '(') || ft_strchr(to_be_processed, ')'))
+		if (shft_strchr(to_be_processed, '(', '\'', '\"') || 
+					shft_strchr(to_be_processed, ')', '\'', '\"'))
 			to_be_processed = clean_cmd(to_be_processed);
 		to_be_processed = check_for_wildcard_normal(to_be_processed);
 		new_new_str = add_command_processed(to_be_processed, new_new_str);

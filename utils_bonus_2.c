@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:37:21 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/19 15:38:13 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/21 16:48:37 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	parentheses_helper_1(char *cmd, t_shell_stuff *sh,
 
 	temp = ft_split_bonus(cmd, &loco()->index);
 	loco()->piece = temp;
-	if (ft_strchr(loco()->piece, '('))
+	if (shft_strchr(loco()->piece, '(', '\'', '\"'))
 	{
 		loco()->and = 0;
 		loco()->or = 0;

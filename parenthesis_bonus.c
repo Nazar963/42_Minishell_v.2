@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parenthesis_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:20:48 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/19 16:42:47 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/21 16:47:35 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 {
 	char	*temp;
 
-	if (ft_strchr(loco()->piece, '('))
+	if (shft_strchr(loco()->piece, '(', '\'', '\"'))
 	{
 		loco()->index = 0;
 		loco()->parentheses = 1;
