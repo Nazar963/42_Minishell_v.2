@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/21 16:47:06 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/22 11:46:50 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,9 @@ int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
 	dup2(sh->tempfds[1], STDOUT_FILENO);
 	loco()->g_and = 0;
 	loco()->g_or = 0;
+	if (!access(".tempfile01", F_OK))
+		shft_execute_cmd(sh, "/usr/bin/rm -f .tempfile01");
 	if (!access(".tempfile", F_OK))
-		shft_execute_cmd(sh, "rm .tempfile");
+		shft_execute_cmd(sh, "/usr/bin/rm -f .tempfile");
 	return (sh->lststatus);
 }

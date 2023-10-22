@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/19 15:16:36 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/22 11:29:30 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 
 void	sigint_handle(int a)
 {
+	if (loco()->sigpass)
+		kill(loco()->forkpid, a);
+	if (a == SIGQUIT && loco()->sigpass)
+		ft_putstr_fd("Quit (core dumped)", STDERR_FILENO);
+	else if (a == SIGQUIT)
+		return ;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	if (!loco()->sigpass)
 		rl_redisplay();
-	loco()->sigpass = a;
+	loco()->sigpass = 0;
 }
 
 void	shft_init(t_shell_stuff *sh, char *args[], char *envp[], int argn)

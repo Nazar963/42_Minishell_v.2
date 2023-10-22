@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/21 15:54:43 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/22 11:15:42 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@ int	command_fork(char **args, t_shell_stuff *sh, int doset)
 
 	pipe(pipefd);
 	fpid = fork();
+	loco()->forkpid = fpid;
 	if (fpid)
 	{
 		if (doset)
 			dup2(pipefd[0], STDIN_FILENO);
 		close (pipefd[1]);
-		waitpid(fpid, &res, 0);
-		return (WEXITSTATUS(res));
+		return (waitpid(fpid, &res, 0), WEXITSTATUS(res));
 	}
 	if (doset)
 		dup2(pipefd[1], STDOUT_FILENO);
 	envdp = shft_dupenv(sh);
 	close (pipefd[0]);
 	execve(args[0], args, envdp);
-	shft_putter("minishell: \'", args[0], "\': Is a directory\n", STDERR_FILENO);
+	shft_putter("minishell: \'", args[0], "\': Is a directory\n", ERRSTD);
 	sh->doexit = 1;
 	sh->exit_code = 126;
 	ft_free_tab(envdp);

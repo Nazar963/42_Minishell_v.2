@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/21 17:00:29 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/22 11:42:02 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@
 # define UNSET "\001\e[0m\002"
 # define BOLD "\001\e[1m\002"
 # define FILENAME ".tempfile"
+# define FILENAME1 ".tempfile01"
+# define ERRSTD	STDERR_FILENO
 
 # define BLTINS 0
 
@@ -94,6 +96,8 @@ typedef struct s_loco
 	int				i;
 	int				z;
 	int				pasta;
+	long			forkpid;
+	char			redir_n_pipe;
 }	t_loco;
 
 typedef struct s_vector4_int
@@ -255,7 +259,7 @@ int		manage_redir_o(char *filename, int tempfd, char *p, int append);
 int		shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset);
 void	shft_last_parse_1(char **s);
 int		shft_redirections(char **cmd, t_shell_stuff *sh, int *doset);
-void	builtin_temp_creat( void );
+void	builtin_temp_creat(char mode);
 int		shft_is_builtin(char *cd);
 int		builtin_cmds(char *cd, t_shell_stuff *sh, int doset);
 char	*littel_better(char *s);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator_checker_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:21:41 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/19 15:38:55 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/22 11:15:17 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

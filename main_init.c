@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:18:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/19 13:19:46 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/22 11:42:17 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*creat_prompt(t_shell_stuff *shell, char *cmd_buff)
 t_loco	*loco(void)
 {
 	static t_loco	loco = {NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		NULL, NULL, 0, 0, 0, 0, 0, 0, 0};
+		NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 	return (&loco);
 }
@@ -31,5 +31,5 @@ t_loco	*loco(void)
 void	reset_loco(void)
 {
 	*(loco()) = (t_loco){NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		NULL, NULL, 0, 0, 0, 0, 0, 0, 0};
+		NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 }

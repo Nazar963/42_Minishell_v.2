@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main_helper_3.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:28 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/19 15:25:53 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/22 11:41:09 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,25 @@ void	shft_last_parse_1(char **s)
 	word_clean(*s, ft_strlen(*s));
 }
 
+void	builtin_temp_creat(char mode)
+{
+	int	filefd;
+
+	filefd = open(FILENAME1, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	if (!mode)
+		dup2(filefd, STDOUT_FILENO);
+	filefd = open(FILENAME1, O_RDONLY);
+	dup2(filefd, STDIN_FILENO);
+}
+
 int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset)
 {
 	if (shft_redir_inpt(*cmd, sh) || shft_redir_outpt(*cmd, sh, doset))
 		return (1);
+	if (loco()->redir_n_pipe)
+		builtin_temp_creat(1);
 	shft_last_parse_1(cmd);
 	return (0);
-}
-
-void	builtin_temp_creat( void )
-{
-	int	filefd;
-
-	filefd = open(FILENAME, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	dup2(filefd, STDOUT_FILENO);
-	filefd = open(FILENAME, O_RDONLY);
-	dup2(filefd, STDIN_FILENO);
 }
 
 int	shft_is_builtin(char *cd)
@@ -61,7 +64,7 @@ int	builtin_cmds(char *cd, t_shell_stuff *sh, int doset)
 	int	res;
 
 	if (doset)
-		builtin_temp_creat();
+		builtin_temp_creat(0);
 	res = 0x7fffffff;
 	if (!shft_strcmp_noend2(cd, "echo"))
 		res = shft_cmd_echo(cd, sh);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main_helper_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:08 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/19 15:25:17 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/22 11:37:27 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ int	shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset)
 		*p = -1;
 	if (manage_redir_o(filename, tempfd, p, append))
 		return (free(filename), 1);
+	loco()->redir_n_pipe = 1;
 	return (free(filename), shft_redir_outpt(cmd, sh, doset));
 }
