@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/22 11:42:02 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:07:06 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,17 @@ typedef struct s_loco
 	long			forkpid;
 	char			redir_n_pipe;
 }	t_loco;
+
+typedef struct s_pare
+{
+	int		nested;
+	char	*pare_piece;
+	int		index;
+	char	*new_str;
+	int		first;
+	int		last;
+	int		controll;
+}	t_pare;
 
 typedef struct s_vector4_int
 {
@@ -301,11 +312,14 @@ char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset,
 			char *tmp);
 char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset,
 			char *tmp);
+char	*shft_ft_tp_helper_nizz(int *pp, t_shell_stuff *sh,
+			int doset, char *tmp);
 
 /* ------------------------------- main_init.c ------------------------------ */
 char	*creat_prompt(t_shell_stuff *shell, char *cmd_buff);
 t_loco	*loco(void);
 void	reset_loco(void);
+t_pare	*pare(void);
 
 /* ------------------------------ main_check.c ------------------------------ */
 char	fs_check(char fs, char a);
@@ -320,5 +334,47 @@ void	check_for_right_parenthesis_helper(char *s, int *double_first,
 			int *open_pare, int *close_pare);
 char	*check_for_right_parenthesis(char *s);
 char	*better_parenthesis(char *s);
+
+int		executed_command_last(t_shell_stuff *sh, int *pp, int doset, char *cmd);
+
+void	shft_ft_tp_hleper_1_1(char *temp);
+void	shft_ft_tp_hleper_1_0(void);
+
+/* ---------------------------- new_parentheses_1 --------------------------- */
+char	*command_parentheses_clean(char *cmd);
+int		splitted_command_parentheses_clean_1(char *splitted_cmd, int *f);
+char	*splitted_command_parentheses_clean(char *splitted_cmd);
+char	*status_adding_cmd_cleaning(char *cmd, t_shell_stuff *sh);
+void	executed_command(t_shell_stuff *sh,
+			int *pp, int doset, char *splitted_cmd);
+
+/* ---------------------------- new_parentheses_2 --------------------------- */
+int		executed_command_last(t_shell_stuff *sh, int *pp, int doset, char *cmd);
+void	remove_status_operator_1_1(char *cmd, int i);
+char	*remove_status_operator_1(char *cmd, char *new_str, int i, int j);
+char	*remove_status_operator(char *cmd);
+int		shit_helper(char *cmd, int *i);
+
+/* ---------------------------- new_parentheses_3 --------------------------- */
+char	*shit(char *cmd, int *i);
+int		recursive_cleanup_1(char *cmd, int *i);
+void	recursive_cleanup_init(int *loco);
+int		recursive_cleanup_2(char *cmd, int *i);
+int		recursive_cleanup_3(char *cmd, int *i);
+
+/* ---------------------------- new_parentheses_4 --------------------------- */
+char	*recursive_cleanup(char *cmd, int *i);
+char	*remove_status_operator_cmd(char *cmd);
+char	*status_check_and_clean(char *cmd);
+char	*handle_exec_pare(t_shell_stuff *sh, int *pp, int doset, char *cmd);
+char	*check_for_parentheses(char *cmd,
+			t_shell_stuff *sh, int *pp, int doset);
+
+/* ----------------------------- new_parentheses ---------------------------- */
+char	*clean_piece(int f, int l, t_shell_stuff *sh);
+void	clean_loco_piece(int first_index, int last_index);
+char	*cmd_pare_clean(char *cmd);
+char	*split_one_cmd(char *cmd);
+void	command_parentheses_clean_1(char *cmd, int i);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parenthesis_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:20:48 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/21 16:47:35 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:59:24 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*cmd_cleaner(char *tmp, int index, t_shell_stuff *sh)
 		new_tmp[i++] = tmp[index++];
 	}
 	free(tmp);
+	tmp = NULL;
 	return (new_tmp);
 }
 
@@ -115,32 +116,4 @@ char	*clearer_lol(char *cmd)
 	res[j] = '\0';
 	free(cmd);
 	return (res);
-}
-
-char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
-{
-	char	*temp;
-
-	if (shft_strchr(loco()->piece, '(', '\'', '\"'))
-	{
-		loco()->index = 0;
-		loco()->parentheses = 1;
-		if (loco()->and == 1)
-		{
-			if (loco()->piece[0] != '0' && loco()->piece[0] != '1')
-				sh->lststatus = execution_proccess_and_bonus(pp, sh, doset);
-			loco()->i--;
-			parentheses_helper_2(cmd);
-			free(loco()->piece);
-			temp = ft_strdup_len(cmd, loco()->i);
-			loco()->piece = temp;
-			cmd = cmd_parentheses_and_cleaner(cmd,
-					loco()->first_para, loco()->i, sh);
-			free(temp);
-		}
-		else if (loco()->or == 1)
-			cmd = parentheses_helper_3(cmd, sh, pp, doset);
-		parentheses_helper_1(cmd, sh, pp, doset);
-	}
-	return (cmd);
 }

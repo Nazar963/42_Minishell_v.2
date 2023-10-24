@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parenthesis_parser_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:15:11 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/21 15:49:43 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:44:56 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,50 +60,6 @@ char	*final_check(char *str)
 	return (str);
 }
 
-void	check_for_right_parenthesis_helper(char *s, int *double_first,
-	int *open_pare, int *close_pare)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '(' && s[i + 1] == '(')
-		{
-			if (i == 0)
-				*double_first = 1;
-			*open_pare = i;
-		}
-		if (s[i] == ')' && s[i + 1] == ')')
-		{
-			*close_pare = 1;
-			break ;
-		}
-		i++;
-	}
-}
-
-char	*check_for_right_parenthesis(char *s)
-{
-	int		open_pare;
-	int		close_pare;
-	int		double_first;
-	char	*new_str;
-
-	open_pare = 0;
-	close_pare = 0;
-	double_first = 0;
-	check_for_right_parenthesis_helper(s, &double_first,
-		&open_pare, &close_pare);
-	if ((open_pare && close_pare) || (double_first && close_pare))
-	{
-		new_str = ft_strdup_len(s, open_pare - 1);
-		new_str = final_check(new_str);
-		return (new_str);
-	}
-	return (NULL);
-}
-
 char	*better_parenthesis(char *s)
 {
 	char	*res;
@@ -114,10 +70,6 @@ char	*better_parenthesis(char *s)
 	i = -1;
 	j = 0;
 	fs = 0;
-	res = NULL;
-	res = check_for_right_parenthesis(s);
-	if (res)
-		return (free(s), res);
 	res = malloc(ft_strlen(s) * 2 + 1);
 	while (s[++i])
 	{

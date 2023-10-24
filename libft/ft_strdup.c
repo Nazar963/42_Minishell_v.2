@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/15 20:45:17 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:43:56 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,26 @@ char	*ft_strdup(const char *src)
 		i++;
 	}
 	*(res + i) = '\0';
+	return (res);
+}
+
+char	*ft_strdup_fr_to(const char *src, int from, int to)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	if (!src)
+		return (NULL);
+	res = (char *)ft_calloc(to - from + 1, sizeof(char));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (from < to)
+	{
+		res[i] = src[from];
+		i++;
+		from++;
+	}
 	return (res);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/22 11:46:50 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:45:13 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	tmp[0] = ft_strdup(cmd);
 	if (check_for_bonus(tmp[0]) == 1)
 	{
-		while (loco()->n-- > 0)
+		while (loco()->n-- > 0 && tmp[0])
 		{
 			temp = ft_split_bonus(tmp[0], &loco()->index);
 			loco()->piece = temp;

@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/21 18:07:01 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:56:08 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 {
-	if (shft_strchr(tmp, ')', '\'', '\"') || shft_strchr(tmp, '(', '\'', '\"'))
+	if (ft_strchr(tmp, ')') || ft_strchr(tmp, '('))
 		tmp = clean_cmd(tmp);
 	if (loco()->g_or == 1 && sh->lststatus == 0)
 		return ((void *)0);
@@ -44,14 +44,82 @@ char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 {
 	char	*temp;
+	int		temp_n;
 
 	temp = check_for_wildcard_normal(loco()->piece);
 	loco()->piece = temp;
-	tmp = check_for_parentheses(tmp, sh, &pp[0], doset);
+	temp_n = loco()->n;
+	if (ft_strchr(loco()->piece, '('))
+	{
+		tmp = check_for_parentheses(tmp, sh, &pp[0], doset);
+		temp = ft_split_bonus(tmp, &loco()->index);
+		temp = check_for_wildcard_normal(temp);
+		shft_ft_tp_hleper_1_1(temp);
+		if (loco()->and == 0 && loco()->or == 0 && loco()->parentheses == 1)
+			sh->lststatus = executed_command_last(sh, pp, doset, loco()->piece);
+		loco()->parentheses = 0;
+	}
+	loco()->n = temp_n;
+	check_for_operator(loco()->piece);
 	if (loco()->and)
 		sh->lststatus = execution_proccess_and_bonus(&pp[0], sh, doset);
 	else if (loco()->or)
 		sh->lststatus = execution_proccess_or_bonus(&pp[0], sh, doset);
+	tmp = cmd_cleaner(tmp, loco()->index, sh);
+	shft_ft_tp_hleper_1_0();
+	return (tmp);
+}
+
+int	execution_proccess_and_nizz(int *pp, t_shell_stuff *sh, int doset)
+{
+	char	**cmds;
+
+	cmds = ft_split_operators(pare()->pare_piece);
+	if (cmds[0][0] == '1')
+		return (ft_free_tab(cmds), sh->lststatus);
+	else if (cmds[0][0] == '0')
+	{
+		if (cmds[1][0] == '0')
+			return (sh->lststatus);
+		loco()->counter = 1;
+		if (execution_bonus_helper(cmds, pp, sh, doset) == 69)
+			return (sh->lststatus);
+	}
+	else
+		cmds = execution_and_bonus_helper_1(doset, cmds, sh, pp);
+	ft_free_tab(cmds);
+	return (sh->lststatus);
+}
+
+int	execution_proccess_or_nizz(int *pp, t_shell_stuff *sh, int doset)
+{
+	char	**cmds;
+
+	cmds = ft_split_operators(pare()->pare_piece);
+	if (cmds[0][0] == '0')
+		return (ft_free_tab(cmds), sh->lststatus);
+	else if (cmds[0][0] == '1')
+	{
+		loco()->counter = 1;
+		if (execution_bonus_helper(cmds, pp, sh, doset) == 69)
+			return (sh->lststatus);
+	}
+	else
+		cmds = execution_or_bonus_helper_1(doset, cmds, sh, pp);
+	ft_free_tab(cmds);
+	return (sh->lststatus);
+}
+
+char	*shft_ft_tp_helper_nizz(int *pp,
+	t_shell_stuff *sh, int doset, char *tmp)
+{
+	char	*temp;
+
+	temp = check_for_wildcard_normal(tmp);
+	if (loco()->and)
+		sh->lststatus = execution_proccess_and_nizz(pp, sh, doset);
+	else if (loco()->or)
+		sh->lststatus = execution_proccess_or_nizz(pp, sh, doset);
 	tmp = cmd_cleaner(tmp, loco()->index, sh);
 	if (loco()->parentheses != 1 && (loco()->g_and == 1 || loco()->g_or == 1))
 	{
@@ -65,7 +133,7 @@ char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 	}
 	loco()->and = 0;
 	loco()->or = 0;
-	free(loco()->piece);
+	free(pare()->pare_piece);
 	loco()->out_to_pipe = 0;
 	return (tmp);
 }

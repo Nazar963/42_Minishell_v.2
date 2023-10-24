@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/22 11:29:30 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:45:25 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,3 +87,5 @@ int	main(int argn, char *args[], char *envp[])
 	}
 	shft_exit(&shell);
 }
+
+//* ((echo hello && pwd) && (echo yes && ls)) && ls

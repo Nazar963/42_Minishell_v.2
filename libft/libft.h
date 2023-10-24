@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 11:03:52 by rchallie          #+#    #+#             */
-/*   Updated: 2023/10/17 17:53:25 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/21 21:35:26 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char	*ft_strrchr(const char *str, char c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 char	*ft_strdup(const char *str);
+char	*ft_strdup_fr_to(const char *src, int from, int to);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_substr(char const *s, unsigned int start, size_t len);

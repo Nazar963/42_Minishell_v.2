@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:18:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/22 11:42:17 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/24 17:07:07 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,11 @@ void	reset_loco(void)
 {
 	*(loco()) = (t_loco){NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+}
+
+t_pare	*pare(void)
+{
+	static t_pare	pare = {0, NULL, 0, NULL, 0, 0, 0};
+
+	return (&pare);
 }
