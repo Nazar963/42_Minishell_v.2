@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:34:40 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/25 17:00:55 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:56:36 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	shft_cmd_export(char *cmd, t_shell_stuff *sh)
 	char	*temp[2];
 
 	cmd += 6;
-	printf("called. %s\n", cmd);
 	while (shft_istab(*cmd))
 		cmd++;
 	if (BLTINS)

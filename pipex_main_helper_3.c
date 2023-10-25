@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:28 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/22 11:41:09 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/25 18:09:39 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	builtin_temp_creat(char mode)
 int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset)
 {
 	if (shft_redir_inpt(*cmd, sh) || shft_redir_outpt(*cmd, sh, doset))
-		return (1);
-	if (loco()->redir_n_pipe)
+		return (sh->lststatus = 1, 1);
+	if (loco()->redir_n_pipe && doset)
 		builtin_temp_creat(1);
 	shft_last_parse_1(cmd);
 	return (0);
