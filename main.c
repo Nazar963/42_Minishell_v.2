@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/24 20:45:25 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:07:14 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	sigint_handle(int a)
 	if (loco()->sigpass)
 		kill(loco()->forkpid, a);
 	if (a == SIGQUIT && loco()->sigpass)
+	{
 		ft_putstr_fd("Quit (core dumped)", STDERR_FILENO);
+		rl_redisplay();
+	}
 	else if (a == SIGQUIT)
 		return ;
 	write(1, "\n", 1);

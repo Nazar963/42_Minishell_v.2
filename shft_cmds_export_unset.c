@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:34:40 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/21 16:44:20 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:26:23 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,31 @@ int	shft_cmd_unset(char *cmd, t_shell_stuff *sh)
 	return (0);
 }
 
+int	export_lol(t_shell_stuff *sh)
+{
+	int		tempfds[2];
+	int		i;
+	int		filefd;
+
+	tempfds[1] = dup(STDIN_FILENO);
+	i = 0;
+	filefd = open(".tempfile1", O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	while (i <= sh->envn)
+	{
+		if (sh->envp[i][0] && sh->envp[i][0] != '#')
+		{
+			ft_putstr_fd("declare -x ", filefd);
+			ft_putstr_fd(sh->envp[i], filefd);
+			ft_putstr_fd("\n", filefd);
+		}
+		i++;
+	}
+	shft_execute_cmd(sh, "/usr/bin/sort .tempfile1");
+	shft_execute_cmd(sh, "/usr/bin/rm .tempfile1");
+	dup2(tempfds[1], STDIN_FILENO);
+	return (0);
+}
+
 int	export_ok(char *s)
 {
 	if (*s == '=' || shft_isallnum(s))
@@ -73,33 +98,6 @@ int	export_ok(char *s)
 	if (!*s || shft_istab(*s))
 		return (0);
 	return (-1);
-}
-
-int	export_lol(t_shell_stuff *sh)
-{
-	int		tempfds[2];
-	int		i;
-	int		filefd;
-
-	tempfds[0] = dup(STDOUT_FILENO);
-	tempfds[1] = dup(STDIN_FILENO);
-	i = -1;
-	filefd = open(".tempfile1", O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	while (++i <= sh->envn)
-	{
-		if (sh->envp[i][0] && sh->envp[i][0] != '#')
-		{
-			ft_putstr_fd(sh->envp[i], filefd);
-			ft_putstr_fd("\n", filefd);
-		}
-	}
-	shft_execute_cmd(sh, "/usr/bin/cat .tempfile1 | /usr/bin/sort -u | \
-				/usr/bin/awk \'$0=\"declare -x \"$0\' > .tempfile1");
-	dup2(tempfds[0], STDOUT_FILENO);
-	shft_execute_cmd(sh, "/usr/bin/cat .tempfile1");
-	shft_execute_cmd(sh, "/usr/bin/rm .tempfile1");
-	dup2(tempfds[1], STDIN_FILENO);
-	return (0);
 }
 
 //* EXPORT builtin*/

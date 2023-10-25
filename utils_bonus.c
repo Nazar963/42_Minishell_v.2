@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/24 20:56:08 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:20:16 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,14 @@ int	execution_proccess_or_nizz(int *pp, t_shell_stuff *sh, int doset)
 	ft_free_tab(cmds);
 	return (sh->lststatus);
 }
-
+// 
 char	*shft_ft_tp_helper_nizz(int *pp,
 	t_shell_stuff *sh, int doset, char *tmp)
 {
 	char	*temp;
 
 	temp = check_for_wildcard_normal(tmp);
+	(void)temp;
 	if (loco()->and)
 		sh->lststatus = execution_proccess_and_nizz(pp, sh, doset);
 	else if (loco()->or)
