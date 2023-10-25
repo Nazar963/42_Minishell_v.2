@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/25 15:20:16 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:05:03 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 {
-	if (ft_strchr(tmp, ')') || ft_strchr(tmp, '('))
+	if (shft_strchr(tmp, ')', '\'', '\"') || shft_strchr(tmp, '(', '\'', '\"'))
 		tmp = clean_cmd(tmp);
 	if (loco()->g_or == 1 && sh->lststatus == 0)
 		return ((void *)0);
@@ -49,7 +49,7 @@ char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 	temp = check_for_wildcard_normal(loco()->piece);
 	loco()->piece = temp;
 	temp_n = loco()->n;
-	if (ft_strchr(loco()->piece, '('))
+	if (shft_strchr(loco()->piece, '(', '\'', '\"'))
 	{
 		tmp = check_for_parentheses(tmp, sh, &pp[0], doset);
 		temp = ft_split_bonus(tmp, &loco()->index);
@@ -67,7 +67,7 @@ char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 		sh->lststatus = execution_proccess_or_bonus(&pp[0], sh, doset);
 	tmp = cmd_cleaner(tmp, loco()->index, sh);
 	shft_ft_tp_hleper_1_0();
-	return (tmp);
+	return (free(temp), tmp);
 }
 
 int	execution_proccess_and_nizz(int *pp, t_shell_stuff *sh, int doset)
@@ -109,7 +109,8 @@ int	execution_proccess_or_nizz(int *pp, t_shell_stuff *sh, int doset)
 	ft_free_tab(cmds);
 	return (sh->lststatus);
 }
-// 
+
+/* -Werror -Wextra: variable 'temp' set but not used (solved by void cast) --*/
 char	*shft_ft_tp_helper_nizz(int *pp,
 	t_shell_stuff *sh, int doset, char *tmp)
 {

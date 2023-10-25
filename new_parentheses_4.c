@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parentheses_4.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:59:36 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/24 20:13:20 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:03:06 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ char	*handle_exec_pare(t_shell_stuff *sh, int *pp, int doset, char *cmd)
 {
 	char	*splitted_cmd;
 
-	while (ft_strchr(cmd, '('))
+	while (shft_strchr(cmd, '(', '\'', '\"'))
 	{
 		splitted_cmd = split_one_cmd(cmd);
-		while (ft_strchr(splitted_cmd, '('))
+		while (shft_strchr(splitted_cmd, '(', '\'', '\"'))
 		{
 			cmd = command_parentheses_clean(cmd);
 			pare()->first = 0;
@@ -116,7 +116,7 @@ char	*handle_exec_pare(t_shell_stuff *sh, int *pp, int doset, char *cmd)
 
 char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, int doset)
 {
-	if (ft_strchr(loco()->piece, '('))
+	if (shft_strchr(loco()->piece, '(', '\'', '\"'))
 	{
 		cmd = handle_exec_pare(sh, pp, doset, cmd);
 		loco()->index = ft_strlen(loco()->piece);

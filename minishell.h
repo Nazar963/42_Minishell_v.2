@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/24 20:07:06 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:58:05 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 # define NBLOL "9223372036854775808"
 # define PROMPT "minishell_by_lpollini&nizz"
 # define ERRSYNTAX "minishell: syntax error\n"
+# define ERRBADASS "minishell: export: bad assignment\n"
 # define PROMPTSIZEMAX 199
 
 # define WELLDONE 0
@@ -211,6 +212,8 @@ int		shft_rmdirone(char *s, int lim);
 char	*build_put(t_shell_stuff *sh);
 char	*better_pwd(char *pwd, const char *usr);
 char	*shft_prompt(t_shell_stuff *sh, int dofree);
+int		export_lol(t_shell_stuff *sh);
+char	*ft_strdup_clean(char *s);
 int		shft_execute_cmd(t_shell_stuff *sh, char *str);
 char	*shft_strchr(const char *s, char c, char ig1, char ig2);
 char	*shft_strrchr(const char *s, char c, char ig1, char ig2);
