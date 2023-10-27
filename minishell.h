@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/25 17:56:53 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/27 23:56:23 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@
 # define PROMPT "minishell_by_lpollini&nizz"
 # define ERRSYNTAX "minishell: syntax error\n"
 # define ERRBADASS "minishell: export: bad assignment\n"
-# define PROMPTSIZEMAX 199
+# define LIMITERMSG "\nminishell: warning: heredoc reached EOF before limiter \
+(expected \'"
+# define PROMPTSIZEMAX 299
 
 # define WELLDONE 0
 # define NEOUGHINPT 1
@@ -99,6 +101,7 @@ typedef struct s_loco
 	int				pasta;
 	long			forkpid;
 	char			redir_n_pipe;
+	char			limiter_flag;
 }	t_loco;
 
 typedef struct s_pare
@@ -264,10 +267,10 @@ char	**shft_dupenv(t_shell_stuff *sh);
 int		shft_putter(char *s1, char *s2, char *s3, int fd);
 int		command_fork(char **args, t_shell_stuff *sh, int doset);
 int		command(char *cmd, t_shell_stuff *sh, int doset);
-char	*shft_get_word(char *in);
+char	*shft_get_word(char *in, char end);
 void	word_clean(char *str, int len);
 void	clean_stuff(char *s, int l);
-int		read_stdin(char *limiter);
+int		read_stdin(char *limiter, t_shell_stuff *sh);
 int		shft_redir_inpt(char *cmd, t_shell_stuff *sh);
 int		manage_redir_o(char *filename, int tempfd, char *p, int append);
 int		shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset);
@@ -323,6 +326,7 @@ char	*creat_prompt(t_shell_stuff *shell, char *cmd_buff);
 t_loco	*loco(void);
 void	reset_loco(void);
 t_pare	*pare(void);
+char	limiter_ok(char **comp, char *limiter);
 
 /* ------------------------------ main_check.c ------------------------------ */
 char	fs_check(char fs, char a);

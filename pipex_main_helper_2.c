@@ -6,29 +6,32 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:08 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/25 18:03:03 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/27 23:55:47 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	read_stdin(char *limiter)
+int	read_stdin(char *limiter, t_shell_stuff *sh)
 {
 	char	*buff;
 	int		pipefd[2];
 	char	*comp;
 
-	comp = shft_get_word(limiter + 2);
 	pipe(pipefd);
-	buff = (char *)1;
-	while (buff)
+	if (!limiter_ok(&comp, limiter))
+		return (1);
+	while (1)
 	{
-		buff = get_next_line(STDIN_FILENO);
-		if (!shft_strcmp_noend(buff, comp))
+		ft_putstr_fd("> ", sh->tempfds[1]);
+		buff = get_next_line(sh->tempfds[0]);
+		if (!buff || !ft_strcmp(buff, comp) || loco()->limiter_flag == -1)
 			break ;
 		ft_putstr_fd(buff, pipefd[1]);
 		free(buff);
 	}
+	if (!buff)
+		shft_putter(LIMITERMSG, comp, "\')\n", STDERR_FILENO);
 	close(pipefd[1]);
 	dup2(pipefd[0], STDIN_FILENO);
 	free(buff);
@@ -63,8 +66,13 @@ int	shft_redir_inpt(char *cmd, t_shell_stuff *sh)
 	if (!p)
 		return (word_clean(cmd, ft_strlen(cmd)), 0);
 	if (*(p + 1) == '<')
-		return (read_stdin(p));
-	filename = shft_get_word(p + 1);
+	{
+		if (!read_stdin(p, sh))
+			return (shft_redir_inpt(cmd, sh));
+		else
+			return (1);
+	}
+	filename = shft_get_word(p + 1, '\0');
 	tempfd = open(filename, O_RDONLY);
 	clean_stuff(p, ft_strlen(filename));
 	if (redir_test_access(filename, tempfd, cmd))
@@ -106,7 +114,7 @@ int	shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset)
 	append = 0;
 	if (*(p + 1) == '>')
 		append = 1;
-	filename = shft_get_word(p + 1 + append);
+	filename = shft_get_word(p + 1 + append, '\0');
 	if (append)
 		tempfd = open(filename, 02101, 0666);
 	else
