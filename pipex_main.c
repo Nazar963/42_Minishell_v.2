@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/27 23:25:37 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:34:45 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	char	*tmp[2];
 	int		pp[2];
 	char	*temp;
-
 	tmp[0] = ft_strdup(cmd);
 	if (check_for_bonus(tmp[0]) == 1)
 	{

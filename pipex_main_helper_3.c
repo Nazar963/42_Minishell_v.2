@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:28 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/27 23:26:28 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:37:18 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,22 @@ void	builtin_temp_creat(char mode)
 	dup2(filefd, STDIN_FILENO);
 }
 
+void	builtin_temp_creat_1(char mode)
+{
+	int	filefd;
+
+	filefd = open(FILENAME2, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	if (!mode)
+		dup2(filefd, STDOUT_FILENO);
+	loco()->fd_setafter = open(FILENAME1, O_RDONLY);
+}
+
 int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset)
 {
 	if (shft_redir_inpt(*cmd, sh) || shft_redir_outpt(*cmd, sh, doset))
 		return (sh->lststatus = 1, 1);
-	if (loco()->redir_n_pipe && doset && loco()->limiter_flag != 1)
-		builtin_temp_creat(1);
+	if (loco()->redir_n_pipe && doset)
+		builtin_temp_creat_1(1);
 	loco()->sigpass = 1;
 	shft_last_parse_1(cmd);
 	return (0);
@@ -64,8 +74,9 @@ int	builtin_cmds(char *cd, t_shell_stuff *sh, int doset)
 {
 	int	res;
 
-	if (doset)
+	if (doset && !loco()->fd_setafter)
 		builtin_temp_creat(0);
+	shft_after_setter();
 	res = 0x7fffffff;
 	if (!shft_strcmp_noend2(cd, "echo"))
 		res = shft_cmd_echo(cd, sh);
@@ -84,7 +95,5 @@ int	builtin_cmds(char *cd, t_shell_stuff *sh, int doset)
 		res = shft_cmd_unset(cd, sh);
 	if (res == 0x7fffffff)
 		ft_putstr_fd("Error: make better cmd check lol\n", STDERR_FILENO);
-	if (!access(".tempfile01", F_OK))
-		shft_execute_cmd(sh, "/usr/bin/rm -f .tempfile01");
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/27 23:56:23 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 19:00:54 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 # define BOLD "\001\e[1m\002"
 # define FILENAME ".tempfile"
 # define FILENAME1 ".tempfile01"
+# define FILENAME2 ".tempfile001"
 # define ERRSTD	STDERR_FILENO
 
 # define BLTINS 0
@@ -102,6 +103,7 @@ typedef struct s_loco
 	long			forkpid;
 	char			redir_n_pipe;
 	char			limiter_flag;
+	int				fd_setafter;
 }	t_loco;
 
 typedef struct s_pare
@@ -219,10 +221,12 @@ int		export_lol(t_shell_stuff *sh);
 char	*ft_strdup_clean(char *s);
 int		shft_execute_cmd(t_shell_stuff *sh, char *str);
 char	*shft_strchr(const char *s, char c, char ig1, char ig2);
+char	*shft_strchr_1(const char *s, char c, char ig1, char ig2);
 char	*shft_strrchr(const char *s, char c, char ig1, char ig2);
 char	**ft_split1(char const *s, char c, char iga);
 char	**shft_split(char const *s, char c, char ig1, char ig2);
 char	**shft_split1(char *s, char c, char ig1, char ig2);
+int		count_words_1(const char *str, char c);
 int		shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh);
 int		shft_strcmp_noend(const char *s1, const char *s2);
 int		shft_strcmp_noend2(const char *s1, const char *s2);
@@ -244,6 +248,7 @@ int		count_words(const char *str, char c);
 char	*word_dup(char const *str, int start, int finish);
 char	**shft_split2(char *s, char c, char ig1, char ig2);
 char	*ft_strchr_1(const char *s, char c);
+void	shft_after_setter(void);
 
 int		shft_cmd_pwd(char *cmd, t_shell_stuff *sh);
 int		shft_cmd_env(char *cmd, t_shell_stuff *sh);

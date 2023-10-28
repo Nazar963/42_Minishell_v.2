@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/27 23:33:23 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:27:15 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ int	command_fork(char **args, t_shell_stuff *sh, int doset)
 	return (0);
 }
 
+void	shft_after_setter(void)
+{
+	if (loco()->fd_setafter)
+		dup2(loco()->fd_setafter, STDIN_FILENO);
+	loco()->fd_setafter = 0;
+}
+
 int	command(char *cmd, t_shell_stuff *sh, int doset)
 {
 	char		**args;
@@ -64,6 +71,7 @@ int	command(char *cmd, t_shell_stuff *sh, int doset)
 			res = command_fork(args, sh, doset);
 		}
 	}
+	shft_after_setter();
 	ft_free_tab(args);
 	return (res);
 }

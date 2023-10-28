@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/17 18:21:08 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:53:50 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,33 @@ char	*word_dup_1(char const *str, int start, int finish)
 	return (word);
 }
 
+int	count_words_1(const char *str, char c)
+{
+	int		i;
+	int		trigger;
+	char	fs;
+
+	i = 0;
+	fs = 0;
+	trigger = 0;
+	while (*str)
+	{
+		if (str[0] == '\'' && fs != 2)
+			fs ^= 1;
+		if (str[0] == '\"' && fs != 1)
+			fs ^= 2;
+		else if (*str != c && trigger == 0)
+		{
+			trigger = 1;
+			i++;
+		}
+		else if (*str == c && *(str + 1) != c && !fs)
+			trigger = 0;
+		str++;
+	}
+	return (i);
+}
+
 char	**shft_split2(char *s, char c, char ig1, char ig2)
 {
 	int		i;
@@ -52,14 +79,14 @@ char	**shft_split2(char *s, char c, char ig1, char ig2)
 	char	**split;
 	int		test;
 
-	split = ft_calloc((count_words(s, c) + 1), 8);
+	split = ft_calloc((count_words_1(s, c) + 1), 8);
 	if (!s || !split)
 		return (0);
 	shft_init_two_vars(&i, 0, &j, 0);
 	shft_init_two_vars(&test, 0, &index, -1);
 	while (i <= ft_strlen(s))
 	{
-		test = shft_split1_test_1((char *)s + i, ig1, ig2, -test);
+		test = shft_split1_test_1((char *)s + i, ig1, ig2, test);
 		if (s[i] != c && index < 0)
 			index = i;
 		else if (((s[i] == c && !test) || i == ft_strlen(s)) && index >= 0)

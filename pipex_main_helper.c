@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:25 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/27 23:32:32 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:11:02 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ char	*search_path(char *name, t_shell_stuff *sh)
 		i++;
 	}
 	if (!temp[i])
-		i = 0;
+		i = -1;
 	ft_free_tab(temp);
 	free(otemp[1]);
-	if (i)
+	if (i != -1)
 		return (otemp[0]);
 	return (NULL);
 }
