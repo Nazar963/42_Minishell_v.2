@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:57:39 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/24 19:57:49 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/28 21:22:32 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*split_one_cmd(char *cmd)
 
 	i = 0;
 	j = 0;
-	new_str = (char *)ft_calloc(ft_strlen(cmd), sizeof(char));
+	new_str = (char *)ft_calloc(ft_strlen(cmd) + 2, sizeof(char));
 	while (cmd[i] && cmd[i] != '&'
 		&& cmd[i + 1] != '&' && cmd[i] != '|' && cmd[i + 1] != '|')
 		new_str[j++] = cmd[i++];

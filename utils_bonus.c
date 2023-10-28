@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/25 17:05:03 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 21:26:10 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,15 @@ char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 {
 	char	*temp;
-	int		temp_n;
 
 	temp = check_for_wildcard_normal(loco()->piece);
 	loco()->piece = temp;
-	temp_n = loco()->n;
+	pare()->flag = loco()->n;
 	if (shft_strchr(loco()->piece, '(', '\'', '\"'))
 	{
 		tmp = check_for_parentheses(tmp, sh, &pp[0], doset);
+		if (!tmp || !*tmp)
+			return (shft_ft_tp_hleper_1_0(), free(temp), tmp);
 		temp = ft_split_bonus(tmp, &loco()->index);
 		temp = check_for_wildcard_normal(temp);
 		shft_ft_tp_hleper_1_1(temp);
@@ -59,15 +60,14 @@ char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 			sh->lststatus = executed_command_last(sh, pp, doset, loco()->piece);
 		loco()->parentheses = 0;
 	}
-	loco()->n = temp_n;
+	loco()->n = pare()->flag;
 	check_for_operator(loco()->piece);
 	if (loco()->and)
 		sh->lststatus = execution_proccess_and_bonus(&pp[0], sh, doset);
 	else if (loco()->or)
 		sh->lststatus = execution_proccess_or_bonus(&pp[0], sh, doset);
 	tmp = cmd_cleaner(tmp, loco()->index, sh);
-	shft_ft_tp_hleper_1_0();
-	return (free(temp), tmp);
+	return (shft_ft_tp_hleper_1_0(), free(temp), tmp);
 }
 
 int	execution_proccess_and_nizz(int *pp, t_shell_stuff *sh, int doset)

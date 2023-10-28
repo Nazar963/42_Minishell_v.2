@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/28 19:00:54 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:52:09 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct s_pare
 	int		first;
 	int		last;
 	int		controll;
+	int		flag;
 }	t_pare;
 
 typedef struct s_vector4_int
@@ -177,6 +178,7 @@ char	*word_dup_bonus(char const *str, int start, int finish);
 int		count_words_bonus(char *str);
 void	check_for_operator(char *cmd);
 char	*ft_strdup_len(const char *src, int len);
+char	*ft_strdup_fr_to_free(char *src, int from, int to);
 char	*check_for_parentheses(char *cmd, t_shell_stuff *sh, int *pp, \
 			int doset);
 size_t	ft_strlen_arr(void	**loco);
@@ -370,7 +372,7 @@ int		shit_helper(char *cmd, int *i);
 /* ---------------------------- new_parentheses_3 --------------------------- */
 char	*shit(char *cmd, int *i);
 int		recursive_cleanup_1(char *cmd, int *i);
-void	recursive_cleanup_init(int *loco);
+void	recursive_cleanup_init(void);
 int		recursive_cleanup_2(char *cmd, int *i);
 int		recursive_cleanup_3(char *cmd, int *i);
 
@@ -388,5 +390,8 @@ void	clean_loco_piece(int first_index, int last_index);
 char	*cmd_pare_clean(char *cmd);
 char	*split_one_cmd(char *cmd);
 void	command_parentheses_clean_1(char *cmd, int i);
+
+/* -------------------------------- utils_1.c ------------------------------- */
+void	clean_stuff(char *s, int l);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/28 19:22:10 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:53:50 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ int	main(int argn, char *args[], char *envp[])
 	char			*cmd_buff;
 
 	shft_init(&shell, args, envp, argn);
+	signal(SIGQUIT, SIG_IGN);
 	while (shell.doexit == -1)
 	{
-		loco()->limiter_flag = 0;
 		cmd_buff = creat_prompt(&shell, cmd_buff);
 		if (cmd_buff && *cmd_buff)
 			add_history(cmd_buff);

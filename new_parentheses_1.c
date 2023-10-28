@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:58:15 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/24 19:58:23 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/28 19:58:14 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*status_adding_cmd_cleaning(char *cmd, t_shell_stuff *sh)
 
 	i = 0;
 	j = 0;
-	new_str = (char *)ft_calloc(ft_strlen(cmd), sizeof(char));
+	new_str = (char *)ft_calloc(ft_strlen(cmd) + 1, sizeof(char));
 	while (cmd[i] && cmd[i] != '&' && cmd[i + 1] != '&'
 		&& cmd[i] != '|' && cmd[i + 1] != '|')
 		i++;

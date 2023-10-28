@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator_checker_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:21:41 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/22 11:15:17 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 21:16:19 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void	check_for_operator(char *cmd)
 
 	i = -1;
 	fs = 0;
+	if (!cmd || !*cmd)
+		return ;
 	while (cmd[++i])
 	{
 		if (cmd[i] == '\'' && fs != 2)

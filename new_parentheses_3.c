@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:59:02 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/24 20:07:46 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:51:44 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ int	recursive_cleanup_1(char *cmd, int *i)
 	return ((*i));
 }
 
-void	recursive_cleanup_init(int *loco)
+void	recursive_cleanup_init(void)
 {
 	pare()->first = 0;
 	pare()->last = 0;
 	pare()->controll = 0;
-	*loco = 0;
+	pare()->flag = 0;
 }
 
 int	recursive_cleanup_2(char *cmd, int *i)

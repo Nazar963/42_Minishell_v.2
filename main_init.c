@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:18:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/28 18:26:43 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:53:56 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 char	*creat_prompt(t_shell_stuff *shell, char *cmd_buff)
 {
+	loco()->limiter_flag = 0;
 	cmd_buff = shft_prompt(shell, 0);
 	loco()->exit = 0;
 	return (cmd_buff);
@@ -35,7 +36,7 @@ void	reset_loco(void)
 
 t_pare	*pare(void)
 {
-	static t_pare	pare = {0, NULL, 0, NULL, 0, 0, 0};
+	static t_pare	pare = {0, NULL, 0, NULL, 0, 0, 0, 0};
 
 	return (&pare);
 }

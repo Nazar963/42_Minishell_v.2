@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parentheses_4.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:59:36 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/25 17:03:06 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:52:32 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*recursive_cleanup(char *cmd, int *i)
 {
-	int	loco;
+	char	*zoro;
 
-	recursive_cleanup_init(&loco);
-	while (loco == 0)
+	recursive_cleanup_init();
+	while (pare()->flag == 0)
 	{
 		(*i) = recursive_cleanup_2(cmd, i);
 		if (cmd[(*i)] == '(')
@@ -26,18 +26,19 @@ char	*recursive_cleanup(char *cmd, int *i)
 			if (cmd[(*i)] == '|')
 				cmd = shit(ft_strdup_fr_to(cmd, (*i), ft_strlen(cmd)), i);
 			else
-				loco = 1;
+				pare()->flag = 1;
 		}
 		else
 		{
 			(*i) = recursive_cleanup_3(cmd, i);
 			if (cmd[(*i)] == '|')
-				cmd = shit(ft_strdup_fr_to(cmd, (*i), ft_strlen(cmd)), i);
+				cmd = shit(ft_strdup_fr_to_free(cmd, (*i), ft_strlen(cmd)), i);
 			else
-				loco = 1;
+				pare()->flag = 1;
 		}
 	}
-	return (ft_strdup(cmd));
+	zoro = ft_strdup(cmd);
+	return (free(cmd), zoro);
 }
 
 char	*remove_status_operator_cmd(char *cmd)
@@ -49,7 +50,6 @@ char	*remove_status_operator_cmd(char *cmd)
 	i = 0;
 	j = 0;
 	new_str = recursive_cleanup(cmd, &i);
-	free(cmd);
 	cmd = ft_strdup(new_str);
 	free(new_str);
 	new_str = (char *)ft_calloc(ft_strlen(cmd), sizeof(char));

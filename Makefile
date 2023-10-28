@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+         #
+#    By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 08:42:40 by lpollini          #+#    #+#              #
-#    Updated: 2023/10/25 16:57:36 by lpollini         ###   ########.fr        #
+#    Updated: 2023/10/28 20:47:32 by naal-jen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ FILES		= env_stuff executor executor_utils ft_split_1 ft_split_2 ft_split_utils 
 	pipex_main prompt_stuff_export shft_cmds_cd_2 shft_cmds_echo_exit_env_helper shft_cmds_echo_exit_env \
 	shft_cmds_export_unset shft_cmds_pwd str_stuff utils_bonus utils_bonus_1 utils_bonus_2 parenthesis_parser_bonus \
 	operator_checker_bonus wildcard/parse_bonus parenthesis_bonus wildcard/utils_bonus wildcard/utils_1_bonus \
-	new_parentheses_1 new_parentheses_2 new_parentheses_3 new_parentheses_4 new_parentheses
+	new_parentheses_1 new_parentheses_2 new_parentheses_3 new_parentheses_4 new_parentheses utils_1
 
 BONUS_FILES = \
 

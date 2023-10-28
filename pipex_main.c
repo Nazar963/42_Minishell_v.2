@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/28 18:34:45 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 21:21:17 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	char	*tmp[2];
 	int		pp[2];
 	char	*temp;
+
 	tmp[0] = ft_strdup(cmd);
 	if (check_for_bonus(tmp[0]) == 1)
 	{
@@ -83,6 +84,8 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 			check_for_operator(loco()->piece);
 			tmp[1] = tmp[0];
 			tmp[0] = shft_ft_tp_helper_1(&pp[0], sh, doset, tmp[0]);
+			if (!tmp[0] || !tmp[0][0])
+				return (free(tmp[0]), sh->lststatus);
 		}
 	}
 	else

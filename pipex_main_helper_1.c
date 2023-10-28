@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main_helper_1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/28 18:27:15 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:46:28 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,4 @@ void	word_clean(char *str, int len)
 		if (str[i] != -1)
 			str[j++] = str[i];
 	str[j] = '\0';
-}
-
-void	clean_stuff(char *s, int l)
-{
-	*(s++) = -1;
-	while (shft_istab(*s) || *s == '\'' || *s == '\"')
-		*(s++) = -1;
-	while (*s == '\'' || *s == '\"' || l--)
-		*(s++) = -1;
 }
