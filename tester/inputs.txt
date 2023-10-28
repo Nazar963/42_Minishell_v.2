@@ -1,0 +1,21 @@
+(echo hello && echo shit)
+---
+(echo a || echo b) && echo c
+---
+(echo a || echo b) && echo c && echo d && echo e
+---
+(echo hello)
+---
+(echo hello && echo a && echo y && echo n) && echo i
+---
+((echo hello && echo a) && echo yes && echo b) && echo c
+---
+((echo hello && echo a) && (echo yes && echo b)) && echo c
+---
+(echo hello) && echo a && echo b
+---
+(x || echo a) || echo b && echo c
+---
+((echo hello && echo a) || (echo yes && echo b)) && echo c
+---
+((echo hello || echo a) || (echo yes && echo b)) && echo c

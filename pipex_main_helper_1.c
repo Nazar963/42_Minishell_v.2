@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/25 17:03:51 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:27:15 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ int	command_fork(char **args, t_shell_stuff *sh, int doset)
 	return (0);
 }
 
+void	shft_after_setter(void)
+{
+	if (loco()->fd_setafter)
+		dup2(loco()->fd_setafter, STDIN_FILENO);
+	loco()->fd_setafter = 0;
+}
+
 int	command(char *cmd, t_shell_stuff *sh, int doset)
 {
 	char		**args;
@@ -64,11 +71,12 @@ int	command(char *cmd, t_shell_stuff *sh, int doset)
 			res = command_fork(args, sh, doset);
 		}
 	}
+	shft_after_setter();
 	ft_free_tab(args);
 	return (res);
 }
 
-char	*shft_get_word(char *in)
+char	*shft_get_word(char *in, char end)
 {
 	char	test;
 	char	*res;
@@ -76,7 +84,7 @@ char	*shft_get_word(char *in)
 
 	test = 0;
 	i = 0;
-	res = malloc(sizeof(char ) * 999);
+	res = malloc(ft_strlen(in) + 2);
 	while (shft_istab(*in))
 		in++;
 	while (*in && (!shft_istab(*in) || test))
@@ -89,6 +97,7 @@ char	*shft_get_word(char *in)
 			res[i++] = *in;
 		in++;
 	}
+	res[i++] = end;
 	res[i] = '\0';
 	return (res);
 }

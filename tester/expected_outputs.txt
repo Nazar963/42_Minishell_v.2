@@ -1,0 +1,76 @@
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ (echo hello && echo shit)
+hello
+shit
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ exit
+---
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ 
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ (echo a || echo b) && echo c
+a
+c
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ exit
+---
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ 
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ (echo a || echo b) && echo c && echo d && echo e
+a
+c
+d
+e
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ exit
+---
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ 
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ (echo hello)
+hello
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ exit
+---
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ 
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ (echo hello && echo a && echo y && echo n) && echo i
+hello
+a
+y
+n
+i
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ exit
+---
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ 
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ ((echo hello && echo a) && echo yes && echo b) && echo c
+hello
+a
+yes
+b
+c
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ exit
+---
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ 
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ ((echo hello && echo a) && (echo yes && echo b)) && echo c
+hello
+a
+yes
+b
+c
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ exit
+---
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ 
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ (echo hello) && echo a && echo b
+hello
+a
+b
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ exit
+---
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ 
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ (x || echo a) || echo b && echo c
+a
+c
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ exit
+---
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ 
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ ((echo hello && echo a) || (echo yes && echo b)) && echo c
+hello
+a
+c
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ exit
+---
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ 
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ ((echo hello || echo a) || (echo yes && echo b)) && echo c
+hello
+c
+[1;32mnaal-jen@minishell_by_lpollini&nizz[0m:[1;34m~/Desktop/Minishell/tester[0m$ exit

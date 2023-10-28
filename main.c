@@ -6,23 +6,29 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/25 18:59:04 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/28 19:22:10 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	limiter_case(int a)
+{
+	if (a == SIGQUIT)
+		return ;
+	loco()->limiter_flag = -1;
+}
+
 void	sigint_handle(int a)
 {
+	if (loco()->limiter_flag == 1)
+		return (limiter_case(a));
 	if (loco()->sigpass)
 		kill(loco()->forkpid, a);
 	if (a == SIGQUIT && loco()->sigpass)
-	{
-		ft_putstr_fd("Quit (core dumped)", STDERR_FILENO);
-		rl_redisplay();
-	}
-	else if (a == SIGQUIT)
-		return ;
+		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
+	if (a == SIGQUIT)
+		return ((void)rl_redisplay());
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -69,9 +75,9 @@ int	main(int argn, char *args[], char *envp[])
 	char			*cmd_buff;
 
 	shft_init(&shell, args, envp, argn);
-	signal(SIGQUIT, SIG_IGN);
 	while (shell.doexit == -1)
 	{
+		loco()->limiter_flag = 0;
 		cmd_buff = creat_prompt(&shell, cmd_buff);
 		if (cmd_buff && *cmd_buff)
 			add_history(cmd_buff);

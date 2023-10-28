@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/17 18:21:01 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:58:46 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	**shft_split(char const *s, char c, char ig1, char ig2)
 	char	**split;
 	int		test;
 
-	split = ft_calloc((count_words(s, c) + 1), 8);
+	split = ft_calloc((count_words_1(s, c) + 1), 8);
 	if (!s || !split)
 		return (0);
 	shft_init_two_vars(&i, 0, &j, 0);
@@ -108,7 +108,7 @@ char	**shft_split(char const *s, char c, char ig1, char ig2)
 		test = shft_split1_test((char *)s + i, ig1, ig2, -test);
 		if (s[i] != c && index < 0)
 			index = i;
-		else if (((s[i] == c && !test) || i == ft_strlen(s)) && index >= 0)
+		else if (((s[i] == c && test != 2) || i == ft_strlen(s)) && index >= 0)
 		{
 			split[j++] = word_dup(s, index, i);
 			index = -1;

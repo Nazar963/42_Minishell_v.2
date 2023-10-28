@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:30:22 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/25 15:10:52 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/28 19:00:20 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*parse_cmd(char *s, t_shell_stuff *sh)
 	char	*temp;
 	int		d;
 
-	dollard = shft_split(s, '$', '\0', '\'');
+	dollard = shft_split(s, '$', '\"', '\'');
 	d = 0;
 	if (*s == '$')
 		d = -1;
@@ -107,7 +107,7 @@ int	shft_execute_cmd(t_shell_stuff *sh, char *str)
 	if (!*str)
 		return (0);
 	command = str;
-	if (shft_strchr(str, '$', '\'', '\0'))
+	if (shft_strchr_1(str, '$', '\'', '\"'))
 		str = parse_cmd(str, sh);
 	pipes = 0;
 	if (last_checks(str))
