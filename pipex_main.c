@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/28 21:21:17 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/29 19:43:06 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
 	loco()->g_or = 0;
 	if (!access(".tempfile01", F_OK))
 		shft_execute_cmd(sh, "/usr/bin/rm -f .tempfile01");
+	if (!access(".tempfile001", F_OK))
+		shft_execute_cmd(sh, "/usr/bin/rm -f .tempfile001");
 	if (!access(".tempfile", F_OK))
 		shft_execute_cmd(sh, "/usr/bin/rm -f .tempfile");
 	return (sh->lststatus);
