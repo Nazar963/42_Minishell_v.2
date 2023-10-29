@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main_helper_3.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:28 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/28 20:54:19 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/29 11:23:37 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset)
 		return (sh->lststatus = 1, 1);
 	if (loco()->redir_n_pipe && doset)
 		builtin_temp_creat_1(1);
+	if (loco()->limiter_flag == -1)
+		return (1);
 	loco()->sigpass = 1;
 	shft_last_parse_1(cmd);
 	return (0);

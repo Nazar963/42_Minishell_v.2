@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/28 20:53:50 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/29 11:25:35 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	limiter_case(int a)
 
 void	sigint_handle(int a)
 {
-	if (loco()->limiter_flag == 1)
+	if (loco()->limiter_flag == 1 || loco()->limiter_flag == -1)
 		return (limiter_case(a));
 	if (loco()->sigpass)
 		kill(loco()->forkpid, a);
