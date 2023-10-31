@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/28 21:26:10 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:32:38 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 	else if (loco()->or)
 		sh->lststatus = execution_proccess_or_bonus(&pp[0], sh, doset);
 	tmp = cmd_cleaner(tmp, loco()->index, sh);
+	dup2(sh->tempfds[1], STDOUT_FILENO);
+	dup2(sh->tempfds[0], STDIN_FILENO);
 	return (shft_ft_tp_hleper_1_0(), free(temp), tmp);
 }
 
