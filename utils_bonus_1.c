@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:37:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/21 16:48:27 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:07:46 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	**execution_and_bonus_helper_1(int doset, char **cmds,
 		control_and_bonus(&fixer, &doset, counter);
 		if (shft_strchr(cmds[0], '(', '\'', '\"'))
 			cmds[0] = clean_cmd(cmds[0]);
-		if (counter == 2 && (sh->lststatus == 1 || sh->lststatus == 127
+		if (counter == 1 && (sh->lststatus == 1 || sh->lststatus == 127
 				|| sh->lststatus == 126) && loco()->exit != 0)
 			break ;
 		else if (counter == 1 && loco()->parentheses == 1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/29 19:45:27 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:05:21 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ void	limiter_case(int a)
 	if (a == SIGQUIT)
 		return ;
 	loco()->limiter_flag = -1;
+	printf("i did get here\n");
 }
 
 void	sigint_handle(int a)
 {
+	loco()->flagc = 1;
 	if (loco()->limiter_flag == 1 || loco()->limiter_flag == -1)
 		return (limiter_case(a));
 	if (loco()->sigpass)

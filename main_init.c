@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:18:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/28 20:53:56 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:03:00 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*creat_prompt(t_shell_stuff *shell, char *cmd_buff)
 t_loco	*loco(void)
 {
 	static t_loco	loco = {NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 	return (&loco);
 }
@@ -31,7 +31,7 @@ t_loco	*loco(void)
 void	reset_loco(void)
 {
 	*(loco()) = (t_loco){NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 }
 
 t_pare	*pare(void)

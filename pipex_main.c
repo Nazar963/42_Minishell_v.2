@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/29 19:43:06 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:07:59 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	{
 		while (loco()->n-- > 0 && tmp[0])
 		{
+			if (loco()->flagc == 1)
+				break ;
 			temp = ft_split_bonus(tmp[0], &loco()->index);
 			loco()->piece = temp;
 			check_for_operator(loco()->piece);

@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/28 20:52:09 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:59:19 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_loco
 	char			redir_n_pipe;
 	char			limiter_flag;
 	int				fd_setafter;
+	int				flagc;
 }	t_loco;
 
 typedef struct s_pare
