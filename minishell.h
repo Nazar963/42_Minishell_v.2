@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/01 23:01:45 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/02 17:45:55 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,8 @@ int		execution_bonus_helper(char **cmds, int *pp,
 char	*add_operator(char *new_new_str, char **str);
 char	*add_command_processed(char *to_be_processed, char *new_new_str);
 int		shft_isallnum(char *s);
+int		split_wild_size(char *str);
+char	*split_wild_fill_new_str(char *str, char *new_str);
 /*! ------------------------------------------------------------------------ */
 
 /* ----------------------------- executor_utils.c -------------------------- */

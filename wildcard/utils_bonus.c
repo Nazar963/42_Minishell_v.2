@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 10:38:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/17 18:28:12 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/02 17:44:44 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,11 @@ char	*ft_realloc(char *pointer, int size)
 char	*split_wild(char *str)
 {
 	char	*new_str;
-	int		i;
-	int		j;
-	int		z;
 
-	i = 0;
-	j = -1;
-	z = -1;
-	while (str[++z])
-	{
-		if ((str[z] == '&' && str[z + 1] == '&')
-			|| (str[z] == '|' && str[z + 1] == '|'))
-			break ;
-	}
-	new_str = (char *)ft_calloc((z + 1), sizeof(char));
+	new_str = (char *)ft_calloc((split_wild_size(str) + 1), sizeof(char));
 	if (!new_str)
 		return (NULL);
-	while (str[i])
-	{
-		if ((str[i] == '&' && str[i + 1] == '&')
-			|| (str[i] == '|' && str[i + 1] == '|'))
-			return (new_str);
-		new_str[++j] = str[i++];
-	}
-	return (new_str);
+	return (split_wild_fill_new_str(str, new_str));
 }
 
 void	main_command_join(char **new_str, char **split)
