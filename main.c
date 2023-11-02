@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/31 19:27:29 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/01 22:53:55 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	main(int argn, char *args[], char *envp[])
 	char			*cmd_buff;
 
 	shft_init(&shell, args, envp, argn);
-	signal(SIGQUIT, SIG_IGN);
 	while (shell.doexit == -1)
 	{
 		cmd_buff = creat_prompt(&shell, cmd_buff);

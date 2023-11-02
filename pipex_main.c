@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/31 15:07:59 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/01 23:30:29 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 			temp = ft_split_bonus(tmp[0], &loco()->index);
 			loco()->piece = temp;
 			check_for_operator(loco()->piece);
-			tmp[1] = tmp[0];
 			tmp[0] = shft_ft_tp_helper_1(&pp[0], sh, doset, tmp[0]);
 			if (!tmp[0] || !tmp[0][0])
 				return (free(tmp[0]), sh->lststatus);
@@ -93,9 +92,8 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 	else
 		tmp[0] = shft_ft_tp_helper(&pp[0], sh, doset, tmp[0]);
 	free(tmp[0]);
-	if (tmp[0] == NULL)
-		return (sh->lststatus);
-	loco()->n = 0;
+	if (tmp[0] != NULL)
+		loco()->n = 0;
 	return (sh->lststatus);
 }
 

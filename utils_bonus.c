@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/31 19:32:38 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/01 23:01:51 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 {
 	char	*temp;
 
-	temp = check_for_wildcard_normal(loco()->piece);
-	loco()->piece = temp;
-	pare()->flag = loco()->n;
+	temp = shft_very_lol();
 	if (shft_strchr(loco()->piece, '(', '\'', '\"'))
 	{
 		tmp = check_for_parentheses(tmp, sh, &pp[0], doset);

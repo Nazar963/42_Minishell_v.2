@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:46:55 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/28 20:54:47 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/01 23:25:52 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,15 @@ int	builtin_cmds(char *cd, t_shell_stuff *sh, int doset)
 		res = shft_cmd_unset(cd, sh);
 	if (res == 0x7fffffff)
 		ft_putstr_fd("Error: make better cmd check lol\n", STDERR_FILENO);
+	return (res);
+}
+
+char	*shft_very_lol(void)
+{
+	char	*res;
+
+	res = check_for_wildcard_normal(loco()->piece);
+	loco()->piece = res;
+	pare()->flag = loco()->n;
 	return (res);
 }

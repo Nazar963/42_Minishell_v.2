@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/31 14:59:19 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/01 23:01:45 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,7 @@ char	*word_dup(char const *str, int start, int finish);
 char	**shft_split2(char *s, char c, char ig1, char ig2);
 char	*ft_strchr_1(const char *s, char c);
 void	shft_after_setter(void);
+char	*shft_very_lol(void);
 
 int		shft_cmd_pwd(char *cmd, t_shell_stuff *sh);
 int		shft_cmd_env(char *cmd, t_shell_stuff *sh);

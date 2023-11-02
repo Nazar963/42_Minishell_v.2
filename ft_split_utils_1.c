@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_utils_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:23:14 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/19 12:24:10 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/01 23:52:03 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	**control_copy(char **split, char *s, int *i, int *j)
 		if (s[(*i)] == '"')
 		{
 			split[(*j)][y++] = s[(*i)++];
-			while (s[++(*i)] != '"')
+			while (s[(*i)] != '"')
 				split[(*j)][y++] = s[(*i)++];
 		}
 		if (s[(*i)] == '&' && s[(*i) + 1] == '&')
