@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/02 17:45:55 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/04 00:25:17 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 # define PROMPT "minishell_by_lpollini&nizz"
 # define ERRSYNTAX "minishell: syntax error\n"
 # define ERRBADASS "minishell: export: bad assignment\n"
-# define LIMITERMSG "\nminishell: warning: heredoc reached EOF before limiter \
+# define LIMITERMSG "minishell: warning: heredoc reached EOF before limiter \
 (expected \'"
 # define PROMPTSIZEMAX 299
 
@@ -105,6 +105,7 @@ typedef struct s_loco
 	char			limiter_flag;
 	int				fd_setafter;
 	int				flagc;
+	pid_t			limiter_pid;
 }	t_loco;
 
 typedef struct s_pare
@@ -117,6 +118,9 @@ typedef struct s_pare
 	int		last;
 	int		controll;
 	int		flag;
+	char	extra;
+	char	*extra_2;
+	int		child_fd;
 }	t_pare;
 
 typedef struct s_vector4_int
@@ -397,5 +401,6 @@ void	command_parentheses_clean_1(char *cmd, int i);
 
 /* -------------------------------- utils_1.c ------------------------------- */
 void	clean_stuff(char *s, int l);
+void	read_stdin_1( void );
 
 #endif

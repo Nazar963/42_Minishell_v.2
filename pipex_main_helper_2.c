@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:08 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/29 19:43:00 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/04 00:37:06 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,29 @@
 
 int	read_stdin(char *limiter, t_shell_stuff *sh)
 {
-	char	*buff;
 	int		pipefd[2];
 	char	*comp;
 
 	pipe(pipefd);
 	if (!limiter_ok(&comp, limiter))
 		return (1);
-	while (1)
+	loco()->limiter_pid = fork();
+	if (!loco()->limiter_pid)
 	{
-		ft_putstr_fd("> ", sh->tempfds[1]);
-		buff = get_next_line(sh->tempfds[0]);
-		if (!buff || !ft_strcmp(buff, comp) || loco()->limiter_flag == -1)
-			break ;
-		ft_putstr_fd(buff, pipefd[1]);
-		free(buff);
+		pare()->extra = 1;
+		pare()->extra_2 = comp;
+		pare()->child_fd = pipefd[1];
+		sh->doexit = 0;
+		return (1);
 	}
-	if (!buff)
-		shft_putter(LIMITERMSG, comp, "\')\n", STDERR_FILENO);
+	waitpid(loco()->limiter_pid, NULL, 0);
 	close(pipefd[1]);
 	dup2(pipefd[0], STDIN_FILENO);
-	free(buff);
 	limiter[0] = -1;
 	clean_stuff(limiter + 1, ft_strlen(comp));
 	free(comp);
+	if (loco()->limiter_flag == -2)
+		return (1);
 	return (0);
 }
 

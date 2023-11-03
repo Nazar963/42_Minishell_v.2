@@ -11,6 +11,14 @@
   Memcheck:Leak
   ...
   ...
+  fun:read_stdin
+}
+
+{
+  readline
+  Memcheck:Leak
+  ...
+  ...
   fun:rl_initialize
   fun:readline
 }

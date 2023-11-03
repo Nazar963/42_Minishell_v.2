@@ -6,25 +6,37 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/01 22:53:55 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/04 00:24:24 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	limiter_case(int a)
+int	limiter_case(int a)
 {
+	if (loco()->limiter_flag == -1)
+	{
+		close(pare()->child_fd);
+		free(pare()->extra_2);
+		exit(0);
+	}
 	if (a == SIGQUIT)
-		return ;
-	loco()->limiter_flag = -1;
-	printf("i did get here\n");
+		return (1);
+	kill(loco()->limiter_pid, SIGINT);
+	waitpid(loco()->limiter_pid, NULL, 0);
+	loco()->limiter_flag = -2;
+	write(STDERR_FILENO, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	return (1);
 }
 
 void	sigint_handle(int a)
 {
 	loco()->flagc = 1;
-	if (loco()->limiter_flag == 1 || loco()->limiter_flag == -1)
-		return (limiter_case(a));
+	if ((loco()->limiter_flag == 1 || loco()->limiter_flag
+			== -1) && limiter_case(a))
+		return ;
 	if (loco()->sigpass)
 		kill(loco()->forkpid, a);
 	if (a == SIGQUIT && loco()->sigpass)
@@ -68,6 +80,8 @@ int	shft_exit(t_shell_stuff *sh)
 	shft_cmd_cd(NULL, sh);
 	free(sh->pwd);
 	rl_clear_history();
+	if (pare()->extra)
+		read_stdin_1();
 	exit(sh->exit_code);
 }
 

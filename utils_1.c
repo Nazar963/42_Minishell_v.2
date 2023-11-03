@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:46:55 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/01 23:25:52 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/04 00:36:23 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,27 @@ char	*shft_very_lol(void)
 	loco()->piece = res;
 	pare()->flag = loco()->n;
 	return (res);
+}
+
+void	read_stdin_1( void )
+{
+	char	*buff;
+
+	loco()->limiter_flag = -1;
+	signal(SIGQUIT, SIG_IGN);
+	while (1)
+	{
+		buff = readline("> ");
+		if (!buff || !ft_strcmp(buff, pare()->extra_2))
+			break ;
+		ft_putstr_fd(buff, pare()->child_fd);
+		ft_putstr_fd("\n", pare()->child_fd);
+		free(buff);
+	}
+	if (!buff)
+		shft_putter(LIMITERMSG, pare()->extra_2, "\')\n", STDERR_FILENO);
+	close(pare()->child_fd);
+	free(pare()->extra_2);
+	free(buff);
+	return ;
 }
