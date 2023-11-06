@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parentheses_3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:59:02 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/01 23:15:40 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:01:40 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ char	*shit(char *cmd, int *i)
 		&& cmd[(*i) + 1] != '&' && cmd[(*i)] != '|' && cmd[(*i) + 1] != '|')
 		(*i)++;
 	while (cmd[(*i)] && (cmd[(*i)] == '&'
-			|| cmd[(*i)] == '|' || cmd[(*i)] == ' '))
+			|| cmd[(*i)] == '|' || shft_istab(cmd[*i])))
 		(*i)++;
 	if (cmd[(*i)] == '(')
 	{
 		(*i) = shit_helper(cmd, i);
-		while (cmd[(*i)] && cmd[(*i)] == ' ')
+		while (cmd[(*i)] && shft_istab(cmd[*i]))
 			(*i)++;
 	}
 	else
@@ -35,7 +35,7 @@ char	*shit(char *cmd, int *i)
 		while (cmd[(*i)] && cmd[(*i)] != '&'
 			&& cmd[(*i) + 1] != '&' && cmd[(*i)] != '|' && cmd[(*i) + 1] != '|')
 			(*i)++;
-		while (cmd[(*i)] && cmd[(*i)] == ' ')
+		while (cmd[(*i)] && shft_istab(cmd[*i]))
 			(*i)++;
 	}
 	return (cmd);
@@ -64,7 +64,7 @@ int	recursive_cleanup_1(char *cmd, int *i)
 		}
 		(*i)++;
 	}
-	while (cmd[(*i)] && cmd[(*i)] == ' ')
+	while (cmd[(*i)] && shft_istab(cmd[*i]))
 		(*i)++;
 	return ((*i));
 }
@@ -85,7 +85,7 @@ int	recursive_cleanup_2(char *cmd, int *i)
 		&& cmd[(*i) + 1] != '&' && cmd[(*i)] != '|' && cmd[(*i) + 1] != '|')
 		(*i)++;
 	while (cmd[(*i)] && (cmd[(*i)] == '&'
-			||cmd[(*i)] == '|' || cmd[(*i)] == ' '))
+			||cmd[(*i)] == '|' || shft_istab(cmd[*i])))
 		(*i)++;
 	return ((*i));
 }
@@ -95,7 +95,7 @@ int	recursive_cleanup_3(char *cmd, int *i)
 	while (cmd[(*i)] && cmd[(*i)] != '&'
 		&& cmd[(*i) + 1] != '&' && cmd[(*i)] != '|' && cmd[(*i) + 1] != '|')
 		(*i)++;
-	while (cmd[(*i)] && cmd[(*i)] == ' ')
+	while (cmd[(*i)] && shft_istab(cmd[*i]))
 		(*i)++;
 	return ((*i));
 }

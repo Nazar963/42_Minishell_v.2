@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parentheses_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:58:39 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/01 23:25:50 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/06 10:59:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*remove_status_operator_1(char *cmd, char *new_str, int i, int j)
 	pare()->first = 0;
 	pare()->last = 0;
 	i += 2;
-	while (cmd[i] == ' ')
+	while (shft_istab(cmd[i]))
 		i++;
 	if (cmd[i] == '(')
 	{
@@ -99,7 +99,7 @@ char	*remove_status_operator(char *cmd)
 	while (cmd[i] && cmd[i] != '&'
 		&& cmd[i + 1] != '&' && cmd[i] != '|' && cmd[i + 1] != '|')
 		i++;
-	while (cmd[i] && (cmd[i] == '&' || cmd[i] == '|' || cmd[i] == ' '))
+	while (cmd[i] && (cmd[i] == '&' || cmd[i] == '|' || shft_istab(cmd[i])))
 		i++;
 	while (cmd[i])
 		new_str[j++] = cmd[i++];

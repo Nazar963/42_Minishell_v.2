@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 11:03:52 by rchallie          #+#    #+#             */
-/*   Updated: 2023/10/21 21:35:26 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:06:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	*ft_calloc(size_t count, size_t size);
 
 int		ft_intlen(int nbr);
 int		ft_longlen(long nbr);
+int		shft_istab(char c);
 
 char	*ft_strchr(const char *str, char c);
 long	ft_strlen(const char *s);

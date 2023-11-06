@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parentheses_4.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:59:36 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/28 20:52:32 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:02:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*remove_status_operator_cmd(char *cmd)
 	cmd = ft_strdup(new_str);
 	free(new_str);
 	new_str = (char *)ft_calloc(ft_strlen(cmd), sizeof(char));
-	while (cmd[i] && (cmd[i] == '&' || cmd[i] == '|' || cmd[i] == ' '))
+	while (cmd[i] && (cmd[i] == '&' || cmd[i] == '|' || shft_istab(cmd[i])))
 		i++;
 	while (cmd[i])
 		new_str[j++] = cmd[i++];

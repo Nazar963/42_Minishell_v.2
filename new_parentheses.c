@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parentheses.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:57:39 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/28 21:22:32 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:02:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*cmd_pare_clean(char *cmd)
 	j = 0;
 	x = pare()->index;
 	new_str = ft_calloc(ft_strlen(cmd), sizeof(char));
-	while (loco()->piece[i] == ' ')
+	while (shft_istab(loco()->piece[i]))
 		i++;
 	if (loco()->piece[i] == '0')
 		new_str[j++] = '0';
