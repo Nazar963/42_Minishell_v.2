@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/28 18:58:46 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:18:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	**shft_split(char const *s, char c, char ig1, char ig2)
 	char	**split;
 	int		test;
 
-	split = ft_calloc((count_words_1(s, c) + 1), 8);
+	split = ft_calloc(count_words_1(s, c) + 3, 8);
 	if (!s || !split)
 		return (0);
 	shft_init_two_vars(&i, 0, &j, 0);

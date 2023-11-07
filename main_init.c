@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:18:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/04 00:25:25 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:12:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 char	*creat_prompt(t_shell_stuff *shell, char *cmd_buff)
 {
+	signal(SIGQUIT, SIG_IGN);
 	loco()->limiter_flag = 0;
 	cmd_buff = shft_prompt(shell, 0);
 	loco()->exit = 0;

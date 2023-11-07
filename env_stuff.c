@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_stuff.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:03:59 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/17 18:20:52 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:30:00 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ char	*shft_getenv(char *find, char *envp[], t_shell_stuff *sh)
 	free(temp);
 	if (i > sh->envn)
 		return ("");
-	return (ft_strchr(envp[i], '=') + 1);
+	temp = ft_strchr(envp[i], '=') + 1;
+	if ((long)temp != 1)
+		return (temp);
+	return ("");
 }
 
 char	*shft_env_dup(char *in[], int i, int *r)

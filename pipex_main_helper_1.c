@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main_helper_1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/29 19:10:02 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/07 09:36:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	command_fork(char **args, t_shell_stuff *sh, int doset)
 		close (pipefd[1]);
 		return (waitpid(fpid, &res, 0), WEXITSTATUS(res));
 	}
-	if (doset)
+	if (doset && !loco()->fd_setafter)
 		dup2(pipefd[1], STDOUT_FILENO);
 	envdp = shft_dupenv(sh);
 	close (pipefd[0]);
@@ -43,9 +43,14 @@ int	command_fork(char **args, t_shell_stuff *sh, int doset)
 
 void	shft_after_setter(void)
 {
+	int	fd[2];
+
 	if (loco()->fd_setafter)
-		dup2(loco()->fd_setafter, STDIN_FILENO);
-	loco()->fd_setafter = 0;
+	{
+		pipe(fd);
+		close(fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+	}
 }
 
 int	command(char *cmd, t_shell_stuff *sh, int doset)

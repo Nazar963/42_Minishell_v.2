@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main_helper_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:08 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/04 00:37:06 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:04:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int	shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset)
 	p = shft_strchr(cmd, '>', '\'', '\"');
 	if (!p)
 		return (word_clean(cmd, ft_strlen(cmd)), 0);
-	*doset = 0;
 	append = 0;
 	if (*(p + 1) == '>')
 		append = 1;

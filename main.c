@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/06 10:42:26 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/06 11:13:08 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	main(int argn, char *args[], char *envp[])
 	while (shell.doexit == -1)
 	{
 		cmd_buff = creat_prompt(&shell, cmd_buff);
+		signal(SIGQUIT, &sigint_handle);
 		if (cmd_buff && *cmd_buff)
 			add_history(cmd_buff);
 		if (cmd_buff)

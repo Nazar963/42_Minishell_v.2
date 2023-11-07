@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:30:22 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/28 19:00:20 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:23:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	manage_dollar(char **str, t_shell_stuff *sh)
 		(*str)[i] = '\0';
 		var = shft_getenv(*str, sh->envp, sh);
 		(*str)[i] = ct;
-		if (!*var)
+		if (var && !*var)
 			var = shft_arg(sh, *str);
 		else
 			var = ft_strjoin(var, *str + i);

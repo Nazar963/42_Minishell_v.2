@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main_helper_3.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:28 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/04 00:35:23 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/07 09:35:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	shft_last_parse_1(char **s)
 	word_clean(*s, ft_strlen(*s));
 }
 
-void	builtin_temp_creat(char mode)
+void	 builtin_temp_creat(char mode)
 {
 	int	filefd;
 
@@ -41,13 +41,10 @@ void	builtin_temp_creat(char mode)
 
 void	builtin_temp_creat_1(char mode)
 {
-	int	filefd;
 	int	boh;
 
-	filefd = open(FILENAME2, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	if (!mode)
-		dup2(filefd, STDOUT_FILENO);
-	boh = open(FILENAME1, O_RDONLY);
+	(void )mode;
+	boh = open(FILENAME2, O_CREAT | O_RDONLY, 0666);
 	loco()->fd_setafter = boh;
 }
 
@@ -55,7 +52,7 @@ int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset)
 {
 	if (shft_redir_inpt(*cmd, sh) || shft_redir_outpt(*cmd, sh, doset))
 		return (sh->lststatus = 1, 1);
-	if (loco()->redir_n_pipe && doset)
+	if (loco()->redir_n_pipe && *doset)
 		builtin_temp_creat_1(1);
 	if (loco()->limiter_flag == -1)
 		return (1);
