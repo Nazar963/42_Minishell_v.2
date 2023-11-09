@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:30:22 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/06 11:04:46 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/09 21:04:29 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,29 @@ int	shft_istab1(char *str)
 	if (shft_istab(*str) || !*str)
 		return (1);
 	return (0);
+}
+
+/*checks case with only redirections and no command*/
+char	last_exiter(char *cmd)
+{
+	char	fs;
+
+	while (shft_istab(*cmd))
+		cmd++;
+	if (!*cmd)
+		return (1);
+	if (*cmd != '<' && *cmd != '>')
+		return (0);
+	while (shft_istab(*cmd))
+		cmd++;
+	fs = 0;
+	while ((!shft_istab(*cmd) || fs) && *cmd)
+	{
+		if (*cmd == '\'' && fs != 1)
+			fs ^= 2;
+		if (*cmd == '\"' && fs != 2)
+			fs ^= 1;
+		cmd++;
+	}
+	return (last_exiter(cmd));
 }

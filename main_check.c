@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:19:06 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/19 13:19:44 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/09 21:13:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	shft_ch_two(char st, char lst, int ct)
 	return (0);
 }
 
-int	shft_ch_checkok(char *cmd)
+int	shft_ch_checkok(char *cmd, t_shell_stuff *sh)
 {
 	char	st;
 	char	lst;
@@ -73,12 +73,35 @@ int	shft_ch_checkok(char *cmd)
 		{
 			ct = shft_ch_one(&cmd, &st, ct);
 			if (shft_ch_two(st, lst, ct))
-				return (ft_putstr_fd(ERRSYNTAX, STDERR_FILENO) * 0);
+				return (sh->lststatus = 2, ft_putstr_fd(SYNTERR, ERRSTD) * 0);
 			lst = st;
 		}
 		cmd++;
 	}
 	if (((st == 3 || st == 1) && !fs) || ct < 0)
-		return (ft_putstr_fd(ERRSYNTAX, STDERR_FILENO) * 0);
+		return (sh->lststatus = 2, ft_putstr_fd(SYNTERR, STDERR_FILENO) * 0);
 	return (1);
+}
+
+char	shft_redir_syntax_ok(char *cmd, t_shell_stuff *sh)
+{
+	char	*t;
+
+	t = shft_strrchr(cmd, '>', '\'', '\"');
+	if ((t++))
+	{
+		while (shft_istab(*t))
+			t++;
+		if (!*t)
+			return (sh->lststatus = 2, 1);
+	}
+	t = shft_strrchr(cmd, '<', '\'', '\"');
+	if ((t++))
+	{
+		while (shft_istab(*t))
+			t++;
+		if (!*t)
+			return (sh->lststatus = 2, 1);
+	}
+	return (0);
 }

@@ -6,32 +6,25 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/09 20:27:41 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/09 20:37:37 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	pipe_n_dup(int *pp)
-{
-	pipe(pp);
-	close(*(pp + 1));
-	dup2(*pp, STDIN_FILENO);
-}
 
 char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 {
 	if (shft_strchr(tmp, ')', '\'', '\"') || shft_strchr(tmp, '(', '\'', '\"'))
 		tmp = clean_cmd(tmp);
 	if (loco()->g_or == 1 && sh->lststatus == 0)
-		return (NULL);
+		return ((void *)0);
 	tmp = check_for_wildcard_normal(tmp);
-	if (sh->doexit != -1)
-		sh->lststatus = 1;
-	if (sh->lststatus == 1 || shft_redirections(&tmp, sh, &doset))
+	if (sh->doexit != -1 || shft_redirections(&tmp, sh, &doset))
 	{
-		pipe_n_dup(pp);
-		return (free(tmp), NULL);
+		piperlol(pp);
+		if (sh->doexit != -1)
+			sh->lststatus = 1;
+		return (free(tmp), (void *)0);
 	}
 	if (shft_is_builtin(tmp) == 0)
 		sh->lststatus = builtin_cmds(tmp, sh, doset);

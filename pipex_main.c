@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/01 23:30:29 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/09 21:33:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
 		shft_fr_to(cmds[i++], sh, 1);
 	else
 		shft_fr_to(cmds[i++], sh, 0);
-	while (i < pipes)
+	while (i < pipes && !sh->lststatus && !loco()->sigstop)
 		shft_fr_to(cmds[i++], sh, 1);
 	dup2(sh->tempfds[1], STDOUT_FILENO);
-	if (i == pipes)
+	if (i == pipes && !sh->lststatus && !loco()->sigstop)
 		shft_fr_to(cmds[i], sh, 0);
 	dup2(sh->tempfds[0], STDIN_FILENO);
 	dup2(sh->tempfds[1], STDOUT_FILENO);

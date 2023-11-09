@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:30:22 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/06 11:23:05 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/09 21:14:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	shft_execute_cmd(t_shell_stuff *sh, char *str)
 		str = parse_cmd(str, sh);
 	pipes = 0;
 	if (last_checks(str))
-		return (127);
+		return (sh->lststatus = 2, 127);
 	piped = shft_split1(str, '|', '\'', '\"');
 	if (!piped)
 		return (127);

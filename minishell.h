@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/04 00:25:17 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/09 21:33:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 
 # define NBLOL "9223372036854775808"
 # define PROMPT "minishell_by_lpollini&nizz"
-# define ERRSYNTAX "minishell: syntax error\n"
+# define SYNTERR "minishell: syntax error\n"
 # define ERRBADASS "minishell: export: bad assignment\n"
 # define LIMITERMSG "minishell: warning: heredoc reached EOF before limiter \
 (expected \'"
@@ -106,6 +106,7 @@ typedef struct s_loco
 	int				fd_setafter;
 	int				flagc;
 	pid_t			limiter_pid;
+	char			sigstop;
 }	t_loco;
 
 typedef struct s_pare
@@ -311,6 +312,7 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh,
 			int *pp, int doset);
 int		shft_fr_to(char *cmd, t_shell_stuff *sh, int doset);
 int		shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh);
+char	last_exiter(char *cmd);
 
 /* ------------------------------- utils.c ------------------------------- */
 int		execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh,
@@ -335,6 +337,8 @@ char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset,
 			char *tmp);
 char	*shft_ft_tp_helper_nizz(int *pp, t_shell_stuff *sh,
 			int doset, char *tmp);
+void	piperlol(int *pp);
+char	shft_redir_syntax_ok(char *cmd, t_shell_stuff *sh);
 
 /* ------------------------------- main_init.c ------------------------------ */
 char	*creat_prompt(t_shell_stuff *shell, char *cmd_buff);
@@ -347,7 +351,7 @@ char	limiter_ok(char **comp, char *limiter);
 char	fs_check(char fs, char a);
 int		shft_ch_one(char **cmd, char *st, int ct);
 int		shft_ch_two(char st, char lst, int ct);
-int		shft_ch_checkok(char *cmd);
+int		shft_ch_checkok(char *cmd, t_shell_stuff *sh);
 
 /* -------------------------- parenthesis_pareser.c ------------------------- */
 char	*final_check_copy(char *str, int counter);

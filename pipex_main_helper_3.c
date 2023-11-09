@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:28 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/09 20:18:15 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/09 21:32:43 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	shft_last_parse_1(char **s)
 	word_clean(*s, ft_strlen(*s));
 }
 
-void	 builtin_temp_creat(char mode)
+void	builtin_temp_creat(char mode)
 {
 	int	filefd;
 
@@ -48,33 +48,12 @@ void	builtin_temp_creat_1(char mode)
 	loco()->fd_setafter = boh;
 }
 
-char	shft_redir_syntax_ok(char *cmd, t_shell_stuff *sh)
-{
-	char	*t;
-
-	t = shft_strrchr(cmd, '>', '\'', '\"');
-	if ((t++))
-	{
-		while (shft_istab(*t))
-			t++;
-		if (!*t)
-			return (sh->lststatus = 2, 1);
-	}
-	t = shft_strrchr(cmd, '<', '\'', '\"');
-	if ((t++))
-	{
-		while (shft_istab(*t))
-			t++;
-		if (!*t)
-			return (sh->lststatus = 2, 1);
-	}
-	return (0);
-}
-
 int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset)
 {
 	if (shft_redir_syntax_ok(*cmd, sh))
 		return (ft_putstr_fd("minishell: syntax error\n", ERRSTD), 1);
+	if (last_exiter(*cmd))
+		return (sh->lststatus = 0, 1);
 	if (shft_redir_inpt(*cmd, sh) || shft_redir_outpt(*cmd, sh, doset))
 		return (sh->lststatus = 1, 1);
 	if (loco()->redir_n_pipe && *doset)

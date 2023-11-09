@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:46:55 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/04 00:36:23 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:37:47 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	piperlol(int *pp)
+{
+	pipe(pp);
+	close(*(pp + 1));
+	dup2(*pp, STDIN_FILENO);
+}
 
 void	clean_stuff(char *s, int l)
 {

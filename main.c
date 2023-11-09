@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/09 20:00:08 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/09 21:35:03 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	limiter_case(int a)
 void	sigint_handle(int a)
 {
 	loco()->flagc = 1;
+	loco()->sigstop = 1;
 	if ((loco()->limiter_flag == 1 || loco()->limiter_flag
 			== -1) && limiter_case(a))
 		return ;
@@ -99,7 +100,7 @@ int	main(int argn, char *args[], char *envp[])
 			add_history(cmd_buff);
 		if (cmd_buff)
 		{
-			if (!shft_ch_checkok(cmd_buff))
+			if (!shft_ch_checkok(cmd_buff, &shell))
 				continue ;
 			cmd_buff = better_parenthesis(cmd_buff);
 			shft_execute_cmd(&shell, cmd_buff);
