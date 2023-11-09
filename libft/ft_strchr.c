@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/28 20:55:13 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:17:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ char	*shft_strrchr(const char *s, char c, char ig1, char ig2)
 	test = 0;
 	while (s[i])
 		i++;
-	while (i--)
+	while (i)
 	{
+		i--;
 		if (s[i] == ig1 && test != 2)
 			test ^= 1;
 		if (s[i] == ig2 && test != 1)

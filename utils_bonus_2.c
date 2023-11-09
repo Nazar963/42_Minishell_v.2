@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:37:21 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/21 16:48:37 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:24:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*cmd_or_cleaner_helper(char *new_cmd, char *cmd,
 	new_cmd = (char *)ft_calloc(ft_strlen(cmd) - (*last_para) + 2,
 			sizeof(char));
 	if (!new_cmd)
-		return ((void *)0);
+		return (NULL);
 	new_cmd[(*j)++] = '0';
 	(*last_para)++;
 	while (cmd[(*last_para)])

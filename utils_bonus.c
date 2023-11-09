@@ -6,26 +6,32 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/06 12:04:06 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/09 20:27:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	pipe_n_dup(int *pp)
+{
+	pipe(pp);
+	close(*(pp + 1));
+	dup2(*pp, STDIN_FILENO);
+}
 
 char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 {
 	if (shft_strchr(tmp, ')', '\'', '\"') || shft_strchr(tmp, '(', '\'', '\"'))
 		tmp = clean_cmd(tmp);
 	if (loco()->g_or == 1 && sh->lststatus == 0)
-		return ((void *)0);
+		return (NULL);
 	tmp = check_for_wildcard_normal(tmp);
-	if (sh->doexit != -1 || shft_redirections(&tmp, sh, &doset))
-	{
-		pipe(pp);
-		close(*(pp + 1));
-		dup2(*pp, STDIN_FILENO);
+	if (sh->doexit != -1)
 		sh->lststatus = 1;
-		return (free(tmp), (void *)0);
+	if (sh->lststatus == 1 || shft_redirections(&tmp, sh, &doset))
+	{
+		pipe_n_dup(pp);
+		return (free(tmp), NULL);
 	}
 	if (shft_is_builtin(tmp) == 0)
 		sh->lststatus = builtin_cmds(tmp, sh, doset);
@@ -41,29 +47,29 @@ char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 	return (tmp);
 }
 
-char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset, char *tmp)
+char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int ds, char *tmp)
 {
 	char	*temp;
 
 	temp = shft_very_lol();
 	if (shft_strchr(loco()->piece, '(', '\'', '\"'))
 	{
-		tmp = check_for_parentheses(tmp, sh, &pp[0], doset);
+		tmp = check_for_parentheses(tmp, sh, &pp[0], ds);
 		if (!tmp || !*tmp)
 			return (shft_ft_tp_hleper_1_0(), free(temp), tmp);
 		temp = ft_split_bonus(tmp, &loco()->index);
 		temp = check_for_wildcard_normal(temp);
 		shft_ft_tp_hleper_1_1(temp);
 		if (loco()->and == 0 && loco()->or == 0 && loco()->parentheses == 1)
-			sh->lststatus = executed_command_last(sh, pp, doset, loco()->piece);
+			sh->lststatus = executed_command_last(sh, pp, ds, loco()->piece);
 		loco()->parentheses = 0;
 	}
 	loco()->n = pare()->flag;
 	check_for_operator(loco()->piece);
 	if (loco()->and)
-		sh->lststatus = execution_proccess_and_bonus(&pp[0], sh, doset);
+		sh->lststatus = execution_proccess_and_bonus(&pp[0], sh, ds);
 	else if (loco()->or)
-		sh->lststatus = execution_proccess_or_bonus(&pp[0], sh, doset);
+		sh->lststatus = execution_proccess_or_bonus(&pp[0], sh, ds);
 	tmp = cmd_cleaner(tmp, loco()->index, sh);
 	dup2(sh->tempfds[1], STDOUT_FILENO);
 	dup2(sh->tempfds[0], STDIN_FILENO);

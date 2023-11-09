@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:37:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/31 15:07:46 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:24:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 int	execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset)
 {
-	if (sh->doexit != -1 || shft_redirections(&cmds[loco()->counter],
+	if (sh->doexit != -1)
+		sh->lststatus = 1;
+	if (sh->lststatus == 1 || shft_redirections(&cmds[loco()->counter],
 			sh, &doset))
 	{
 		pipe(pp);
 		close(*(pp + 1));
 		dup2(*pp, STDIN_FILENO);
-		sh->lststatus = 1;
 		ft_free_tab(cmds);
 		return (69);
 	}
@@ -112,7 +113,7 @@ char	*cmd_and_cleaner_helper(char *new_cmd, char *cmd,
 	new_cmd = (char *)ft_calloc(ft_strlen(cmd) - (*last_para) + 2,
 			sizeof(char));
 	if (!new_cmd)
-		return ((void *)0);
+		return (NULL);
 	new_cmd[(*j)++] = '1';
 	(*last_para)++;
 	while (cmd[(*last_para)])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parentheses_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:58:15 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/04 00:34:25 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:20:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,13 @@ char	*status_adding_cmd_cleaning(char *cmd, t_shell_stuff *sh)
 void	executed_command(t_shell_stuff *sh
 	, int *pp, int doset, char *splitted_cmd)
 {
-	if (sh->doexit != -1 || shft_redirections(&splitted_cmd, sh, &doset))
+	if (sh->doexit != -1)
+		sh->lststatus = 1;
+	if (sh->lststatus == 1 || shft_redirections(&splitted_cmd, sh, &doset))
 	{
 		pipe(pp);
 		close(*(pp + 1));
 		dup2(*pp, STDIN_FILENO);
-		sh->lststatus = 1;
 		return ;
 	}
 	if (shft_is_builtin(splitted_cmd) == 0)
