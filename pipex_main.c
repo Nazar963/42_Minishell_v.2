@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/10 19:27:25 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/10 22:50:36 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*littel_better(char *s)
 	res = ft_strdup(s);
 	while (res[i])
 		i++;
-	while (--i && shft_istab(res[i]))
+	while (i-- && shft_istab(res[i]))
 		res[i] = '\0';
 	return (res);
 }
@@ -113,15 +113,11 @@ int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
 		shft_fr_to(cmds[i], sh, 0);
 	dup2(sh->tempfds[0], STDIN_FILENO);
 	dup2(sh->tempfds[1], STDOUT_FILENO);
-	if (sh->doexit != -1)
-		return (0);
-	loco()->g_and = 0;
-	loco()->g_or = 0;
-	if (!access(".tempfile01", F_OK))
+	if (!access(".tempfile01", F_OK) && sh->doexit == -1)
 		shft_execute_cmd(sh, "/usr/bin/rm -f .tempfile01");
-	if (!access(".tempfile001", F_OK))
+	if (!access(".tempfile001", F_OK) && sh->doexit == -1)
 		shft_execute_cmd(sh, "/usr/bin/rm -f .tempfile001");
-	if (!access(".tempfile", F_OK))
+	if (!access(".tempfile", F_OK) && sh->doexit == -1)
 		shft_execute_cmd(sh, "/usr/bin/rm -f .tempfile");
 	return (sh->lststatus);
 }
