@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/09 21:35:03 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/10 09:26:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	sigint_handle(int a)
 	if ((loco()->limiter_flag == 1 || loco()->limiter_flag
 			== -1) && limiter_case(a))
 		return ;
-	if (loco()->sigpass)
-		kill(loco()->forkpid, a);
 	if (a == SIGQUIT && loco()->sigpass)
 		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
+	if (loco()->sigpass)
+		kill(loco()->forkpid, a);
 	if (a == SIGQUIT)
 		return ((void)rl_redisplay());
 	write(1, "\n", 1);

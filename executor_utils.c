@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:30:22 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/09 21:04:29 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/10 09:42:03 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ char	last_exiter(char *cmd)
 		return (1);
 	if (*cmd != '<' && *cmd != '>')
 		return (0);
+	cmd++;
 	while (shft_istab(*cmd))
 		cmd++;
 	fs = 0;
