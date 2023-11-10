@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parentheses_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:58:39 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/09 20:35:44 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/10 19:27:52 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	executed_command_last(t_shell_stuff *sh, int *pp, int doset, char *cmd)
 		sh->lststatus = command(cmd, sh, doset);
 	if (sh->lststatus == -1)
 	{
-		non_executable_handler(cmd, sh);
 		pipe(pp);
 		close(*(pp + 1));
 		dup2(*pp, STDIN_FILENO);

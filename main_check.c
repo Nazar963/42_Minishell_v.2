@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:19:06 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/09 21:13:06 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/10 19:33:39 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,21 @@ char	shft_redir_syntax_ok(char *cmd, t_shell_stuff *sh)
 	t = shft_strrchr(cmd, '>', '\'', '\"');
 	if ((t++))
 	{
+		if (*t == '>')
+			t++;
 		while (shft_istab(*t))
 			t++;
-		if (!*t)
+		if (!*t || *t == '>' || *t == '<')
 			return (sh->lststatus = 2, 1);
 	}
 	t = shft_strrchr(cmd, '<', '\'', '\"');
 	if ((t++))
 	{
+		if (*t == '<')
+			t++;
 		while (shft_istab(*t))
 			t++;
-		if (!*t)
+		if (!*t || *t == '<' || *t == '>')
 			return (sh->lststatus = 2, 1);
 	}
 	return (0);

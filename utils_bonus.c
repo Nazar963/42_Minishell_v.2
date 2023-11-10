@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/10 09:09:35 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/10 19:27:55 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
 		sh->lststatus = command(tmp, sh, doset);
 	if (sh->lststatus == -1)
 	{
-		non_executable_handler(tmp, sh);
 		pipe(pp);
 		close(*(pp + 1));
 		dup2(*pp, STDIN_FILENO);

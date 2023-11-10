@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main_helper_1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/07 09:36:20 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/10 19:28:53 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ int	command(char *cmd, t_shell_stuff *sh, int doset)
 		}
 	}
 	shft_after_setter();
-	ft_free_tab(args);
-	return (res);
+	if (res == -1)
+		non_executable_handler(args[0], sh);
+	return (ft_free_tab(args), res);
 }
 
 char	*shft_get_word(char *in, char end)

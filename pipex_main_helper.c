@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:25 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/28 18:11:02 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:58:44 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ char	*search_path(char *name, t_shell_stuff *sh)
 	int		i;
 
 	i = 0;
+	if (!name || !*name)
+		return (NULL);
 	temp = ft_split(shft_getenv("PATH", sh->envp, sh), ':');
 	otemp[1] = ft_strjoin("/", name);
 	while (temp[i])

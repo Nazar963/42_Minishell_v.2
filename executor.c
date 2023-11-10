@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:30:22 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/09 21:14:27 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/10 18:50:17 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ char	*parse_cmd(char *s, t_shell_stuff *sh)
 	char	*temp;
 	int		d;
 
+	if (!s)
+		return (NULL);
 	dollard = shft_split(s, '$', '\"', '\'');
 	d = 0;
 	if (*s == '$')
@@ -104,11 +106,11 @@ int	shft_execute_cmd(t_shell_stuff *sh, char *str)
 	int		pipes;
 	char	*command;
 
-	if (!*str)
-		return (0);
 	command = str;
 	if (shft_strchr_1(str, '$', '\'', '\"'))
 		str = parse_cmd(str, sh);
+	if (!*str || !shft_ch_checkok(str, sh))
+		return (0);
 	pipes = 0;
 	if (last_checks(str))
 		return (sh->lststatus = 2, 127);

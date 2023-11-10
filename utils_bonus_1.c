@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:37:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/09 20:36:01 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/10 19:27:54 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset)
 		sh->lststatus = command(cmds[loco()->counter], sh, doset);
 	if (sh->lststatus == -1)
 	{
-		non_executable_handler(cmds[loco()->counter], sh);
 		pipe(pp);
 		close(*(pp + 1));
 		dup2(*pp, STDIN_FILENO);

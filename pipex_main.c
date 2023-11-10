@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/09 21:33:31 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/10 19:27:25 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
 		shft_fr_to(cmds[i], sh, 0);
 	dup2(sh->tempfds[0], STDIN_FILENO);
 	dup2(sh->tempfds[1], STDOUT_FILENO);
+	if (sh->doexit != -1)
+		return (0);
 	loco()->g_and = 0;
 	loco()->g_or = 0;
 	if (!access(".tempfile01", F_OK))
