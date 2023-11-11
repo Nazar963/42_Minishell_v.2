@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parentheses.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:57:39 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/06 11:02:31 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/11 12:45:21 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	clean_loco_piece(int first_index, int last_index)
 	}
 	free(loco()->piece);
 	loco()->piece = new_str;
+	return ;
 }
 
 char	*cmd_pare_clean(char *cmd)
@@ -123,4 +124,5 @@ void	command_parentheses_clean_1(char *cmd, int i)
 		}
 		i++;
 	}
+	return ;
 }

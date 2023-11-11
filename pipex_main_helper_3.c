@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:28 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/11 01:16:57 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:45:50 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	shft_last_parse_1(char **s)
 		ori++;
 	}
 	word_clean(*s, ft_strlen(*s));
+	return ;
 }
 
 void	builtin_temp_creat(char mode)
@@ -37,6 +38,7 @@ void	builtin_temp_creat(char mode)
 		dup2(filefd, STDOUT_FILENO);
 	filefd = open(FILENAME1, O_RDONLY);
 	dup2(filefd, STDIN_FILENO);
+	return ;
 }
 
 void	builtin_temp_creat_1(char mode)
@@ -46,6 +48,7 @@ void	builtin_temp_creat_1(char mode)
 	(void )mode;
 	boh = open(FILENAME2, O_CREAT | O_RDONLY, 0666);
 	loco()->fd_setafter = boh;
+	return ;
 }
 
 int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset)
@@ -60,7 +63,7 @@ int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset)
 	// 	builtin_temp_creat_1(1);
 	if (loco()->limiter_flag == -1)
 		return (1);
-	loco()->sigpass = 1;
+	loco()->sigpass = 2;
 	shft_last_parse_1(cmd);
 	return (0);
 }

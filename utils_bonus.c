@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/11 02:00:26 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:01:08 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,34 @@ char	*shft_ft_tp_helper_nobonus(int pipes, t_shell_stuff *sh,
 	int			fd[2];
 	static int	from_last = 0;
 
-	if (doset)
-	{
-		pipe(fd);
-		dup2(fd[1], STDOUT_FILENO);
-	}
-	if (from_last)
-		dup2(from_last, STDIN_FILENO);
-	if (doset)
-		from_last = fd[0];
-	else
-		from_last = 0;
+	pipe(fd);
 	loco()->p[pipes].pipes = fork();
 	if (loco()->p[pipes].pipes)
 	{
 		if (doset)
+		{
+			dup2(fd[0], STDIN_FILENO);
 			close(fd[1]);
+			if (from_last)
+				close(from_last);
+			from_last = fd[0];
+			if (!doset)
+				from_last = 0;
+		}
+		else
+			close(from_last);
 		return (tmp);
+	}
+	if (doset)
+	{
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[0]);
 	}
 		
 	// tmp = check_for_wildcard_normal(tmp);
 	// if (sh->doexit != -1 || shft_redirections(&tmp, sh, &doset))
 	// {
-	// 	//piperlol(pp);
+	// 	//piperlol(pp);-
 	// 	if (sh->doexit != -1)
 	// 		sh->lststatus = 1;
 	// 	return (free(tmp), (void *)0);

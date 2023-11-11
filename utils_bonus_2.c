@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:37:21 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/09 20:24:01 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/11 12:47:17 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	parentheses_helper_1(char *cmd, t_shell_stuff *sh,
 		loco()->or = 0;
 		check_for_operator(loco()->piece);
 	}
+	return ;
 }
 
 void	parentheses_helper_2_0(void)
@@ -58,6 +59,7 @@ void	parentheses_helper_2_0(void)
 		loco()->first_para = loco()->i;
 	loco()->start_flag = 1;
 	loco()->count++;
+	return ;
 }
 
 void	parentheses_helper_2(char *cmd)
@@ -85,6 +87,7 @@ void	parentheses_helper_2(char *cmd)
 			break ;
 		loco()->z++;
 	}
+	return ;
 }
 
 char	*parentheses_helper_3(char *cmd, t_shell_stuff *sh, int *pp, int doset)

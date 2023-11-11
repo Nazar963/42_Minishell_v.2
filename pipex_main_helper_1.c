@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/11 01:44:22 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:45:43 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	shft_after_setter(void)
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 	}
+	return ;
 }
 
 int	command_nobonus(char *cmd, t_shell_stuff *sh, int doset)
@@ -160,4 +161,5 @@ void	word_clean(char *str, int len)
 		if (str[i] != -1)
 			str[j++] = str[i];
 	str[j] = '\0';
+	return ;
 }

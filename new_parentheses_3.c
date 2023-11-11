@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parentheses_3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:59:02 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/06 11:01:40 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/11 12:45:11 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	recursive_cleanup_init(void)
 	pare()->last = 0;
 	pare()->controll = 0;
 	pare()->flag = 0;
+	return ;
 }
 
 int	recursive_cleanup_2(char *cmd, int *i)

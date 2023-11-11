@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:25 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/10 18:58:44 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:46:03 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_free_tab(char **tb)
 	while (tb[i])
 		free(tb[i++]);
 	free(tb);
+	return ;
 }
 
 void	pipeft_exit(int arg)

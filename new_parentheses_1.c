@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:58:15 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/10 19:27:11 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:45:03 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,4 +125,5 @@ void	executed_command(t_shell_stuff *sh
 		close(*(pp + 1));
 		dup2(*pp, STDIN_FILENO);
 	}
+	return ;
 }

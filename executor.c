@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:30:22 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/10 18:50:17 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:44:35 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	manage_dollar(char **str, t_shell_stuff *sh)
 	}
 	free(*str);
 	*str = var;
+	return ;
 }
 
 char	*parse_cmd(char *s, t_shell_stuff *sh)

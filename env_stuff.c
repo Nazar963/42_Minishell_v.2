@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_stuff.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:03:59 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/06 11:30:00 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/11 12:44:11 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	update_env_free(char **envp, char *pwd, t_shell_stuff *sh)
 	}
 	free(*tmp);
 	*tmp = ft_strjoin("PWD=", pwd);
+	return ;
 }
 
 int	shft_getenv_line(char *find, char *envp[], t_shell_stuff *sh)

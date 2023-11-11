@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:58:39 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/10 19:27:52 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:45:07 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	remove_status_operator_1_1(char *cmd, int i)
 		}
 		i++;
 	}
+	return ;
 }
 
 char	*remove_status_operator_1(char *cmd, char *new_str, int i, int j)

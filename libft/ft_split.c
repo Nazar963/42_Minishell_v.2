@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/28 20:55:28 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:47:31 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	shft_init_two_vars(int *a, int va, int *b, int vb)
 {
 	*a = va;
 	*b = vb;
+	return ;
 }
 
 int	count_words(const char *str, char c)

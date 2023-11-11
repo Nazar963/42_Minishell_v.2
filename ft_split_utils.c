@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:49:05 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/10/22 16:48:15 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:44:40 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	quotes_passer(char *str, int *index, int *count)
 		while (str[++(*index)] != '"')
 			(*count)++;
 	}
+	return ;
 }
 
 int	count_words_bonus(char *str)

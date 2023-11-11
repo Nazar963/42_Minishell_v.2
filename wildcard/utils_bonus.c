@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 10:38:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/02 17:44:44 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:47:45 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	main_command_join(char **new_str, char **split)
 {
 	*new_str = ft_strjoin_free(*new_str, split[1]);
 	*new_str = ft_strjoin_free(*new_str, " ");
+	return ;
 }
 
 void	initialize_three_to_zero(int *n, int *i, int *z)
@@ -54,6 +55,7 @@ void	initialize_three_to_zero(int *n, int *i, int *z)
 	*n = 0;
 	*i = 0;
 	*z = 0;
+	return ;
 }
 
 void	pr_dir(char **new_str, char **split_wild, int first, int last_char)
@@ -75,4 +77,5 @@ void	pr_dir(char **new_str, char **split_wild, int first, int last_char)
 		}
 		loco()->entry = readdir(loco()->dir);
 	}
+	return ;
 }

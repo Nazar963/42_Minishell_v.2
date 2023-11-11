@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/11 01:54:25 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:44:06 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,34 +31,26 @@ int	limiter_case(int a)
 	return (1);
 }
 
-void	shft_kill_all(int a)
-{
-	int	i;
-
-	i = 0;
-	while (loco()->p[i].pipes)
-		kill(loco()->p[i].pipes, a);
-}
-
 void	sigint_handle(int a)
 {
 	loco()->flagc = 1;
-	loco()->sigstop = 1;
 	if ((loco()->limiter_flag == 1 || loco()->limiter_flag
 			== -1) && limiter_case(a))
 		return ;
-	if (a == SIGQUIT && loco()->sigpass)
-		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
-	if (loco()->sigpass)
-		shft_kill_all(a);
 	if (a == SIGQUIT)
+	{
+		if (!loco()->sigpass)
+			return ;
+		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
+		signal(SIGQUIT, SIG_IGN);
 		return ((void)rl_redisplay());
+	}
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	if (!loco()->sigpass)
 		rl_redisplay();
-	loco()->sigpass = 0;
+	return ;
 }
 
 void	shft_init(t_shell_stuff *sh, char *args[], char *envp[], int argn)
@@ -81,6 +73,7 @@ void	shft_init(t_shell_stuff *sh, char *args[], char *envp[], int argn)
 	sh->doexit = -1;
 	sh->exit_code = 0;
 	loco()->sigpass = 0;
+	return ;
 }
 
 int	shft_exit(t_shell_stuff *sh)
@@ -95,6 +88,7 @@ int	shft_exit(t_shell_stuff *sh)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	exit(sh->exit_code);
+	return (0);
 }
 
 int	main(int argn, char *args[], char *envp[])
@@ -105,7 +99,9 @@ int	main(int argn, char *args[], char *envp[])
 	shft_init(&shell, args, envp, argn);
 	while (shell.doexit == -1)
 	{
+		loco()->sigpass = 0;
 		cmd_buff = creat_prompt(&shell, cmd_buff);
+		loco()->sigpass = 1;
 		signal(SIGQUIT, &sigint_handle);
 		if (cmd_buff && *cmd_buff)
 			add_history(cmd_buff);
@@ -119,7 +115,7 @@ int	main(int argn, char *args[], char *envp[])
 		else if (write(1, "exit\n", 5))
 			break ;
 		update_env_free(shell.envp, shell.pwd, &shell);
-		loco()->sigpass = 0;
 	}
 	shft_exit(&shell);
+	return (0);
 }

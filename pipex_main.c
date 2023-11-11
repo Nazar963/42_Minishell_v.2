@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/11 01:31:38 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:46:14 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	non_executable_handler(char *cmd, t_shell_stuff *sh)
 		shft_putter("minishell: \'", temp,
 			"\': command not found\n", STDERR_FILENO);
 	free(temp);
+	return ;
 }
 
 int	check_for_bonus(char *cmd)
@@ -131,6 +132,7 @@ void	shft_clean_tempfiles(t_shell_stuff *sh)
 	if (!access(".tempfile1", F_OK) && !fork())
 		execve(temp1[0], temp1, shft_dupenv(sh));
 	ft_free_tab(temp1);
+	return ;
 }
 
 int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)

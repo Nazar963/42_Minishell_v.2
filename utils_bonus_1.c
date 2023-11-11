@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:37:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/10 19:27:54 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:46:53 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	control_and_bonus(int *fixer, int *doset, int counter)
 		*doset = 1;
 		*fixer = 0;
 	}
+	return ;
 }
 
 char	**execution_and_bonus_helper_1(int doset, char **cmds,

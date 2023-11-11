@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:23:14 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/01 23:52:03 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:44:35 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	surpass_q_dq(char *s, int *x)
 		}
 		(*x)++;
 	}
+	return ;
 }
 
 char	**control_copy(char **split, char *s, int *i, int *j)

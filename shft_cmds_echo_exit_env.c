@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shft_cmds_echo_exit_env.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 10:29:55 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/19 15:26:46 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:46:18 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	shft_cmd_exit(char *cmd, t_shell_stuff *sh)
 	if (BLTINS)
 		printf("EXIT BUILTIN\n");
 	cmd += 4;
-	printf("exit\n");
+	ft_putstr_fd("exit\n", STDERR_FILENO);
 	exit_ok(cmd, sh);
 	sh->doexit = 1;
 	sh->lststatus = 0;
@@ -84,6 +84,7 @@ void	shft_echo_writer(char *cmd)
 			cmd++;
 		cmd++;
 	}
+	return ;
 }
 
 int	shft_cmd_echo(char *cmd, t_shell_stuff *sh)

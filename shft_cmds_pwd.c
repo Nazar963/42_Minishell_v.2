@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shft_cmds_pwd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:34:40 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/24 19:34:10 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:46:35 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	shft_ft_tp_hleper_1_0(void)
 	loco()->or = 0;
 	loco()->out_to_pipe = 0;
 	loco()->parentheses = 0;
+	return ;
 }
 
 void	shft_ft_tp_hleper_1_1(char *temp)
@@ -56,4 +57,5 @@ void	shft_ft_tp_hleper_1_1(char *temp)
 	pare()->first = 0;
 	pare()->last = 0;
 	check_for_operator(loco()->piece);
+	return ;
 }
