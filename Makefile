@@ -6,14 +6,14 @@
 #    By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 08:42:40 by lpollini          #+#    #+#              #
-#    Updated: 2023/11/04 00:37:41 by lpollini         ###   ########.fr        #
+#    Updated: 2023/11/11 01:17:55 by lpollini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 	
 CC			= cc -g 
-FLAGS		= -Wall -Wextra -Werror
+FLAGS		= #-Wall -Wextra -Werror
 RM			= rm -rf
 
 OBJDIR = .objFiles
@@ -48,6 +48,8 @@ ifeq ($(DEBUG), 1)
    OPTS = -g -Wall -Wextra -Werror
 endif
 
+debug: lclean $(NAME)
+
 all: libft $(NAME)
 
 libft:
@@ -73,6 +75,10 @@ $(OBJDIR)/%.o: %.c $(HEADER)
 clean:
 	@$(RM) $(OBJDIR) $(OBJ)
 	@printf "$(YELLOW)    - Object files removed.$(RESET)\n"
+
+lclean: clean
+	@$(RM) $(NAME)
+	@printf "$(YELLOW)    - Executable removed.$(RESET)\n"
 
 fclean: clean
 	@$(RM) $(NAME)

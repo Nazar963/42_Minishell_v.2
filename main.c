@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/10 18:48:47 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:54:25 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@ int	limiter_case(int a)
 	return (1);
 }
 
+void	shft_kill_all(int a)
+{
+	int	i;
+
+	i = 0;
+	while (loco()->p[i].pipes)
+		kill(loco()->p[i].pipes, a);
+}
+
 void	sigint_handle(int a)
 {
 	loco()->flagc = 1;
@@ -41,7 +50,7 @@ void	sigint_handle(int a)
 	if (a == SIGQUIT && loco()->sigpass)
 		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 	if (loco()->sigpass)
-		kill(loco()->forkpid, a);
+		shft_kill_all(a);
 	if (a == SIGQUIT)
 		return ((void)rl_redisplay());
 	write(1, "\n", 1);
@@ -83,6 +92,8 @@ int	shft_exit(t_shell_stuff *sh)
 	rl_clear_history();
 	if (pare()->extra)
 		read_stdin_1();
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 	exit(sh->exit_code);
 }
 

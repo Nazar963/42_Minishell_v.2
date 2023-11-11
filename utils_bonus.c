@@ -6,13 +6,59 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/10 19:27:55 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 02:00:26 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset, char *tmp)
+char	*shft_ft_tp_helper_nobonus(int pipes, t_shell_stuff *sh,
+		int doset, char *tmp)
+{
+	int			fd[2];
+	static int	from_last = 0;
+
+	if (doset)
+	{
+		pipe(fd);
+		dup2(fd[1], STDOUT_FILENO);
+	}
+	if (from_last)
+		dup2(from_last, STDIN_FILENO);
+	if (doset)
+		from_last = fd[0];
+	else
+		from_last = 0;
+	loco()->p[pipes].pipes = fork();
+	if (loco()->p[pipes].pipes)
+	{
+		if (doset)
+			close(fd[1]);
+		return (tmp);
+	}
+		
+	// tmp = check_for_wildcard_normal(tmp);
+	// if (sh->doexit != -1 || shft_redirections(&tmp, sh, &doset))
+	// {
+	// 	//piperlol(pp);
+	// 	if (sh->doexit != -1)
+	// 		sh->lststatus = 1;
+	// 	return (free(tmp), (void *)0);
+	// }
+	
+	if (shft_is_builtin(tmp) == 0)
+		sh->lststatus = builtin_cmds(tmp, sh, doset);
+	else
+		sh->lststatus = command_nobonus(tmp, sh, doset);
+
+	sh->doexit = 1;
+	loco()->sigstop = 1;
+	sh->exit_code = sh->lststatus;
+	return (tmp);
+}
+
+char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh,
+		int doset, char *tmp)
 {
 	if (shft_strchr(tmp, ')', '\'', '\"')
 		|| shft_strchr(tmp, '(', '\'', '\"'))

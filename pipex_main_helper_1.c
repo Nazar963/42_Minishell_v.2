@@ -6,11 +6,24 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/10 19:28:53 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:44:22 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	command_fork_nobonus(char **args, t_shell_stuff *sh, int doset)
+{
+	char	**envdp;
+
+	envdp = shft_dupenv(sh);
+	execve(args[0], args, envdp);
+	shft_putter("minishell: \'", args[0], "\': Is a directory\n", ERRSTD);
+	sh->doexit = 1;
+	sh->exit_code = 126;
+	ft_free_tab(envdp);
+	return (0);
+}
 
 int	command_fork(char **args, t_shell_stuff *sh, int doset)
 {
@@ -51,6 +64,34 @@ void	shft_after_setter(void)
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 	}
+}
+
+int	command_nobonus(char *cmd, t_shell_stuff *sh, int doset)
+{
+	char		**args;
+	char		*xpat;
+	int			res;
+
+	args = shft_split2(cmd, ' ', '\'', '\"');
+	if (access(args[0], F_OK | R_OK) == -1 && access(args[0], F_OK) == 0)
+		return (126 + shft_putter("minishell: \'", args[0],
+				"\': Permission denied\n", STDERR_FILENO) * 0);
+	if (shft_strchr(args[0], '/', '\'', '\"') && access(args[0], X_OK) == 0)
+		res = command_fork_nobonus(args, sh, doset);
+	else
+	{
+		xpat = search_path(args[0], sh);
+		res = -1;
+		if (xpat)
+		{
+			free(args[0]);
+			args[0] = xpat;
+			res = command_fork_nobonus(args, sh, doset);
+		}
+	}
+	if (res == -1)
+		non_executable_handler(args[0], sh);
+	return (ft_free_tab(args), res);
 }
 
 int	command(char *cmd, t_shell_stuff *sh, int doset)

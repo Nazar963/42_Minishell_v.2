@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_stuff.c                                     :+:      :+:    :+:   */
+/*   prompt_stuff_export.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:33:19 by lpollini          #+#    #+#             */
-/*   Updated: 2023/10/25 16:57:16 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 00:00:38 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,13 @@ int	export_lol(t_shell_stuff *sh)
 	int		tempfds[2];
 	int		i;
 	int		filefd;
+	char	**temp;
+	pid_t	tp;
 
 	tempfds[1] = dup(STDIN_FILENO);
-	i = 0;
-	filefd = open(".tempfile1", O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	while (i <= sh->envn)
+	i = -1;
+	filefd = open(".tempfile1", O_CREAT | O_RDWR | O_TRUNC, 0666);
+	while (++i <= sh->envn)
 	{
 		if (sh->envp[i][0] && sh->envp[i][0] != '#')
 		{
@@ -78,12 +80,14 @@ int	export_lol(t_shell_stuff *sh)
 			ft_putstr_fd(sh->envp[i], filefd);
 			ft_putstr_fd("\n", filefd);
 		}
-		i++;
 	}
-	shft_execute_cmd(sh, "/usr/bin/sort .tempfile1");
-	shft_execute_cmd(sh, "/usr/bin/rm .tempfile1");
+	tp = fork();
+	temp = ft_split("/usr/bin/sort|.tempfile1", '|');
+	if (!tp)
+		execve(temp[0], temp, shft_dupenv(sh));
+	waitpid(tp, NULL, 0);
 	dup2(tempfds[1], STDIN_FILENO);
-	return (0);
+	return (ft_free_tab(temp), 0);
 }
 
 char	*ft_strdup_clean(char *s)

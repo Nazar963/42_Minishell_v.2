@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:46:55 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/10 18:30:59 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:40:27 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	builtin_cmds(char *cd, t_shell_stuff *sh, int doset)
 {
 	int	res;
 
-	if (doset && !loco()->fd_setafter)
-		builtin_temp_creat(0);
-	shft_after_setter();
+	// if (doset && !loco()->fd_setafter)
+	// 	builtin_temp_creat(0);
+	// shft_after_setter();
 	res = 0x7fffffff;
 	if (!shft_strcmp_noend2(cd, "echo"))
 		res = shft_cmd_echo(cd, sh);

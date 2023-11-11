@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/10 22:50:36 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:31:38 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	check_for_bonus(char *cmd)
 	return (0);
 }
 
-int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
+int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset, int pipe)
 {
 	char	*tmp[2];
 	int		pp[2];
@@ -90,34 +90,69 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset)
 		}
 	}
 	else
-		tmp[0] = shft_ft_tp_helper(&pp[0], sh, doset, tmp[0]);
+		tmp[0] = shft_ft_tp_helper_nobonus(pipe, sh, doset, tmp[0]);
 	free(tmp[0]);
 	if (tmp[0] != NULL)
 		loco()->n = 0;
 	return (sh->lststatus);
 }
 
-int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
+int	shft_wait_dudes(int pipes)
 {
 	int	i;
+	int	lols[2];
 
 	i = 0;
+	lols[1] = 0;
+	lols[0] = 0;
+	while (i <= pipes)
+	{
+		waitpid(loco()->p[i].pipes, lols, 0);
+		lols[0] = WEXITSTATUS(lols[0]);
+		if (lols[0] != 0 && !lols[1])
+			lols[1] = lols[0];
+		i++;
+	}
+	return (lols[1]);
+}
+
+void	shft_clean_tempfiles(t_shell_stuff *sh)
+{
+	char **temp1;
+
+	temp1 = ft_split("/usr/bin/rm|-f|.tempfile01", '|');
+	if (!access(".tempfile01", F_OK) && !fork())
+		execve(temp1[0], temp1, shft_dupenv(sh));
+	free(temp1[2]);
+	temp1[2] = ft_strdup(".tempfile001");
+	if (!access(".tempfile001", F_OK) && !fork())
+		execve(temp1[0], temp1, shft_dupenv(sh));
+	temp1[2] = ft_strdup(".tempfile1");
+	if (!access(".tempfile1", F_OK) && !fork())
+		execve(temp1[0], temp1, shft_dupenv(sh));
+	ft_free_tab(temp1);
+}
+
+int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
+{
+	int			i;
+
+	loco()->p = ft_calloc(pipes + 1, sizeof(t_pipeline));
+	i = 0;
 	if (pipes)
-		shft_fr_to(cmds[i++], sh, 1);
+		i = shft_fr_to(cmds[i], sh, 1, i) * 0 + i + 1;
 	else
-		shft_fr_to(cmds[i++], sh, 0);
-	while (i < pipes && !sh->lststatus && !loco()->sigstop)
-		shft_fr_to(cmds[i++], sh, 1);
+		i = shft_fr_to(cmds[i], sh, 0, i) * 0 + i + 1;
+	while (i < pipes && !loco()->sigstop)
+		i = shft_fr_to(cmds[i], sh, 1, i) * 0 + i + 1;
 	dup2(sh->tempfds[1], STDOUT_FILENO);
-	if (i == pipes && !sh->lststatus && !loco()->sigstop)
-		shft_fr_to(cmds[i], sh, 0);
+	if (i == pipes && !loco()->sigstop)
+		i = shft_fr_to(cmds[i], sh, 0, i) * 0 + i + 1;
 	dup2(sh->tempfds[0], STDIN_FILENO);
 	dup2(sh->tempfds[1], STDOUT_FILENO);
-	if (!access(".tempfile01", F_OK) && sh->doexit == -1)
-		shft_execute_cmd(sh, "/usr/bin/rm -f .tempfile01");
-	if (!access(".tempfile001", F_OK) && sh->doexit == -1)
-		shft_execute_cmd(sh, "/usr/bin/rm -f .tempfile001");
-	if (!access(".tempfile", F_OK) && sh->doexit == -1)
-		shft_execute_cmd(sh, "/usr/bin/rm -f .tempfile");
+	if (sh->doexit == -1)
+		sh->lststatus = shft_wait_dudes(pipes);
+	free(loco()->p);
+	shft_clean_tempfiles(sh);
 	return (sh->lststatus);
 }

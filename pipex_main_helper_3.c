@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main_helper_3.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:28 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/09 21:32:43 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/11 01:16:57 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset)
 		return (sh->lststatus = 0, 1);
 	if (shft_redir_inpt(*cmd, sh) || shft_redir_outpt(*cmd, sh, doset))
 		return (sh->lststatus = 1, 1);
-	if (loco()->redir_n_pipe && *doset)
-		builtin_temp_creat_1(1);
+	// if (loco()->redir_n_pipe && *doset)
+	// 	builtin_temp_creat_1(1);
 	if (loco()->limiter_flag == -1)
 		return (1);
 	loco()->sigpass = 1;

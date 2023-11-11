@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/09 21:33:42 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/11 01:41:15 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@
 # define CYAN "\001\e[0;36m\002"
 # define UNSET "\001\e[0m\002"
 # define BOLD "\001\e[1m\002"
-# define FILENAME ".tempfile"
 # define FILENAME1 ".tempfile01"
 # define FILENAME2 ".tempfile001"
 # define ERRSTD	STDERR_FILENO
@@ -75,6 +74,12 @@
 # define OTHRERR 5
 # define TRUNCFLAGS 01101
 # define APPENDFLAGS 02101
+
+typedef struct s_pipeline
+{
+	unsigned int	exitcodes;
+	pid_t			pipes;
+}	t_pipeline;
 
 typedef struct s_loco
 {
@@ -107,6 +112,7 @@ typedef struct s_loco
 	int				flagc;
 	pid_t			limiter_pid;
 	char			sigstop;
+	t_pipeline		*p;
 }	t_loco;
 
 typedef struct s_pare
@@ -283,6 +289,7 @@ char	**shft_dupenv(t_shell_stuff *sh);
 int		shft_putter(char *s1, char *s2, char *s3, int fd);
 int		command_fork(char **args, t_shell_stuff *sh, int doset);
 int		command(char *cmd, t_shell_stuff *sh, int doset);
+int		command_nobonus(char *cmd, t_shell_stuff *sh, int doset);
 char	*shft_get_word(char *in, char end);
 void	word_clean(char *str, int len);
 void	clean_stuff(char *s, int l);
@@ -310,7 +317,7 @@ char	*cmd_parentheses_or_cleaner(char *cmd, int first_para,
 			int last_para, t_shell_stuff *sh);
 char	*check_for_parentheses(char *cmd, t_shell_stuff *sh,
 			int *pp, int doset);
-int		shft_fr_to(char *cmd, t_shell_stuff *sh, int doset);
+int		shft_fr_to(char *cmd, t_shell_stuff *sh, int doset, int pipe);
 int		shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh);
 char	last_exiter(char *cmd);
 
@@ -333,6 +340,8 @@ char	*parentheses_helper_3(char *cmd, t_shell_stuff *sh,
 			int *pp, int doset);
 char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset,
 			char *tmp);
+char	*shft_ft_tp_helper_nobonus(int pipe, t_shell_stuff *sh,
+		int doset, char *tmp);
 char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset,
 			char *tmp);
 char	*shft_ft_tp_helper_nizz(int *pp, t_shell_stuff *sh,
