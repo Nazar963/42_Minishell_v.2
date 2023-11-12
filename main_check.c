@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:19:06 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/10 19:33:39 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 19:52:28 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,11 @@ int	shft_ch_checkok(char *cmd, t_shell_stuff *sh)
 	{
 		while (shft_istab(cmd[0]) && cmd[1])
 			cmd++;
-		fs ^= fs_check(fs, *cmd);
+		fs ^= fs_check(st, *cmd);
 		if (!fs)
 		{
 			ct = shft_ch_one(&cmd, &st, ct);
+			printf("called. %i - %i - %i | %i\n", fs, ct, st, lst);
 			if (shft_ch_two(st, lst, ct))
 				return (sh->lststatus = 2, ft_putstr_fd(SYNTERR, ERRSTD) * 0);
 			lst = st;
