@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:30:22 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 11:08:24 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 21:45:49 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ int	last_checks(char *str)
 	int	i;
 
 	i = 0;
+	while (shft_istab(*str))
+		str++;
+	if (str[i] == '|')
+		return (ft_putstr_fd("Pipe: line begins with pipe\n", ERRSTD), 1);
 	while (str[i])
 		i++;
 	if (!i)
@@ -94,10 +98,7 @@ int	last_checks(char *str)
 	while (shft_istab(str[i]) && i)
 		i--;
 	if (str[i] == '|')
-	{
-		ft_putstr_fd("Pipe: bad pipe at EOL\n", STDERR_FILENO);
-		return (1);
-	}
+		return (ft_putstr_fd("Pipe: bad pipe at EOL\n", STDERR_FILENO), 1);
 	return (0);
 }
 
