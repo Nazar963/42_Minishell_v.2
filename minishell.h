@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 12:38:00 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 13:10:32 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_loco
 	pid_t			limiter_pid;
 	char			sigstop;
 	t_pipeline		*p;
+	char			lastcng;
 }	t_loco;
 
 typedef struct s_pare

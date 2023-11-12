@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 12:06:51 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 13:12:33 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,19 @@ int	shft_wait_dudes(int pipes)
 	int	i;
 	int	lols[2];
 
-	i = 0;
+	i = -1;
 	lols[1] = 0;
 	lols[0] = 0;
-	while (i <= pipes)
+	while (++i <= pipes)
 	{
+		if (!loco()->p[i])
+			continue;
 		waitpid(loco()->p[i], lols, 0);
 		lols[0] = WEXITSTATUS(lols[0]);
 		if (lols[0] != 0 && !lols[1])
 			lols[1] = lols[0];
-		i++;
 	}
-	return (lols[1]);
+	return (lols[0]);
 }
 
 int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
@@ -118,7 +119,7 @@ int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
 		i = shft_fr_to(cmds[i], sh, 0, i) * 0 + i + 1;
 	dup2(sh->tempfds[0], STDIN_FILENO);
 	dup2(sh->tempfds[1], STDOUT_FILENO);
-	if (sh->doexit == -1)
+	if (sh->doexit == -1 && !loco()->lastcng)
 		sh->lststatus = shft_wait_dudes(pipes);
 	free(loco()->p);
 	return (sh->lststatus);

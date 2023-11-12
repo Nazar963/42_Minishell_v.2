@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 12:11:03 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 13:12:55 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*shft_ft_tp_helper_nobonus(int pipes, t_shell_stuff *sh,
 	tmp = check_for_wildcard_normal(tmp);
 	if (shft_is_builtin(tmp) == 0 && !shft_redirections(&tmp, sh))
 		return (sh->lststatus = builtin_cmds(tmp, sh, doset), tmp);
-	pipe(fd);
+	loco()->lastcng = pipe(fd) * 0;
 	loco()->p[pipes] = fork();
 	if (loco()->p[pipes])
 	{

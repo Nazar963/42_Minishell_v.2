@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 10:29:55 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 12:45:43 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 13:00:33 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ static int	shft_pwd_better(char *nw, char **ori, t_shell_stuff *sh)
 		chdir(nw);
 		getcwd(temp, 999);
 		free(nw);
+		sh->lststatus = 1;
 		if (!ft_strcmp(temp, shft_getenv("PWD", sh->envp, sh)))
 			return (ft_putstr_fd(ERRNODIR, ERRSTD), 1);
+		sh->lststatus = 0;
 		nw = *ori;
 		*ori = ft_strdup(temp);
 		sh->lststatus = 0;
