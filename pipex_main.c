@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 13:12:33 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 13:16:16 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,18 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset, int pipe)
 int	shft_wait_dudes(int pipes)
 {
 	int	i;
-	int	lols[2];
+	int	lols[1];
 
 	i = -1;
-	lols[1] = 0;
-	lols[0] = 0;
+	*lols = 0;
 	while (++i <= pipes)
 	{
 		if (!loco()->p[i])
 			continue;
 		waitpid(loco()->p[i], lols, 0);
-		lols[0] = WEXITSTATUS(lols[0]);
-		if (lols[0] != 0 && !lols[1])
-			lols[1] = lols[0];
+		*lols = WEXITSTATUS(*lols);
 	}
-	return (lols[0]);
+	return (*lols);
 }
 
 int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
