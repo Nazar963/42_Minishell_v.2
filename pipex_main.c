@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 13:16:16 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:04:36 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	shft_wait_dudes(int pipes)
 	while (++i <= pipes)
 	{
 		if (!loco()->p[i])
-			continue;
+			continue ;
 		waitpid(loco()->p[i], lols, 0);
 		*lols = WEXITSTATUS(*lols);
 	}
