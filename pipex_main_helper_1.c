@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/11 12:45:43 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:47:03 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	command_nobonus(char *cmd, t_shell_stuff *sh, int doset)
 	}
 	if (res == -1)
 		non_executable_handler(args[0], sh);
-	return (ft_free_tab(args), res);
+	return (ft_free_tab(args), sh->lststatus);
 }
 
 int	command(char *cmd, t_shell_stuff *sh, int doset)
@@ -135,7 +135,7 @@ char	*shft_get_word(char *in, char end)
 	res = malloc(ft_strlen(in) + 2);
 	while (shft_istab(*in))
 		in++;
-	while (*in && (!shft_istab(*in) || test))
+	while (*in && ((!shft_istab(*in) && *in != '<' && *in != '>') || test))
 	{
 		if (*in == '\'' && test != 2)
 			test ^= 1;

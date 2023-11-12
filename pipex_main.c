@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/11 12:46:14 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 01:24:35 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	non_executable_handler(char *cmd, t_shell_stuff *sh)
 	else
 		shft_putter("minishell: \'", temp,
 			"\': command not found\n", STDERR_FILENO);
+	sh->lststatus = 127;
 	free(temp);
 	return ;
 }
@@ -108,31 +109,13 @@ int	shft_wait_dudes(int pipes)
 	lols[0] = 0;
 	while (i <= pipes)
 	{
-		waitpid(loco()->p[i].pipes, lols, 0);
+		waitpid(loco()->p[i], lols, 0);
 		lols[0] = WEXITSTATUS(lols[0]);
 		if (lols[0] != 0 && !lols[1])
 			lols[1] = lols[0];
 		i++;
 	}
 	return (lols[1]);
-}
-
-void	shft_clean_tempfiles(t_shell_stuff *sh)
-{
-	char **temp1;
-
-	temp1 = ft_split("/usr/bin/rm|-f|.tempfile01", '|');
-	if (!access(".tempfile01", F_OK) && !fork())
-		execve(temp1[0], temp1, shft_dupenv(sh));
-	free(temp1[2]);
-	temp1[2] = ft_strdup(".tempfile001");
-	if (!access(".tempfile001", F_OK) && !fork())
-		execve(temp1[0], temp1, shft_dupenv(sh));
-	temp1[2] = ft_strdup(".tempfile1");
-	if (!access(".tempfile1", F_OK) && !fork())
-		execve(temp1[0], temp1, shft_dupenv(sh));
-	ft_free_tab(temp1);
-	return ;
 }
 
 int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
@@ -155,6 +138,5 @@ int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
 	if (sh->doexit == -1)
 		sh->lststatus = shft_wait_dudes(pipes);
 	free(loco()->p);
-	shft_clean_tempfiles(sh);
 	return (sh->lststatus);
 }

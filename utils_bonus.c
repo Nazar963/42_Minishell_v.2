@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/11 12:01:08 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 18:22:10 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ char	*shft_ft_tp_helper_nobonus(int pipes, t_shell_stuff *sh,
 	static int	from_last = 0;
 
 	pipe(fd);
-	loco()->p[pipes].pipes = fork();
-	if (loco()->p[pipes].pipes)
+	loco()->p[pipes] = fork();
+	if (loco()->p[pipes])
 	{
 		if (doset)
 		{
@@ -41,21 +41,15 @@ char	*shft_ft_tp_helper_nobonus(int pipes, t_shell_stuff *sh,
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 	}
-		
-	// tmp = check_for_wildcard_normal(tmp);
-	// if (sh->doexit != -1 || shft_redirections(&tmp, sh, &doset))
-	// {
-	// 	//piperlol(pp);-
-	// 	if (sh->doexit != -1)
-	// 		sh->lststatus = 1;
-	// 	return (free(tmp), (void *)0);
-	// }
 	
-	if (shft_is_builtin(tmp) == 0)
-		sh->lststatus = builtin_cmds(tmp, sh, doset);
-	else
-		sh->lststatus = command_nobonus(tmp, sh, doset);
-
+	tmp = check_for_wildcard_normal(tmp);
+	if (!shft_redirections(&tmp, sh, &doset))
+	{
+		if (shft_is_builtin(tmp) == 0)
+			sh->lststatus = builtin_cmds(tmp, sh, doset);
+		else
+			sh->lststatus = command_nobonus(tmp, sh, doset);
+	}
 	sh->doexit = 1;
 	loco()->sigstop = 1;
 	sh->exit_code = sh->lststatus;

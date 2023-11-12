@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:28 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/11 12:45:50 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 17:18:49 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,41 +29,56 @@ void	shft_last_parse_1(char **s)
 	return ;
 }
 
-void	builtin_temp_creat(char mode)
+// void	builtin_temp_creat(char mode)
+// {
+// 	int	filefd;
+
+// 	filefd = open(FILENAME1, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+// 	if (!mode)
+// 		dup2(filefd, STDOUT_FILENO);
+// 	filefd = open(FILENAME1, O_RDONLY);
+// 	dup2(filefd, STDIN_FILENO);
+// 	return ;
+// }
+
+// void	builtin_temp_creat_1(char mode)
+// {
+// 	int	boh;
+
+// 	(void )mode;
+// 	boh = open(FILENAME2, O_CREAT | O_RDONLY, 0666);
+// 	loco()->fd_setafter = boh;
+// 	return ;
+// }
+
+char	shft_redirector(t_shell_stuff *sh, char *cmd)
 {
-	int	filefd;
+	char	fs;
 
-	filefd = open(FILENAME1, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	if (!mode)
-		dup2(filefd, STDOUT_FILENO);
-	filefd = open(FILENAME1, O_RDONLY);
-	dup2(filefd, STDIN_FILENO);
-	return ;
-}
-
-void	builtin_temp_creat_1(char mode)
-{
-	int	boh;
-
-	(void )mode;
-	boh = open(FILENAME2, O_CREAT | O_RDONLY, 0666);
-	loco()->fd_setafter = boh;
-	return ;
+	fs = 0;
+	while (*cmd && (*cmd != '<' && *cmd != '>' || fs))
+		fs ^= fs_check(fs, *(cmd++));
+	if (!*cmd)
+		return (0);
+	if (*cmd == '<' && shft_redir_inpt(cmd, sh))
+		return (1);
+	if (*cmd == '>' && shft_redir_outpt(cmd, sh))
+		return (1);
+	cmd++;
+	return (shft_redirector(sh, cmd));
 }
 
 int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset)
 {
 	if (shft_redir_syntax_ok(*cmd, sh))
 		return (ft_putstr_fd("minishell: syntax error\n", ERRSTD), 1);
-	if (last_exiter(*cmd))
-		return (sh->lststatus = 0, 1);
-	if (shft_redir_inpt(*cmd, sh) || shft_redir_outpt(*cmd, sh, doset))
+
+	if (shft_redirector(sh, *cmd))
 		return (sh->lststatus = 1, 1);
-	// if (loco()->redir_n_pipe && *doset)
-	// 	builtin_temp_creat_1(1);
+	word_clean(*cmd, ft_strlen(*cmd));
+
 	if (loco()->limiter_flag == -1)
 		return (1);
-	loco()->sigpass = 2;
 	shft_last_parse_1(cmd);
 	return (0);
 }

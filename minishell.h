@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/11 01:41:15 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/11 18:53:11 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,7 @@
 # define TRUNCFLAGS 01101
 # define APPENDFLAGS 02101
 
-typedef struct s_pipeline
-{
-	unsigned int	exitcodes;
-	pid_t			pipes;
-}	t_pipeline;
+typedef	pid_t	t_pipeline;
 
 typedef struct s_loco
 {
@@ -293,10 +289,10 @@ int		command_nobonus(char *cmd, t_shell_stuff *sh, int doset);
 char	*shft_get_word(char *in, char end);
 void	word_clean(char *str, int len);
 void	clean_stuff(char *s, int l);
-int		read_stdin(char *limiter, t_shell_stuff *sh);
+int		read_stdin(char *limiter, t_shell_stuff *sh, char *hd_name);
 int		shft_redir_inpt(char *cmd, t_shell_stuff *sh);
 int		manage_redir_o(char *filename, int tempfd, char *p, int append);
-int		shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset);
+int		shft_redir_outpt(char *cmd, t_shell_stuff *sh);
 void	shft_last_parse_1(char **s);
 int		shft_redirections(char **cmd, t_shell_stuff *sh, int *doset);
 void	builtin_temp_creat(char mode);
