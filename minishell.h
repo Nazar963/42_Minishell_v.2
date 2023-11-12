@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 22:03:57 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 22:44:12 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,7 @@ char	*littel_better(char *s);
 int		non_executable_handler(char *cmd, t_shell_stuff *sh);
 int		check_for_bonus(char *cmd);
 char	*clean_cmd(char *str);
+int		slow_lol(int a);
 int		execution_proccess_and_bonus(int *pp, t_shell_stuff *sh, int doset);
 int		execution_proccess_or_bonus(int *pp, t_shell_stuff *sh, int doset);
 char	*command_cleaner_and(char *tmp);

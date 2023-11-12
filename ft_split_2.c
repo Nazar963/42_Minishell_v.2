@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 16:33:54 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 22:44:06 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ char	*word_dup_1(char const *str, int start, int finish)
 	}
 	word[i] = '\0';
 	return (word);
+}
+
+int	slow_lol(int a)
+{
+	while (a--)
+		a = a * a * a * 0 + a;
+	return (0);
 }
 
 int	count_words_1(const char *str, char c)
