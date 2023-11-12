@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 01:24:35 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 11:10:50 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,6 @@ char	*littel_better(char *s)
 	while (i-- && shft_istab(res[i]))
 		res[i] = '\0';
 	return (res);
-}
-
-void	non_executable_handler(char *cmd, t_shell_stuff *sh)
-{
-	char	*temp;
-
-	if (sh->lststatus == 126)
-		return ;
-	sh->lststatus = 127;
-	temp = littel_better(cmd);
-	if (shft_strchr(cmd, '/', '\'', '\"') && access(cmd, F_OK) == -1)
-		shft_putter("minishell: \'", temp,
-			"\': No such file or directory\n", STDERR_FILENO);
-	else
-		shft_putter("minishell: \'", temp,
-			"\': command not found\n", STDERR_FILENO);
-	sh->lststatus = 127;
-	free(temp);
-	return ;
 }
 
 int	check_for_bonus(char *cmd)
@@ -121,9 +102,13 @@ int	shft_wait_dudes(int pipes)
 int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
 {
 	int			i;
+	t_pipeline	*t;
 
-	loco()->p = ft_calloc(pipes + 1, sizeof(t_pipeline));
+	t = ft_calloc(pipes + 1, sizeof(t_pipeline));
+	loco()->p = t;
 	i = 0;
+	if (!shft_strcmp_noend2(cmds[0], "exit"))
+		return (shft_cmd_exit(cmds[0], sh), 1);
 	if (pipes)
 		i = shft_fr_to(cmds[i], sh, 1, i) * 0 + i + 1;
 	else

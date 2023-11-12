@@ -6,14 +6,14 @@
 #    By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 08:42:40 by lpollini          #+#    #+#              #
-#    Updated: 2023/11/11 19:35:17 by lpollini         ###   ########.fr        #
+#    Updated: 2023/11/12 11:12:45 by lpollini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 	
 CC			= cc -g 
-FLAGS		= #-Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror
 RM			= rm -rf
 
 OBJDIR = .objFiles
@@ -23,7 +23,7 @@ FILES		= env_stuff executor executor_utils ft_split_1 ft_split_2 ft_split_utils 
 	pipex_main prompt_stuff_export shft_cmds_cd_2 shft_cmds_echo_exit_env_helper shft_cmds_echo_exit_env \
 	shft_cmds_export_unset shft_cmds_pwd str_stuff utils_bonus utils_bonus_1 utils_bonus_2 parenthesis_parser_bonus \
 	operator_checker_bonus wildcard/parse_bonus parenthesis_bonus wildcard/utils_bonus wildcard/utils_1_bonus \
-	new_parentheses_1 new_parentheses_2 new_parentheses_3 new_parentheses_4 new_parentheses utils_1
+	new_parentheses_1 new_parentheses_2 new_parentheses_3 new_parentheses_4 new_parentheses utils_1 pipe_helper pipe_helper_1
 
 BONUS_FILES = \
 

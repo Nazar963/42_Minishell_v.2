@@ -6,53 +6,11 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/11 16:47:03 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 11:12:12 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	command_fork_nobonus(char **args, t_shell_stuff *sh, int doset)
-{
-	char	**envdp;
-
-	envdp = shft_dupenv(sh);
-	execve(args[0], args, envdp);
-	shft_putter("minishell: \'", args[0], "\': Is a directory\n", ERRSTD);
-	sh->doexit = 1;
-	sh->exit_code = 126;
-	ft_free_tab(envdp);
-	return (0);
-}
-
-int	command_fork(char **args, t_shell_stuff *sh, int doset)
-{
-	int		res;
-	pid_t	fpid;
-	int		pipefd[2];
-	char	**envdp;
-
-	pipe(pipefd);
-	fpid = fork();
-	loco()->forkpid = fpid;
-	if (fpid)
-	{
-		if (doset)
-			dup2(pipefd[0], STDIN_FILENO);
-		close (pipefd[1]);
-		return (waitpid(fpid, &res, 0), WEXITSTATUS(res));
-	}
-	if (doset && !loco()->fd_setafter)
-		dup2(pipefd[1], STDOUT_FILENO);
-	envdp = shft_dupenv(sh);
-	close (pipefd[0]);
-	execve(args[0], args, envdp);
-	shft_putter("minishell: \'", args[0], "\': Is a directory\n", ERRSTD);
-	sh->doexit = 1;
-	sh->exit_code = 126;
-	ft_free_tab(envdp);
-	return (0);
-}
 
 void	shft_after_setter(void)
 {
@@ -67,7 +25,7 @@ void	shft_after_setter(void)
 	return ;
 }
 
-int	command_nobonus(char *cmd, t_shell_stuff *sh, int doset)
+int	command_nobonus(char *cmd, t_shell_stuff *sh)
 {
 	char		**args;
 	char		*xpat;
@@ -78,7 +36,7 @@ int	command_nobonus(char *cmd, t_shell_stuff *sh, int doset)
 		return (126 + shft_putter("minishell: \'", args[0],
 				"\': Permission denied\n", STDERR_FILENO) * 0);
 	if (shft_strchr(args[0], '/', '\'', '\"') && access(args[0], X_OK) == 0)
-		res = command_fork_nobonus(args, sh, doset);
+		res = command_fork_nobonus(args, sh);
 	else
 	{
 		xpat = search_path(args[0], sh);
@@ -87,7 +45,7 @@ int	command_nobonus(char *cmd, t_shell_stuff *sh, int doset)
 		{
 			free(args[0]);
 			args[0] = xpat;
-			res = command_fork_nobonus(args, sh, doset);
+			res = command_fork_nobonus(args, sh);
 		}
 	}
 	if (res == -1)
@@ -135,7 +93,8 @@ char	*shft_get_word(char *in, char end)
 	res = malloc(ft_strlen(in) + 2);
 	while (shft_istab(*in))
 		in++;
-	while (*in && ((!shft_istab(*in) && *in != '<' && *in != '>') || test))
+	while (*in && ((!shft_istab(*in) && *in != '<'
+				&& *in != '>' && *in != '|') || test))
 	{
 		if (*in == '\'' && test != 2)
 			test ^= 1;
@@ -145,6 +104,8 @@ char	*shft_get_word(char *in, char end)
 			res[i++] = *in;
 		in++;
 	}
+	if (!i)
+		return (NULL);
 	res[i++] = end;
 	res[i] = '\0';
 	return (res);

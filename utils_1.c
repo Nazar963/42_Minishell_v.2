@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:46:55 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 00:54:18 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 02:19:29 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	clean_stuff(char *s, int l)
 	return ;
 }
 
-int	builtin_cmds(char *cd, t_shell_stuff *sh, int doset)
+int	builtin_cmds(char *cd, t_shell_stuff *sh)
 {
 	int	res;
 

@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 10:29:55 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/11 12:46:18 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 02:11:58 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	shft_cmd_exit(char *cmd, t_shell_stuff *sh)
 	ft_putstr_fd("exit\n", STDERR_FILENO);
 	exit_ok(cmd, sh);
 	sh->doexit = 1;
-	sh->lststatus = 0;
+	sh->lststatus = sh->exit_code;
 	return (0);
 }
 

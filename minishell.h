@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/11 18:53:11 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 11:12:57 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@
 # define TRUNCFLAGS 01101
 # define APPENDFLAGS 02101
 
-typedef	pid_t	t_pipeline;
+typedef pid_t	t_pipeline;
 
 typedef struct s_loco
 {
@@ -219,7 +219,7 @@ int		shft_isalnum(const int c);
 char	*ft_strtab_join_free(char **s);
 char	*shft_arg(t_shell_stuff *sh, char *str);
 int		shft_istab1(char *str);
-int		shft_redirections(char **cmd, t_shell_stuff *sh, int *doset);
+int		shft_redirections(char **cmd, t_shell_stuff *sh);
 /* -------------------------------- to index ------------------------------- */
 int		ft_strcmp_noend(const char *s1, const char *s2);
 int		shft_exit(t_shell_stuff *sh);
@@ -262,6 +262,9 @@ char	**shft_split2(char *s, char c, char ig1, char ig2);
 char	*ft_strchr_1(const char *s, char c);
 void	shft_after_setter(void);
 char	*shft_very_lol(void);
+void	shft_clean_tempfiles(t_shell_stuff *sh);
+char	shft_manage_limiter(char **str, t_shell_stuff *sh);
+int		command_fork_nobonus(char **args, t_shell_stuff *sh);
 
 int		shft_cmd_pwd(char *cmd, t_shell_stuff *sh);
 int		shft_cmd_env(char *cmd, t_shell_stuff *sh);
@@ -285,7 +288,7 @@ char	**shft_dupenv(t_shell_stuff *sh);
 int		shft_putter(char *s1, char *s2, char *s3, int fd);
 int		command_fork(char **args, t_shell_stuff *sh, int doset);
 int		command(char *cmd, t_shell_stuff *sh, int doset);
-int		command_nobonus(char *cmd, t_shell_stuff *sh, int doset);
+int		command_nobonus(char *cmd, t_shell_stuff *sh);
 char	*shft_get_word(char *in, char end);
 void	word_clean(char *str, int len);
 void	clean_stuff(char *s, int l);
@@ -294,10 +297,10 @@ int		shft_redir_inpt(char *cmd, t_shell_stuff *sh);
 int		manage_redir_o(char *filename, int tempfd, char *p, int append);
 int		shft_redir_outpt(char *cmd, t_shell_stuff *sh);
 void	shft_last_parse_1(char **s);
-int		shft_redirections(char **cmd, t_shell_stuff *sh, int *doset);
+int		shft_redirections(char **cmd, t_shell_stuff *sh);
 void	builtin_temp_creat(char mode);
 int		shft_is_builtin(char *cd);
-int		builtin_cmds(char *cd, t_shell_stuff *sh, int doset);
+int		builtin_cmds(char *cd, t_shell_stuff *sh);
 char	*littel_better(char *s);
 void	non_executable_handler(char *cmd, t_shell_stuff *sh);
 int		check_for_bonus(char *cmd);
@@ -316,6 +319,7 @@ char	*check_for_parentheses(char *cmd, t_shell_stuff *sh,
 int		shft_fr_to(char *cmd, t_shell_stuff *sh, int doset, int pipe);
 int		shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh);
 char	last_exiter(char *cmd);
+void	shft_clean_tempfiles(t_shell_stuff *sh);
 
 /* ------------------------------- utils.c ------------------------------- */
 int		execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh,
@@ -337,7 +341,7 @@ char	*parentheses_helper_3(char *cmd, t_shell_stuff *sh,
 char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh, int doset,
 			char *tmp);
 char	*shft_ft_tp_helper_nobonus(int pipe, t_shell_stuff *sh,
-		int doset, char *tmp);
+			int doset, char *tmp);
 char	*shft_ft_tp_helper_1(int *pp, t_shell_stuff *sh, int doset,
 			char *tmp);
 char	*shft_ft_tp_helper_nizz(int *pp, t_shell_stuff *sh,

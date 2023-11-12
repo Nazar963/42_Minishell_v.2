@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 01:30:08 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 11:09:23 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	shft_init(t_shell_stuff *sh, char *args[], char *envp[], int argn)
 
 int	shft_exit(t_shell_stuff *sh)
 {
+	if (!pare()->extra)
+		shft_clean_tempfiles(sh);
 	shft_prompt(sh, 1);
 	sh->envn = shft_env_init_free(sh->envp, NULL, 1);
 	shft_cmd_cd(NULL, sh);
@@ -89,34 +91,6 @@ int	shft_exit(t_shell_stuff *sh)
 	close(STDOUT_FILENO);
 	exit(sh->exit_code);
 	return (0);
-}
-
-void	shft_clean_tempfiles(t_shell_stuff *sh)
-{
-	char	**temp1;
-	int		i;
-	int		t;
-
-	temp1 = ft_split("/usr/bin/rm|-f|.tempfile01", '|');
-	if (!access(".tempfile01", F_OK) && !fork())
-		execve(temp1[0], temp1, shft_dupenv(sh));
-	free(temp1[2]);
-	temp1[2] = ft_strdup(".tempfile001");
-	if (!access(".tempfile001", F_OK) && !fork())
-		execve(temp1[0], temp1, shft_dupenv(sh));
-	i = 0;
-	free(temp1[2]);
-	temp1[2] = ft_strdup(".heredoc0");
-	t = 0;
-	while (!t)
-	{
-		temp1[2][8] = '0' + i++;
-		t = access(temp1[2], F_OK);
-		if (!t && !fork())
-			execve(temp1[0], temp1, shft_dupenv(sh));
-	}
-	ft_free_tab(temp1);
-	return ;
 }
 
 int	main(int argn, char *args[], char *envp[])
@@ -137,7 +111,6 @@ int	main(int argn, char *args[], char *envp[])
 		{
 			cmd_buff = better_parenthesis(cmd_buff);
 			shft_execute_cmd(&shell, cmd_buff);
-			shft_clean_tempfiles(&shell);
 			free(cmd_buff);
 			reset_loco();
 		}

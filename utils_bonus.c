@@ -6,55 +6,11 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/11 18:22:10 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 11:11:45 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*shft_ft_tp_helper_nobonus(int pipes, t_shell_stuff *sh,
-		int doset, char *tmp)
-{
-	int			fd[2];
-	static int	from_last = 0;
-
-	pipe(fd);
-	loco()->p[pipes] = fork();
-	if (loco()->p[pipes])
-	{
-		if (doset)
-		{
-			dup2(fd[0], STDIN_FILENO);
-			close(fd[1]);
-			if (from_last)
-				close(from_last);
-			from_last = fd[0];
-			if (!doset)
-				from_last = 0;
-		}
-		else
-			close(from_last);
-		return (tmp);
-	}
-	if (doset)
-	{
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
-	}
-	
-	tmp = check_for_wildcard_normal(tmp);
-	if (!shft_redirections(&tmp, sh, &doset))
-	{
-		if (shft_is_builtin(tmp) == 0)
-			sh->lststatus = builtin_cmds(tmp, sh, doset);
-		else
-			sh->lststatus = command_nobonus(tmp, sh, doset);
-	}
-	sh->doexit = 1;
-	loco()->sigstop = 1;
-	sh->exit_code = sh->lststatus;
-	return (tmp);
-}
 
 char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh,
 		int doset, char *tmp)
@@ -65,7 +21,7 @@ char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh,
 	if (loco()->g_or == 1 && sh->lststatus == 0)
 		return ((void *)0);
 	tmp = check_for_wildcard_normal(tmp);
-	if (sh->doexit != -1 || shft_redirections(&tmp, sh, &doset))
+	if (sh->doexit != -1 || shft_redirections(&tmp, sh))
 	{
 		piperlol(pp);
 		if (sh->doexit != -1)
@@ -73,7 +29,7 @@ char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh,
 		return (free(tmp), (void *)0);
 	}
 	if (shft_is_builtin(tmp) == 0)
-		sh->lststatus = builtin_cmds(tmp, sh, doset);
+		sh->lststatus = builtin_cmds(tmp, sh);
 	else
 		sh->lststatus = command(tmp, sh, doset);
 	if (sh->lststatus == -1)

@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:08 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 01:22:49 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 02:17:28 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 int	read_stdin(char *limiter, t_shell_stuff *sh, char *hd_name)
 {
 	int		fd;
-	char	*comp;
 
-	// if (!limiter_ok(&comp, limiter))
-	// 	return (1);
 	loco()->limiter_flag = 1;
 	loco()->limiter_pid = fork();
 	if (!loco()->limiter_pid)
@@ -57,6 +54,7 @@ int	shft_redir_inpt(char *cmd, t_shell_stuff *sh)
 	char	*filename;
 	int		tempfd;
 
+	(void)sh;
 	filename = shft_get_word(cmd + 1, '\0');
 	tempfd = open(filename, O_RDONLY);
 	clean_stuff(cmd, ft_strlen(filename));
@@ -90,6 +88,7 @@ int	shft_redir_outpt(char *cmd, t_shell_stuff *sh)
 	int		tempfd;
 	char	append;
 
+	(void)sh;
 	append = 0;
 	if (cmd[1] == '>')
 		append = 1;

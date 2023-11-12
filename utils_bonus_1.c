@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:37:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/11 12:46:53 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 02:20:13 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset)
 {
 	if (sh->doexit != -1 || shft_redirections(&cmds[loco()->counter],
-			sh, &doset))
+			sh))
 	{
 		pipe(pp);
 		close(*(pp + 1));
@@ -26,7 +26,7 @@ int	execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset)
 		return (69);
 	}
 	if (shft_is_builtin(cmds[loco()->counter]) == 0)
-		sh->lststatus = builtin_cmds(cmds[loco()->counter], sh, doset);
+		sh->lststatus = builtin_cmds(cmds[loco()->counter], sh);
 	else
 		sh->lststatus = command(cmds[loco()->counter], sh, doset);
 	if (sh->lststatus == -1)
