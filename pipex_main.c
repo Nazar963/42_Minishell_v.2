@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 11:10:50 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 12:06:51 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ int	shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh)
 	t = ft_calloc(pipes + 1, sizeof(t_pipeline));
 	loco()->p = t;
 	i = 0;
-	if (!shft_strcmp_noend2(cmds[0], "exit"))
-		return (shft_cmd_exit(cmds[0], sh), 1);
 	if (pipes)
 		i = shft_fr_to(cmds[i], sh, 1, i) * 0 + i + 1;
 	else

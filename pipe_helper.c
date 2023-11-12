@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 11:09:28 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 12:17:52 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	shft_clean_tempfiles(t_shell_stuff *sh)
 	char	**temp1;
 	int		i;
 
-	temp1 = ft_split("/usr/bin/rm|-f|.tempfile01", '|');
-	if (!access(".tempfile01", F_OK) && !fork())
+	temp1 = ft_split("/usr/bin/rm|-f|.tempfile", '|');
+	if (!access(".tempfile", F_OK) && !fork())
 		execve(temp1[0], temp1, shft_dupenv(sh));
 	free(temp1[2]);
-	temp1[2] = ft_strdup(".tempfile001");
-	if (!access(".tempfile001", F_OK) && !fork())
+	temp1[2] = ft_strdup(".tempfile1");
+	if (!access(".tempfile1", F_OK) && !fork())
 		execve(temp1[0], temp1, shft_dupenv(sh));
 	i = 0;
 	free(temp1[2]);
@@ -98,11 +98,14 @@ char	shft_manage_limiter(char **str, t_shell_stuff *sh)
 	hd_name[8] = '0' + i++;
 	limiter = shft_get_word(cmd + 2, '\0');
 	if (!limiter || !*limiter)
-		return (ft_putstr_fd(SYNTERR, STDERR_FILENO), 1);
+	{
+		ft_putstr_fd(SYNTERR, STDERR_FILENO);
+		return (i = 0, 1);
+	}
 	clean_stuff(cmd, ft_strlen(limiter));
 	*str = cmd_appender(*str, ft_strjoin("<", hd_name));
 	if (read_stdin(limiter, sh, hd_name))
-		return (1);
+		return (i = 0, 1);
 	free(limiter);
 	free(hd_name);
 	return (shft_manage_limiter(str, sh));

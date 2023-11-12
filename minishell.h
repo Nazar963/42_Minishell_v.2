@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 11:12:57 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 12:38:00 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@
 # define CYAN "\001\e[0;36m\002"
 # define UNSET "\001\e[0m\002"
 # define BOLD "\001\e[1m\002"
-# define FILENAME1 ".tempfile01"
-# define FILENAME2 ".tempfile001"
 # define ERRSTD	STDERR_FILENO
 
 # define BLTINS 0
@@ -58,6 +56,7 @@
 # define NBLOL "9223372036854775808"
 # define PROMPT "minishell_by_lpollini&nizz"
 # define SYNTERR "minishell: syntax error\n"
+# define ERRNODIR  "minishell: cd: Not a directory\n"
 # define ERRBADASS "minishell: export: bad assignment\n"
 # define LIMITERMSG "minishell: warning: heredoc reached EOF before limiter \
 (expected \'"
@@ -300,7 +299,7 @@ void	shft_last_parse_1(char **s);
 int		shft_redirections(char **cmd, t_shell_stuff *sh);
 void	builtin_temp_creat(char mode);
 int		shft_is_builtin(char *cd);
-int		builtin_cmds(char *cd, t_shell_stuff *sh);
+int		builtin_cmds(char *cd, t_shell_stuff *sh, int doset);
 char	*littel_better(char *s);
 void	non_executable_handler(char *cmd, t_shell_stuff *sh);
 int		check_for_bonus(char *cmd);
@@ -320,6 +319,7 @@ int		shft_fr_to(char *cmd, t_shell_stuff *sh, int doset, int pipe);
 int		shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh);
 char	last_exiter(char *cmd);
 void	shft_clean_tempfiles(t_shell_stuff *sh);
+void	tempfile_creat(void);
 
 /* ------------------------------- utils.c ------------------------------- */
 int		execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh,

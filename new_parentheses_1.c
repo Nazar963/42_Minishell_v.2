@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:58:15 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 02:19:42 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 11:45:10 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	executed_command(t_shell_stuff *sh
 		return ;
 	}
 	if (shft_is_builtin(splitted_cmd) == 0)
-		sh->lststatus = builtin_cmds(splitted_cmd, sh);
+		sh->lststatus = builtin_cmds(splitted_cmd, sh, doset);
 	else
 		sh->lststatus = command(splitted_cmd, sh, doset);
 	if (sh->lststatus == -1)

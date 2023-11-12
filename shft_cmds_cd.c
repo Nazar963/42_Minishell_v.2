@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shft_cmds_cd_2.c                                   :+:      :+:    :+:   */
+/*   shft_cmds_cd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 10:29:55 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 02:27:26 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 12:45:43 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	shft_pwd_better(char *nw, char **ori, t_shell_stuff *sh)
 
 	if (access(nw, F_OK) == -1)
 	{
-		ft_putstr_fd("cd: No such file or directory\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: cd: No such file or directory\n", ERRSTD);
 		sh->lststatus = 1;
 		free(nw);
 		return (1);
@@ -28,6 +28,8 @@ static int	shft_pwd_better(char *nw, char **ori, t_shell_stuff *sh)
 		chdir(nw);
 		getcwd(temp, 999);
 		free(nw);
+		if (!ft_strcmp(temp, shft_getenv("PWD", sh->envp, sh)))
+			return (ft_putstr_fd(ERRNODIR, ERRSTD), 1);
 		nw = *ori;
 		*ori = ft_strdup(temp);
 		sh->lststatus = 0;

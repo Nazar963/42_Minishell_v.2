@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 11:11:45 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 11:44:41 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh,
 		return (free(tmp), (void *)0);
 	}
 	if (shft_is_builtin(tmp) == 0)
-		sh->lststatus = builtin_cmds(tmp, sh);
+		sh->lststatus = builtin_cmds(tmp, sh, doset);
 	else
 		sh->lststatus = command(tmp, sh, doset);
 	if (sh->lststatus == -1)
