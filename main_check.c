@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:19:06 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 19:52:28 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 20:03:44 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	shft_ch_one(char **cmd, char *st, int ct)
 		*st = 4 + ct-- *(0);
 	else
 		*st = 0;
+	while (shft_istab(temp[0]) && temp[1])
+		temp++;
 	*cmd = temp;
 	return (ct);
 }
@@ -66,20 +68,19 @@ int	shft_ch_checkok(char *cmd, t_shell_stuff *sh)
 	st = 0;
 	while (*cmd)
 	{
-		while (shft_istab(cmd[0]) && cmd[1])
-			cmd++;
 		fs ^= fs_check(st, *cmd);
 		if (!fs)
 		{
 			ct = shft_ch_one(&cmd, &st, ct);
-			printf("called. %i - %i - %i | %i\n", fs, ct, st, lst);
-			if (shft_ch_two(st, lst, ct))
+			if (shft_ch_two(st, lst, ct) && *cmd && !shft_istab(*cmd))
 				return (sh->lststatus = 2, ft_putstr_fd(SYNTERR, ERRSTD) * 0);
 			lst = st;
 		}
 		cmd++;
+		while (shft_istab(cmd[0]) && cmd[1])
+			cmd++;
 	}
-	if (((st == 3 || st == 1) && !fs) || ct < 0)
+	if (((st == 3 || st == 1) && !fs) || ct)
 		return (sh->lststatus = 2, ft_putstr_fd(SYNTERR, STDERR_FILENO) * 0);
 	return (1);
 }
