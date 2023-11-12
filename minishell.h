@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 13:10:32 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:47:23 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 
 # define BLTINS 0
 
+# define PDEN "\': Permission denied\n"
 # define NBLOL "9223372036854775808"
 # define PROMPT "minishell_by_lpollini&nizz"
 # define SYNTERR "minishell: syntax error\n"
@@ -219,7 +220,6 @@ int		shft_isalnum(const int c);
 char	*ft_strtab_join_free(char **s);
 char	*shft_arg(t_shell_stuff *sh, char *str);
 int		shft_istab1(char *str);
-int		shft_redirections(char **cmd, t_shell_stuff *sh);
 /* -------------------------------- to index ------------------------------- */
 int		ft_strcmp_noend(const char *s1, const char *s2);
 int		shft_exit(t_shell_stuff *sh);
@@ -295,14 +295,14 @@ void	clean_stuff(char *s, int l);
 int		read_stdin(char *limiter, t_shell_stuff *sh, char *hd_name);
 int		shft_redir_inpt(char *cmd, t_shell_stuff *sh);
 int		manage_redir_o(char *filename, int tempfd, char *p, int append);
-int		shft_redir_outpt(char *cmd, t_shell_stuff *sh);
+int		shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset);
 void	shft_last_parse_1(char **s);
-int		shft_redirections(char **cmd, t_shell_stuff *sh);
+int		shft_redirections(char **cmd, t_shell_stuff *sh, int *doset);
 void	builtin_temp_creat(char mode);
 int		shft_is_builtin(char *cd);
 int		builtin_cmds(char *cd, t_shell_stuff *sh, int doset);
 char	*littel_better(char *s);
-void	non_executable_handler(char *cmd, t_shell_stuff *sh);
+int		non_executable_handler(char *cmd, t_shell_stuff *sh);
 int		check_for_bonus(char *cmd);
 char	*clean_cmd(char *str);
 int		execution_proccess_and_bonus(int *pp, t_shell_stuff *sh, int doset);
@@ -320,7 +320,7 @@ int		shft_fr_to(char *cmd, t_shell_stuff *sh, int doset, int pipe);
 int		shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh);
 char	last_exiter(char *cmd);
 void	shft_clean_tempfiles(t_shell_stuff *sh);
-void	tempfile_creat(void);
+void	tempfile_creat(int doset);
 
 /* ------------------------------- utils.c ------------------------------- */
 int		execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh,

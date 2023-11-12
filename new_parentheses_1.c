@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:58:15 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 11:45:10 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:47:26 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*status_adding_cmd_cleaning(char *cmd, t_shell_stuff *sh)
 void	executed_command(t_shell_stuff *sh
 	, int *pp, int doset, char *splitted_cmd)
 {
-	if (sh->doexit != -1 || shft_redirections(&splitted_cmd, sh))
+	if (sh->doexit != -1 || shft_redirections(&splitted_cmd, sh, &doset))
 	{
 		pipe(pp);
 		close(*(pp + 1));

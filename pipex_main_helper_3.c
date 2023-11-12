@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:28 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 11:08:02 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:36:13 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	shft_last_parse_1(char **s)
 	return ;
 }
 
-char	shft_redirector(t_shell_stuff *sh, char *cmd)
+char	shft_redirector(t_shell_stuff *sh, char *cmd, int *doset)
 {
 	char	fs;
 
@@ -40,17 +40,17 @@ char	shft_redirector(t_shell_stuff *sh, char *cmd)
 		return (0);
 	if (*cmd == '<' && shft_redir_inpt(cmd, sh))
 		return (1);
-	if (*cmd == '>' && shft_redir_outpt(cmd, sh))
+	if (*cmd == '>' && shft_redir_outpt(cmd, sh, doset))
 		return (1);
 	cmd++;
-	return (shft_redirector(sh, cmd));
+	return (shft_redirector(sh, cmd, doset));
 }
 
-int	shft_redirections(char **cmd, t_shell_stuff *sh)
+int	shft_redirections(char **cmd, t_shell_stuff *sh, int *doset)
 {
 	if (shft_redir_syntax_ok(*cmd, sh))
 		return (ft_putstr_fd("minishell: syntax error\n", ERRSTD), 1);
-	if (shft_redirector(sh, *cmd))
+	if (shft_redirector(sh, *cmd, doset))
 		return (sh->lststatus = 1, 1);
 	word_clean(*cmd, ft_strlen(*cmd));
 	if (loco()->limiter_flag == -1)
@@ -66,15 +66,16 @@ int	shft_is_builtin(char *cd)
 		shft_strcmp_noend2(cd, "cd") && shft_strcmp_noend2(cd, "unset") && \
 		shft_strcmp_noend2(cd, "export"))
 		return (-1);
+	loco()->lastcng = 1;
 	return (0);
 }
 
-void	non_executable_handler(char *cmd, t_shell_stuff *sh)
+int	non_executable_handler(char *cmd, t_shell_stuff *sh)
 {
 	char	*temp;
 
 	if (sh->lststatus == 126)
-		return ;
+		return (1);
 	sh->lststatus = 127;
 	temp = littel_better(cmd);
 	if (shft_strchr(cmd, '/', '\'', '\"') && access(cmd, F_OK) == -1)
@@ -85,5 +86,5 @@ void	non_executable_handler(char *cmd, t_shell_stuff *sh)
 			"\': command not found\n", STDERR_FILENO);
 	sh->lststatus = 127;
 	free(temp);
-	return ;
+	return (1);
 }

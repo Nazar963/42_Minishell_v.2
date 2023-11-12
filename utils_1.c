@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:46:55 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 13:11:18 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:01:05 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int	builtin_cmds(char *cd, t_shell_stuff *sh, int doset)
 	int	res;
 
 	close(STDIN_FILENO);
-	if (doset)
-		tempfile_creat();
+	tempfile_creat(doset);
 	res = 0x7fffffff;
 	if (!shft_strcmp_noend2(cd, "echo"))
 		res = shft_cmd_echo(cd, sh);
@@ -56,7 +55,6 @@ int	builtin_cmds(char *cd, t_shell_stuff *sh, int doset)
 		res = shft_cmd_unset(cd, sh);
 	if (res == 0x7fffffff)
 		ft_putstr_fd("Error: make better cmd check lol\n", STDERR_FILENO);
-	loco()->lastcng = 1;
 	return (res);
 }
 

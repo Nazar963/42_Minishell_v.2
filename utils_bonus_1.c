@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:37:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 11:44:58 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:46:36 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh, int doset)
 {
 	if (sh->doexit != -1 || shft_redirections(&cmds[loco()->counter],
-			sh))
+			sh, &doset))
 	{
 		pipe(pp);
 		close(*(pp + 1));

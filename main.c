@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 11:20:09 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:18:36 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int	limiter_case(int a)
 
 void	sigint_handle(int a)
 {
-	loco()->flagc = 1;
+	if (a == SIGINT && loco()->sigpass)
+		loco()->flagc = 1;
+	if (a == SIGQUIT && loco()->sigpass)
+		loco()->flagc = 2;
 	if ((loco()->limiter_flag == 1 || loco()->limiter_flag
 			== -1) && limiter_case(a))
 		return ;

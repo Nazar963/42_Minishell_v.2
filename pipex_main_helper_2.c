@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:08 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 02:17:28 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:32:50 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	shft_redir_inpt(char *cmd, t_shell_stuff *sh)
 
 	(void)sh;
 	filename = shft_get_word(cmd + 1, '\0');
+	if (!filename)
+		return (ft_putstr_fd(SYNTERR, ERRSTD), 1);
 	tempfd = open(filename, O_RDONLY);
 	clean_stuff(cmd, ft_strlen(filename));
 	if (redir_test_access(filename, tempfd, cmd))
@@ -82,7 +84,7 @@ int	manage_redir_o(char *filename, int tempfd, char *p, int append)
 	return (0);
 }
 
-int	shft_redir_outpt(char *cmd, t_shell_stuff *sh)
+int	shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset)
 {
 	char	*filename;
 	int		tempfd;
@@ -101,5 +103,6 @@ int	shft_redir_outpt(char *cmd, t_shell_stuff *sh)
 		*cmd = -1;
 	if (manage_redir_o(filename, tempfd, cmd, append))
 		return (free(filename), 1);
+	*doset = 0;
 	return (free(filename), 0);
 }

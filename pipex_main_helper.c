@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:25 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/11 12:46:03 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:38:01 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_free_tab(char **tb)
 	int	i;
 
 	i = 0;
+	if (!tb)
+		return ;
 	while (tb[i])
 		free(tb[i++]);
 	free(tb);

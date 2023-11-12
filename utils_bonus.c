@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:01:07 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 11:44:41 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:46:42 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*shft_ft_tp_helper(int *pp, t_shell_stuff *sh,
 	if (loco()->g_or == 1 && sh->lststatus == 0)
 		return ((void *)0);
 	tmp = check_for_wildcard_normal(tmp);
-	if (sh->doexit != -1 || shft_redirections(&tmp, sh))
+	if (sh->doexit != -1 || shft_redirections(&tmp, sh, &doset))
 	{
 		piperlol(pp);
 		if (sh->doexit != -1)

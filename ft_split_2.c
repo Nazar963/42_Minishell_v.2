@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/10 18:59:28 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:33:54 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	**shft_split2(char *s, char c, char ig1, char ig2)
 
 	split = ft_calloc((count_words_1(s, c) + 2), 8);
 	if (!s || !split)
-		return (0);
+		return (NULL);
 	shft_init_two_vars(&i, 0, &j, 0);
 	shft_init_two_vars(&test, 0, &index, -1);
 	while (i <= ft_strlen(s))
