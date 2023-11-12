@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 22:04:07 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 22:51:52 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	command_nobonus(char *cmd, t_shell_stuff *sh)
 
 	args = shft_split2(cmd, ' ', '\'', '\"');
 	if (!args || !args[0])
-		res = non_executable_handler(args[0], sh);
+		return (0);
 	else if (access(args[0], F_OK | R_OK) == -1 && access(args[0], F_OK) == 0)
 		return (shft_putter("minishell: \'", args[0], PDEN, ERRSTD), 126);
 	else if (shft_strchr(args[0], '/', '\'', '\"') && !access(args[0], X_OK))
