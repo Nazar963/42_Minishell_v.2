@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 16:47:00 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 22:04:07 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,33 +83,31 @@ int	command(char *cmd, t_shell_stuff *sh, int doset)
 	return (ft_free_tab(args), res);
 }
 
-char	*shft_get_word(char *in, char end)
+char	*shft_get_word(char *in)
 {
-	char	test;
+	char	fs;
 	char	*res;
 	int		i;
 
-	test = 0;
+	fs = 0;
 	i = 0;
-	res = malloc(ft_strlen(in) + 2);
 	while (shft_istab(*in))
 		in++;
+	res = malloc(ft_strlen(in) + 2);
 	while (*in && ((!shft_istab(*in) && *in != '<'
-				&& *in != '>' && *in != '|') || test))
+				&& *in != '>' && *in != '|') || fs))
 	{
-		if (*in == '\'' && test != 2)
-			test ^= 1;
-		else if (*in == '\"' && test != 1)
-			test ^= 2;
+		if (*in == '\'' && fs != 2)
+			fs ^= 1;
+		else if (*in == '\"' && fs != 1)
+			fs ^= 2;
 		else
 			res[i++] = *in;
 		in++;
 	}
 	if (!i)
 		return (NULL);
-	res[i++] = end;
-	res[i] = '\0';
-	return (res);
+	return (res[i] = '\0', res);
 }
 
 void	word_clean(char *str, int len)

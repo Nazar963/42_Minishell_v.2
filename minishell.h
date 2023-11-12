@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 16:47:23 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 22:03:57 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,7 @@ int		shft_putter(char *s1, char *s2, char *s3, int fd);
 int		command_fork(char **args, t_shell_stuff *sh, int doset);
 int		command(char *cmd, t_shell_stuff *sh, int doset);
 int		command_nobonus(char *cmd, t_shell_stuff *sh);
-char	*shft_get_word(char *in, char end);
+char	*shft_get_word(char *in);
 void	word_clean(char *str, int len);
 void	clean_stuff(char *s, int l);
 int		read_stdin(char *limiter, t_shell_stuff *sh, char *hd_name);

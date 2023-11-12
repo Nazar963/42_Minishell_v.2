@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:18:03 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 13:13:11 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 22:04:25 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_pare	*pare(void)
 
 char	limiter_ok(char **comp, char *limiter)
 {
-	*comp = shft_get_word(limiter + 2, '\0');
+	*comp = shft_get_word(limiter + 2);
 	loco()->limiter_flag = 1;
 	if (shft_strchr(*comp, '>', '\'', '\"') || shft_strchr(*comp, '<',
 			'\'', '\"'))

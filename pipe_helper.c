@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 12:17:52 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/12 22:04:43 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	shft_manage_limiter(char **str, t_shell_stuff *sh)
 		return (i = 0, 0);
 	hd_name = ft_strdup(".heredoc0");
 	hd_name[8] = '0' + i++;
-	limiter = shft_get_word(cmd + 2, '\0');
+	limiter = shft_get_word(cmd + 2);
 	if (!limiter || !*limiter)
 	{
 		ft_putstr_fd(SYNTERR, STDERR_FILENO);
