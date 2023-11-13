@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:59 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 22:51:52 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:43:20 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*shft_get_word(char *in)
 			fs ^= 1;
 		else if (*in == '\"' && fs != 1)
 			fs ^= 2;
-		else
+		else if ((*in != '(' && *in != ')') || fs)
 			res[i++] = *in;
 		in++;
 	}

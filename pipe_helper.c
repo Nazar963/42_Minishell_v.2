@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 22:04:43 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:41:55 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,24 @@ char	shft_manage_limiter(char **str, t_shell_stuff *sh)
 	free(limiter);
 	free(hd_name);
 	return (shft_manage_limiter(str, sh));
+}
+
+void	shft_clean_pars_nobonus(char *s)
+{
+	char	*t;
+
+	t = s;
+	while (s)
+	{
+		s = shft_strchr(s, '(', '\'', '\"');
+		if (s)
+			*(s++) = ' ';
+	}
+	while (t)
+	{
+		t = shft_strchr(t, ')', '\'', '\"');
+		if (t)
+			*(t++) = ' ';
+	}
+	return ;
 }

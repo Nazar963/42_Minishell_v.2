@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 22:44:12 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:42:03 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,6 +322,7 @@ int		shft_pipexexec(char **cmds, int pipes, t_shell_stuff *sh);
 char	last_exiter(char *cmd);
 void	shft_clean_tempfiles(t_shell_stuff *sh);
 void	tempfile_creat(int doset);
+void	shft_clean_pars_nobonus(char *s);
 
 /* ------------------------------- utils.c ------------------------------- */
 int		execution_bonus_helper(char **cmds, int *pp, t_shell_stuff *sh,
