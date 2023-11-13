@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:33:19 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/13 19:27:37 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:44:12 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,19 @@ int	export_lol(t_shell_stuff *sh)
 
 	i = -1;
 	filefd = open(".tempfile1", O_CREAT | O_RDWR | O_TRUNC, 0666);
-	while (++i < sh->oenvnvars)
-		if (sh->envp[i][0] && sh->envp[i][0] != '#')
+	while (++i <= sh->envn)
+		if (sh->envp[i][0] && sh->envp[i][0] != '#'
+			&& (sh->envp[i][0] >= 'A' && sh->envp[i][0] <= 'Z'))
 			export_putter(sh->envp[i], filefd);
 	temp = ft_split("/usr/bin/sort|.tempfile1", '|');
 	tp = fork();
 	if (!tp)
 		execve(temp[0], temp, shft_dupenv(sh));
 	waitpid(tp, NULL, 0);
+	i = sh->oenvnvars;
 	while (++i <= sh->envn)
-		if (sh->envp[i][0] && sh->envp[i][0] != '#')
+		if (sh->envp[i][0] && sh->envp[i][0] != '#'
+			&& (sh->envp[i][0] >= 'a' && sh->envp[i][0] <= 'z'))
 			export_putter(sh->envp[i], STDOUT_FILENO);
 	return (ft_free_tab(temp), 0);
 }
