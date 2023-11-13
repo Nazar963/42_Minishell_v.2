@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/13 18:42:03 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:29:23 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ typedef struct s_shell_stuff
 	int				doexit;
 	unsigned char	exit_code;
 	int				tempfds[2];
+	int				oenvnvars;
 }	t_shell_stuff;
 
 typedef struct s_fds
@@ -265,6 +266,7 @@ char	*shft_very_lol(void);
 void	shft_clean_tempfiles(t_shell_stuff *sh);
 char	shft_manage_limiter(char **str, t_shell_stuff *sh);
 int		command_fork_nobonus(char **args, t_shell_stuff *sh);
+void	export_putter(char *s, int fd);
 
 int		shft_cmd_pwd(char *cmd, t_shell_stuff *sh);
 int		shft_cmd_env(char *cmd, t_shell_stuff *sh);

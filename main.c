@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:32:51 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 15:18:36 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:17:41 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	shft_init(t_shell_stuff *sh, char *args[], char *envp[], int argn)
 	if (!sh->usr)
 		sh->usr = ft_calloc(1, 8);
 	sh->envn = shft_env_init_free(sh->envp, envp, 0);
+	sh->oenvnvars = sh->envn;
 	sh->args = args;
 	sh->argn = argn;
 	sh->pwd = ft_strdup(getenv("PWD"));

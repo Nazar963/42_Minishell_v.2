@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:34:40 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/11 12:46:35 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:27:52 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,11 @@ void	shft_ft_tp_hleper_1_1(char *temp)
 	pare()->last = 0;
 	check_for_operator(loco()->piece);
 	return ;
+}
+
+void	export_putter(char *s, int fd)
+{
+	ft_putstr_fd("declare -x ", fd);
+	ft_putstr_fd(s, fd);
+	ft_putstr_fd("\n", fd);
 }

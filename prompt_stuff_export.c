@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:33:19 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/11 00:00:38 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:27:37 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,30 +63,24 @@ char	*shft_prompt(t_shell_stuff *sh, int dofree)
 
 int	export_lol(t_shell_stuff *sh)
 {
-	int		tempfds[2];
 	int		i;
 	int		filefd;
 	char	**temp;
 	pid_t	tp;
 
-	tempfds[1] = dup(STDIN_FILENO);
 	i = -1;
 	filefd = open(".tempfile1", O_CREAT | O_RDWR | O_TRUNC, 0666);
-	while (++i <= sh->envn)
-	{
+	while (++i < sh->oenvnvars)
 		if (sh->envp[i][0] && sh->envp[i][0] != '#')
-		{
-			ft_putstr_fd("declare -x ", filefd);
-			ft_putstr_fd(sh->envp[i], filefd);
-			ft_putstr_fd("\n", filefd);
-		}
-	}
-	tp = fork();
+			export_putter(sh->envp[i], filefd);
 	temp = ft_split("/usr/bin/sort|.tempfile1", '|');
+	tp = fork();
 	if (!tp)
 		execve(temp[0], temp, shft_dupenv(sh));
 	waitpid(tp, NULL, 0);
-	dup2(tempfds[1], STDIN_FILENO);
+	while (++i <= sh->envn)
+		if (sh->envp[i][0] && sh->envp[i][0] != '#')
+			export_putter(sh->envp[i], STDOUT_FILENO);
 	return (ft_free_tab(temp), 0);
 }
 
