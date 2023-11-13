@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 17:06:11 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 15:08:18 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:22:48 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	match(const char *str, char **split_wild, int first_char, int last_char)
 
 char	*wildcard_process(char *str, int *first, int *last, char ***split_wild)
 {
-	int		kind;
+	int		k;
 	char	**split;
 	char	*new_str;
 
@@ -77,21 +77,19 @@ char	*wildcard_process(char *str, int *first, int *last, char ***split_wild)
 		return (ft_strdup(str));
 	split = ft_split(str, ' ');
 	if (ft_strlen_arr((void **)split) == 3)
-		kind = 2;
+		k = 2;
 	else
-		kind = 1;
-	if (!shft_strchr(split[kind], '*', '\'', '\"'))
-	{
-		ft_free_tab(split);
-		return (ft_strdup(str));
-	}
-	if (split[kind][0] != '*')
+		k = 1;
+	if (!shft_strchr(split[k], '*', '\'', '\"')
+		|| (shft_strchr(split[k], '*', '\'', '\"') && ft_strlen(split[k]) == 1))
+		return (ft_free_tab(split), ft_strdup(str));
+	if (split[k][0] != '*')
 		*first = 1;
-	if (split[kind][ft_strlen(split[1]) - 1] != '*')
+	if (split[k][ft_strlen(split[1]) - 1] != '*')
 		*last = 1;
-	*split_wild = ft_split(split[kind], '*');
+	*split_wild = ft_split(split[k], '*');
 	new_str = ft_strjoin_free(ft_strdup(split[0]), " ");
-	if (kind == 2)
+	if (k == 2)
 		main_command_join(&new_str, split);
 	return (new_str);
 }
