@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:25:08 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/12 22:04:48 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/13 20:53:42 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ int	manage_redir_o(char *filename, int tempfd, char *p, int append)
 	if (append)
 		*p = -1;
 	clean_stuff(p + append, ft_strlen(filename));
+	if (tempfd < 0)
+		return (shft_putter("minishell: \'", filename,
+				"\': No such file or directory\n", STDERR_FILENO), 1);
 	if (access(filename, W_OK) == -1 && access(filename, F_OK) != -1)
-	{
-		shft_putter("minishell: \'", filename,
-			"\': Permission denied\n", STDERR_FILENO);
-		return (1);
-	}
+		return (shft_putter("minishell: \'", filename,
+				"\': Permission denied\n", STDERR_FILENO), 1);
 	close(STDOUT_FILENO);
 	dup2(tempfd, STDOUT_FILENO);
 	return (0);

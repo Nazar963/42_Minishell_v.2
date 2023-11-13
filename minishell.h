@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/13 19:29:23 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/13 20:54:18 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,6 @@ typedef struct s_command
 //* ---------------------------------- nizz -------------------------------- */
 t_loco	*loco(void);
 char	*ft_split_bonus(char *s, int *index);
-void	init_bonus_struct(void);
 char	**ft_split_operators(char *s);
 char	*word_dup_bonus(char const *str, int start, int finish);
 int		count_words_bonus(char *str);
@@ -226,7 +225,6 @@ int		ft_strcmp_noend(const char *s1, const char *s2);
 int		shft_exit(t_shell_stuff *sh);
 char	*ft_strjoin_free(char *s1, const char *s2);
 char	*ft_strjoin_free_1(char const *s1, char *s2);
-int		shft_rmdirone(char *s, int lim);
 char	*build_put(t_shell_stuff *sh);
 char	*better_pwd(char *pwd, const char *usr);
 char	*shft_prompt(t_shell_stuff *sh, int dofree);
@@ -278,8 +276,6 @@ int		shft_cmd_export(char *cmd, t_shell_stuff *sh);
 
 /* ------------------------------- ft_split.c ------------------------------- */
 void	surpass_q_dq(char *s, int *x);
-int		execution_and_bonus_helper(char **cmds, int *pp,
-			t_shell_stuff *sh, int doset);
 
 /* ----------------------------- pipex_main.c ------------------------------- */
 
@@ -300,7 +296,6 @@ int		manage_redir_o(char *filename, int tempfd, char *p, int append);
 int		shft_redir_outpt(char *cmd, t_shell_stuff *sh, int *doset);
 void	shft_last_parse_1(char **s);
 int		shft_redirections(char **cmd, t_shell_stuff *sh, int *doset);
-void	builtin_temp_creat(char mode);
 int		shft_is_builtin(char *cd);
 int		builtin_cmds(char *cd, t_shell_stuff *sh, int doset);
 char	*littel_better(char *s);
@@ -370,8 +365,6 @@ int		shft_ch_checkok(char *cmd, t_shell_stuff *sh);
 /* -------------------------- parenthesis_pareser.c ------------------------- */
 char	*final_check_copy(char *str, int counter);
 char	*final_check(char *str);
-void	check_for_right_parenthesis_helper(char *s, int *double_first,
-			int *open_pare, int *close_pare);
 char	*check_for_right_parenthesis(char *s);
 char	*better_parenthesis(char *s);
 
