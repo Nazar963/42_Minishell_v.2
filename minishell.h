@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/13 20:54:18 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:46:00 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ typedef struct s_loco
 	char			sigstop;
 	t_pipeline		*p;
 	char			lastcng;
+	char			**wc_after;
+	int				wc_after_in;
 }	t_loco;
 
 typedef struct s_pare

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/11 12:47:31 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/14 12:19:13 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ char	**ft_split(char const *s, char c)
 		{
 			split[j++] = word_dup(s, index, i);
 			index = -1;
+		}
+		if (ft_strlen(s) == 1 && s[0] == '*')
+		{
+			split[j++] = word_dup(s, 0, 1);
+			break ;
 		}
 		i++;
 	}
