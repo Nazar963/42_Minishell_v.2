@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 17:06:11 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/14 19:28:55 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/14 20:36:47 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	verify_match(char **split_wild, const char *str, int *i, int *j)
 	int		sub_len;
 	int		found;
 
-	if (*split_wild[0] == '*' && ft_strlen(*split_wild) == 1)
+	if (*split_wild && *split_wild[0] == '*' && ft_strlen(*split_wild) == 1)
 		return (1);
 	while (split_wild[(*j)])
 	{

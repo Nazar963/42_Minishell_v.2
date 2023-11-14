@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 11:03:52 by rchallie          #+#    #+#             */
-/*   Updated: 2023/11/06 11:06:05 by codespace        ###   ########.fr       */
+/*   Updated: 2023/11/14 20:39:11 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strreplace(char *original, const char *new_value);
 char	*ft_strncpy(char *dst, const char *src, int len);
 int		ft_strcpy(char *dst, const char *src);
+int		check_for_cons_wc(char const *s);
 
 /* *********************************** */
 /*                                     */
