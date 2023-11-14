@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 19:56:27 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/02 17:46:15 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:43:22 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,17 @@ char	*split_wild_fill_new_str(char *str, char *new_str)
 		new_str[++j] = str[i++];
 	}
 	return (new_str);
+}
+
+void	check_for_wildcard_helper(char **new_str)
+{
+	int	i;
+
+	i = loco()->wc_after_in + 1;
+	while (loco()->wc_after[i])
+	{
+		*new_str = ft_strjoin_free(*new_str, loco()->wc_after[i]);
+		*new_str = ft_strjoin_free(*new_str, " ");
+		i++;
+	}
 }

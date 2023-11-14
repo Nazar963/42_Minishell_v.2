@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 17:06:11 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/14 15:18:50 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:42:29 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	verify_match(char **split_wild, const char *str, int *i, int *j)
 	char	*sub;
 	int		sub_len;
 	int		found;
-	//* In case the * is the only char
+
 	if (*split_wild[0] == '*' && ft_strlen(*split_wild) == 1)
 		return (1);
 	while (split_wild[(*j)])
@@ -25,7 +25,7 @@ int	verify_match(char **split_wild, const char *str, int *i, int *j)
 		sub = split_wild[(*j)];
 		sub_len = ft_strlen(sub);
 		found = 0;
-		while (str[(*i)])
+		while (str[++(*i)])
 		{
 			if (ft_strncmp(&str[(*i)], sub, sub_len) == 0)
 			{
@@ -33,7 +33,6 @@ int	verify_match(char **split_wild, const char *str, int *i, int *j)
 				found = 1;
 				break ;
 			}
-			(*i)++;
 		}
 		if (!found)
 			return (0);
@@ -59,6 +58,7 @@ int	match(const char *str, char **split_wild, int first_char, int last_char)
 		i += ft_strlen(split_wild[0]);
 		j++;
 	}
+	i--;
 	if (!verify_match(split_wild, str, &i, &j))
 		return (0);
 	if (last_char
@@ -78,7 +78,7 @@ char	*wildcard_process(char *str, int *first, int *last, char ***split_wild)
 	if (!shft_strchr(str, '*', '\"', '\"'))
 		return (ft_strdup(str));
 	split = ft_split(str, ' ');
-	loco()->wc_after = ft_split(str, ' ');
+	loco()->wc_after = split;
 	if (ft_strlen_arr((void **)split) == 3 && ft_strchr(split[2], '*'))
 		k = 2;
 	else
@@ -88,9 +88,9 @@ char	*wildcard_process(char *str, int *first, int *last, char ***split_wild)
 		return (ft_free_tab(split), ft_strdup(str));
 	if (split[k][0] != '*')
 		*first = 1;
-	if (split[k][ft_strlen(split[k]) - 1] != '*' && (split[k][0] != '*' && ft_strlen(split[k]) != 1))
+	if (split[k][ft_strlen(split[k]) - 1] != '*'
+		&& (split[k][0] != '*' && ft_strlen(split[k]) != 1))
 		*last = 1;
-	//! Make a new condition where you will check for if its alone * and not assign any variable
 	*split_wild = ft_split(split[k], '*');
 	new_str = ft_strjoin_free(ft_strdup(split[0]), " ");
 	if (k == 2)
@@ -153,12 +153,5 @@ char	*check_for_wildcard_normal(char *str)
 	if (!loco()->flag_no_process)
 		return (free(new_str), str);
 	free(str);
-	int i = loco()->wc_after_in + 1;
-	while (loco()->wc_after[i])
-	{
-		new_str = ft_strjoin_free(new_str, loco()->wc_after[i]);
-		new_str = ft_strjoin_free(new_str, " ");
-		i++;
-	}
-	return (new_str);
+	return (check_for_wildcard_helper(&new_str), new_str);
 }

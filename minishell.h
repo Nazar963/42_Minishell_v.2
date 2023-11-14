@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:06:24 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/14 14:46:00 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:43:09 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ char	*add_command_processed(char *to_be_processed, char *new_new_str);
 int		shft_isallnum(char *s);
 int		split_wild_size(char *str);
 char	*split_wild_fill_new_str(char *str, char *new_str);
+void	check_for_wildcard_helper(char **new_str);
 /*! ------------------------------------------------------------------------ */
 
 /* ----------------------------- executor_utils.c -------------------------- */

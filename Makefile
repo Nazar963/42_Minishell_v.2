@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+         #
+#    By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 08:42:40 by lpollini          #+#    #+#              #
-#    Updated: 2023/11/13 18:55:41 by lpollini         ###   ########.fr        #
+#    Updated: 2023/11/14 18:45:41 by naal-jen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,9 @@ FILES		= env_stuff executor executor_utils ft_split_1 ft_split_2 ft_split_utils 
 	main main_check main_init pipex_main_helper_1 pipex_main_helper_2 pipex_main_helper_3 pipex_main_helper \
 	pipex_main prompt_stuff_export shft_cmds_cd shft_cmds_echo_exit_env_helper shft_cmds_echo_exit_env \
 	shft_cmds_export_unset shft_cmds_pwd str_stuff utils_bonus utils_bonus_1 utils_bonus_2 parenthesis_parser_bonus \
-	operator_checker_bonus wildcard/parse_bonus parenthesis_bonus wildcard/utils_bonus wildcard/utils_1_bonus \
-	new_parentheses_1 new_parentheses_2 new_parentheses_3 new_parentheses_4 new_parentheses utils_1 pipe_helper pipe_helper_1
+	operator_checker_bonus wildcard_bonus/parse_bonus parenthesis_bonus wildcard_bonus/utils_bonus wildcard_bonus/utils_1_bonus \
+	new_parentheses_bonus_1 new_parentheses_bonus_2 new_parentheses_bonus_3 new_parentheses_bonus_4 new_parentheses_bonus utils_1 \
+	pipe_helper pipe_helper_1
 
 BONUS_FILES = \
 

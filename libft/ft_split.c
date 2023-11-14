@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 09:45:15 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/14 12:19:13 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:34:37 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*word_dup(char const *str, int start, int finish)
 	int		i;
 
 	i = 0;
-	word = ft_calloc((finish - start + 1), 8);
+	word = ft_calloc((finish - start + 10), sizeof(char));
 	while (start < finish)
 		word[i++] = str[start++];
 	word[i] = '\0';
@@ -60,9 +60,7 @@ char	**ft_split(char const *s, char c)
 	int		index;
 	char	**split;
 
-	split = malloc((count_words(s, c) + 1) * sizeof(char *));
-	if (!s || !split)
-		return (0);
+	split = ft_calloc((count_words(s, c) + 20), sizeof(char *));
 	shft_init_two_vars(&i, 0, &j, 0);
 	index = -1;
 	while (i <= ft_strlen(s))
@@ -81,7 +79,6 @@ char	**ft_split(char const *s, char c)
 		}
 		i++;
 	}
-	split[j] = NULL;
 	return (split);
 }
 

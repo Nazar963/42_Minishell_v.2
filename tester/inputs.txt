@@ -19,3 +19,5 @@
 ((echo hello && echo a) || (echo yes && echo b)) && echo c
 ---
 ((echo hello || echo a) || (echo yes && echo b)) && echo c
+---
+cd 42_Minishell_v.2 && (echo hello && ls) && pwd
