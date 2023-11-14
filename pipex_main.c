@@ -6,7 +6,7 @@
 /*   By: lpollini <lpollini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:46:25 by lpollini          #+#    #+#             */
-/*   Updated: 2023/11/12 22:44:50 by lpollini         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:13:40 by lpollini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	shft_fr_to(char *cmd, t_shell_stuff *sh, int doset, int pipe)
 	}
 	else
 		tmp[0] = shft_ft_tp_helper_nobonus(pipe, sh, doset, tmp[0]);
-	free(tmp[0] + slow_lol(50000));
+	free(tmp[0] + slow_lol(100000));
 	if (tmp[0] != NULL)
 		loco()->n = 0;
 	return (sh->lststatus);
