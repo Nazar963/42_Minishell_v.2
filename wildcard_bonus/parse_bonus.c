@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 17:06:11 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/14 18:42:29 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:28:55 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*wildcard_process(char *str, int *first, int *last, char ***split_wild)
 	if (split[k][0] != '*')
 		*first = 1;
 	if (split[k][ft_strlen(split[k]) - 1] != '*'
-		&& (split[k][0] != '*' && ft_strlen(split[k]) != 1))
+		|| (split[k][0] != '*' && ft_strlen(split[k]) != 1))
 		*last = 1;
 	*split_wild = ft_split(split[k], '*');
 	new_str = ft_strjoin_free(ft_strdup(split[0]), " ");
