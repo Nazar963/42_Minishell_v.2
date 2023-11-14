@@ -6,7 +6,7 @@
 /*   By: naal-jen <naal-jen@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 17:06:11 by naal-jen          #+#    #+#             */
-/*   Updated: 2023/11/14 20:36:47 by naal-jen         ###   ########.fr       */
+/*   Updated: 2023/11/14 20:53:02 by naal-jen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*wildcard_process(char *str, int *first, int *last, char ***split_wild)
 	char	**split;
 	char	*new_str;
 
-	if (!shft_strchr(str, '*', '\"', '\"'))
+	if (!ft_strchr(str, '*'))
 		return (ft_strdup(str));
 	split = ft_split(str, ' ');
 	loco()->wc_after = split;
